@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "368046592663",
+    "project_id": "money-92165",
+    "storage_bucket": "money-92165.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368046592663:android:21f0a0d070572d42838fd2",
+        "android_client_info": {
+          "package_name": "vn.thanhpt.money"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368046592663-dbkjjp9hqodq14uub57vuffv0gij4l0r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5MdBZxtMujtYVKwbTXCS-BABwiXcf8a4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368046592663-dbkjjp9hqodq14uub57vuffv0gij4l0r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "368046592663-pjp96n1q7r3g3mog195kins84i63v2ia.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.thanhpt.money.money"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368046592663:android:e3449d3d0979930e838fd2",
+        "android_client_info": {
+          "package_name": "vn.thanhpt.money.money"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368046592663-dbkjjp9hqodq14uub57vuffv0gij4l0r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5MdBZxtMujtYVKwbTXCS-BABwiXcf8a4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368046592663-dbkjjp9hqodq14uub57vuffv0gij4l0r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "368046592663-pjp96n1q7r3g3mog195kins84i63v2ia.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.thanhpt.money.money"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

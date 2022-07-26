@@ -1,0 +1,26 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:money/pages/home/home_page.dart';
+import 'package:money/route/route_name.dart';
+
+MaterialPageRoute onGenerateRoute(RouteSettings settings) {
+  Map<String, dynamic> arg = <String, dynamic>{};
+  if (settings.arguments != null) {
+    arg = settings.arguments as Map<String, dynamic>;
+  }
+  log('ARG => $arg');
+
+  switch (settings.name) {
+    case RouteName.homePage:
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const HomePage(),
+        settings: const RouteSettings(name: RouteName.homePage),
+      );
+    default:
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const HomePage(),
+        settings: const RouteSettings(name: RouteName.homePage),
+      );
+  }
+}
