@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:money/model/transaction/transaction.dart';
-import 'package:money/pages/transaction_list/transaction_list_cubit.dart';
+import 'package:money/model/group/group.dart';
+import 'package:money/pages/group_list/group_list_cubit.dart';
 
-class TransactionListView extends StatefulWidget {
-  const TransactionListView({Key? key}) : super(key: key);
+class GroupListView extends StatefulWidget {
+  const GroupListView({Key? key}) : super(key: key);
 
   @override
-  State<TransactionListView> createState() => _TransactionListViewState();
+  State<GroupListView> createState() => _GroupListViewState();
 }
 
-class _TransactionListViewState extends State<TransactionListView> {
-  TransactionListCubit bloc = TransactionListCubit();
+class _GroupListViewState extends State<GroupListView> {
+
+  GroupListCubit bloc = GroupListCubit();
 
   @override
   void dispose() {
@@ -24,7 +25,7 @@ class _TransactionListViewState extends State<TransactionListView> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamBuilder(
-          stream: bloc.transactionCR.snapshots(),
+          stream: bloc.groupCR.snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasError) {
               return Center(
@@ -41,14 +42,14 @@ class _TransactionListViewState extends State<TransactionListView> {
             return ListView.builder(
               itemCount: data.size,
               itemBuilder: (BuildContext context, int index) {
-                Transaction item = Transaction.fromJson(
+                Group item = Group.fromJson(
                   data.docs[index].data(),
                 );
                 return Material(
                   elevation: 1,
                   color: Colors.white,
                   child: ListTile(
-                    title: Text(item.description),
+                    title: Text(item.name),
                   ),
                 );
               },
@@ -56,6 +57,7 @@ class _TransactionListViewState extends State<TransactionListView> {
           },
         ),
       ),
+
     );
   }
 }
