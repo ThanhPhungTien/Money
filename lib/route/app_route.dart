@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:money/pages/create_transaction/create_transaction_page.dart';
 import 'package:money/pages/home/home_page.dart';
 import 'package:money/route/route_name.dart';
 
@@ -16,6 +17,11 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => const HomePage(),
         settings: const RouteSettings(name: RouteName.homePage),
+      );
+    case RouteName.createTransaction:
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const CreateTransactionPage(),
+        settings: const RouteSettings(name: RouteName.createTransaction),
       );
     default:
       return MaterialPageRoute<dynamic>(

@@ -5,6 +5,7 @@ import 'package:money/pages/group_list/group_list_view.dart';
 import 'package:money/pages/home/home_cubit.dart';
 import 'package:money/pages/report/report_page.dart';
 import 'package:money/pages/transaction_list/transaction_list_view.dart';
+import 'package:money/route/route_name.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -18,8 +19,8 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> pageList = <Widget>[
     const TransactionListView(),
+    Container(),
     const ReportPage(),
-    const GroupListView(),
   ];
 
   @override
@@ -53,11 +54,6 @@ class _HomePageState extends State<HomePage> {
           return Container();
         },
       ),
-
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: (){},
-      ),
       bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
         bloc: bloc,
         builder: (context, state) {
@@ -65,20 +61,25 @@ class _HomePageState extends State<HomePage> {
             return NavigationBar(
               selectedIndex: state.index,
               onDestinationSelected: (index) {
-                bloc.updateIndex(index);
+                if (index != 1) {
+                  bloc.updateIndex(index);
+                }
               },
-              destinations: const [
-                NavigationDestination(
+              destinations: [
+                const NavigationDestination(
                   icon: Icon(Icons.fact_check),
                   label: 'Giao dịch',
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.report),
-                  label: 'Báo cáo',
+                  icon: FloatingActionButton(
+                    onPressed: () => Navigator.pushNamed(context, RouteName.createTransaction),
+                    child: const Icon(Icons.add),
+                  ),
+                  label: '',
                 ),
-                NavigationDestination(
-                  icon: Icon(Icons.group),
-                  label: 'Nhóm',
+                const NavigationDestination(
+                  icon: Icon(Icons.bar_chart),
+                  label: 'Báo cáo',
                 ),
               ],
             );

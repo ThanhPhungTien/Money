@@ -12,14 +12,15 @@ dependencies:
     sdk: flutter
 
   http: ^0.13.4
-  animations: ^2.0.3
-  cupertino_icons: ^1.0.5
-  firebase_core: ^1.20.0
-  cloud_firestore: ^3.4.1
-  json_annotation: ^4.6.0
-  flutter_bloc: ^8.0.1
   get_it: ^7.2.0
   analyzer: ^4.3.1
+  equatable: ^2.0.3
+  animations: ^2.0.3
+  flutter_bloc: ^8.0.1
+  firebase_core: ^1.20.0
+  cupertino_icons: ^1.0.5
+  cloud_firestore: ^3.4.1
+  json_annotation: ^4.6.0
 
   bloc: ^8.0.3
   meta: ^1.7.0
