@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money/model/group_transaction/group_transaction.dart';
 import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/transaction_list/transaction_list_cubit.dart';
+import 'package:money/tool/tool.dart';
 
 class TransactionListView extends StatefulWidget {
   const TransactionListView({Key? key}) : super(key: key);
@@ -10,7 +13,7 @@ class TransactionListView extends StatefulWidget {
 }
 
 class _TransactionListViewState extends State<TransactionListView> {
-  TransactionListCubit bloc = TransactionListCubit();
+  TransactionListCubit bloc = TransactionListCubit()..fetchData();
 
   @override
   void dispose() {
@@ -20,39 +23,61 @@ class _TransactionListViewState extends State<TransactionListView> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: StreamBuilder(
-          stream: bloc.transactionCR.snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            if (snapshot.hasError) {
-              return Center(
-                child: Text(snapshot.error.toString()),
+        child: BlocBuilder<TransactionListCubit, TransactionListState>(
+          bloc: bloc,
+          builder: (context, state) {
+            if (state is TransactionListStateGotData) {
+              if (state.data.isEmpty) {
+                return const Center(
+                  child: Text('Không có dữ liệu'),
+                );
+              }
+              return ListView.separated(
+                itemCount: state.data.length,
+                padding: const EdgeInsets.all(8),
+                separatorBuilder: (BuildContext context, int index) {
+                  return const SizedBox(height: 16);
+                },
+                itemBuilder: (BuildContext context, int index) {
+                  GroupTransaction item = state.data[index];
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(item.dateTime, style: textTheme.headline6),
+                      const SizedBox(height: 8),
+                      Material(
+                        elevation: 2,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: item.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            Transaction transaction = item.data[index];
+                            return ListTile(
+                              leading: const SizedBox(
+                                height: double.infinity,
+                                child: Icon(Icons.attach_money),
+                              ),
+                              minLeadingWidth: 0,
+                              title: Text(transaction.groupName),
+                              subtitle: Text(transaction.description),
+                              trailing: Text(moneyFormat(transaction.value)),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
               );
             }
-            if (!snapshot.hasData) {
-              return const Center(
-                child: Text('Không có dữ liệu'),
-              );
-            }
-            final data = snapshot.requireData;
-
-            return ListView.builder(
-              itemCount: data.size,
-              itemBuilder: (BuildContext context, int index) {
-                Transaction item = Transaction.fromJson(
-                  data.docs[index].data(),
-                );
-                return Material(
-                  elevation: 1,
-                  color: Colors.white,
-                  child: ListTile(
-                    title: Text(item.description),
-                  ),
-                );
-              },
-            );
+            return Container();
           },
         ),
       ),

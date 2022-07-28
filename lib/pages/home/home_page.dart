@@ -1,7 +1,6 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:money/pages/group_list/group_list_view.dart';
 import 'package:money/pages/home/home_cubit.dart';
 import 'package:money/pages/report/report_page.dart';
 import 'package:money/pages/transaction_list/transaction_list_view.dart';
@@ -32,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<HomeCubit, HomeState>(
         bloc: bloc,
         builder: (context, state) {

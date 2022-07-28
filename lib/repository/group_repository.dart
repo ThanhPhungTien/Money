@@ -28,7 +28,7 @@ class GroupRepository {
     QuerySnapshot snapshot = await groupCollection.get();
 
     for (var item in snapshot.docs) {
-      data.add(Group.fromJson(item));
+      data.add(Group.fromJson(item.data()));
     }
     return data;
   }

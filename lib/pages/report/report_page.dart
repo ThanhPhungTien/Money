@@ -12,7 +12,7 @@ class _ReportPageState extends State<ReportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
+        children: const [
           
         ],
       ),
