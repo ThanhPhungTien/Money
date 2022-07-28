@@ -7,6 +7,7 @@ class TransactionListInitial extends TransactionListState {}
 
 class TransactionListStateGotData extends TransactionListState {
   final List<GroupTransaction> data;
+  final DateTime time;
 
-  TransactionListStateGotData(this.data);
+  TransactionListStateGotData(this.data, this.time);
 }

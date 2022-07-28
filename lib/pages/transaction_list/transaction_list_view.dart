@@ -4,6 +4,7 @@ import 'package:money/model/group_transaction/group_transaction.dart';
 import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/transaction_list/transaction_list_cubit.dart';
 import 'package:money/tool/tool.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class TransactionListView extends StatefulWidget {
   const TransactionListView({Key? key}) : super(key: key);
@@ -13,7 +14,13 @@ class TransactionListView extends StatefulWidget {
 }
 
 class _TransactionListViewState extends State<TransactionListView> {
-  TransactionListCubit bloc = TransactionListCubit()..fetchData();
+  TransactionListCubit bloc = TransactionListCubit();
+
+  @override
+  void initState() {
+    bloc.fetchData(DateTime.now());
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -31,50 +38,67 @@ class _TransactionListViewState extends State<TransactionListView> {
           bloc: bloc,
           builder: (context, state) {
             if (state is TransactionListStateGotData) {
-              if (state.data.isEmpty) {
-                return const Center(
-                  child: Text('Không có dữ liệu'),
-                );
-              }
-              return ListView.separated(
-                itemCount: state.data.length,
-                padding: const EdgeInsets.all(8),
-                separatorBuilder: (BuildContext context, int index) {
-                  return const SizedBox(height: 16);
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  GroupTransaction item = state.data[index];
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(item.dateTime, style: textTheme.headline6),
-                      const SizedBox(height: 8),
-                      Material(
-                        elevation: 2,
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(8),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: item.data.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            Transaction transaction = item.data[index];
-                            return ListTile(
-                              leading: const SizedBox(
-                                height: double.infinity,
-                                child: Icon(Icons.attach_money),
+              return Column(
+                children: [
+                  Material(
+                    color: Colors.white,
+                    elevation: 1,
+                    child: ListTile(
+                      onTap: () => openSelectDate(state.time),
+                      leading: const Icon(Icons.date_range),
+                      title: Text(convertTime(
+                          'MM/yyyy', state.time.millisecondsSinceEpoch, false)),
+                    ),
+                  ),
+                  if (state.data.isEmpty)
+                    const Center(child: Text('Không có dữ liệu')),
+                  if (state.data.isNotEmpty)
+                    Expanded(
+                      child: ListView.separated(
+                        itemCount: state.data.length,
+                        padding: const EdgeInsets.all(8),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(height: 16);
+                        },
+                        itemBuilder: (BuildContext context, int index) {
+                          GroupTransaction item = state.data[index];
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(item.dateTime, style: textTheme.headline6),
+                              const SizedBox(height: 8),
+                              Material(
+                                elevation: 2,
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: item.data.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Transaction transaction = item.data[index];
+                                    return ListTile(
+                                      leading: const SizedBox(
+                                        height: double.infinity,
+                                        child: Icon(Icons.attach_money),
+                                      ),
+                                      minLeadingWidth: 0,
+                                      title: Text(transaction.groupName),
+                                      subtitle: Text(transaction.description),
+                                      trailing: Text(moneyFormat(
+                                          transaction.value *
+                                              transaction.mode)),
+                                    );
+                                  },
+                                ),
                               ),
-                              minLeadingWidth: 0,
-                              title: Text(transaction.groupName),
-                              subtitle: Text(transaction.description),
-                              trailing: Text(moneyFormat(transaction.value)),
-                            );
-                          },
-                        ),
+                            ],
+                          );
+                        },
                       ),
-                    ],
-                  );
-                },
+                    )
+                ],
               );
             }
             return Container();
@@ -82,5 +106,18 @@ class _TransactionListViewState extends State<TransactionListView> {
         ),
       ),
     );
+  }
+
+  openSelectDate(DateTime time) async {
+    DateTime dateNow = DateTime.now();
+    dynamic result = await showMonthPicker(
+      context: context,
+      initialDate: time,
+      firstDate: DateTime(dateNow.year, dateNow.month - 1),
+      lastDate: DateTime(dateNow.year + 1),
+    );
+    if (result != null && result is DateTime) {
+      bloc.fetchData(result);
+    }
   }
 }

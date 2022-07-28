@@ -15,6 +15,9 @@ Transaction _$TransactionFromJson(Map<String, dynamic> json) => Transaction(
       type: json['type'] as int? ?? TransactionType.outcome,
       createdTime: json['createdTime'] as int? ?? 0,
       updateTime: json['updateTime'] as int? ?? 0,
+      year: json['year'] as int? ?? 0,
+      month: json['month'] as int? ?? 0,
+      mode: json['mode'] as int? ?? -1,
     );
 
 Map<String, dynamic> _$TransactionToJson(Transaction instance) =>
@@ -27,4 +30,7 @@ Map<String, dynamic> _$TransactionToJson(Transaction instance) =>
       'type': instance.type,
       'createdTime': instance.createdTime,
       'updateTime': instance.updateTime,
+      'mode': instance.mode,
+      'year': instance.year,
+      'month': instance.month,
     };

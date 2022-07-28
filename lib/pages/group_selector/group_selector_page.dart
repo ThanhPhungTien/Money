@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/pages/group_selector/group_selector_bloc.dart';
@@ -64,16 +63,25 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                   child: state.data.isEmpty
                       ? const Center(child: Text('Không thấy'))
                       : ListView.separated(
+                    padding: const EdgeInsets.all(8),
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           itemCount: state.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             Group item = state.data[index];
-                            return ListTile(
-                              onTap: () => Navigator.pop(context, item),
-                              leading: const Icon(Icons.ad_units),
-                              title: Text(item.name),
-                              subtitle: Text(item.description),
+                            return Material(
+                              elevation: 2,
+                              color: Colors.white,
+                              child: ListTile(
+                                onTap: () => Navigator.pop(context, item),
+                                leading: const SizedBox(
+                                  height: double.infinity,
+                                  child: Icon(Icons.ad_units),
+                                ),
+                                title: Text(item.name),
+                                trailing: Text(item.mode == -1 ? 'Giảm' : 'Tăng'),
+                                subtitle: Text(item.description),
+                              ),
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {

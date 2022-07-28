@@ -127,6 +127,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       labelText: 'Mô tả',
                     ),
                   ),
+
                   const SizedBox(height: 32),
                   ElevatedButton(
                     onPressed: () => createTransaction(state),
@@ -172,6 +173,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
         groupName: state.group.name,
         groupId: state.group.id,
         value: int.parse(valueTEC.text),
+        month: state.dateTime.month,
+        year: state.dateTime.year,
+        mode: state.group.mode,
       )));
     }
   }

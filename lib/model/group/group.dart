@@ -9,6 +9,7 @@ class Group {
   final String description;
   final int createTime;
   final int updateTime;
+  final int mode;
 
   const Group({
     this.id = '',
@@ -16,6 +17,7 @@ class Group {
     this.description = '',
     this.createTime = 0,
     this.updateTime = 0,
+    this.mode = -1,
   });
 
   factory Group.fromJson(json) => _$GroupFromJson(json);
@@ -28,6 +30,7 @@ class Group {
     String? description,
     int? createTime,
     int? updateTime,
+    int? mode,
   }) {
     return Group(
       id: id ?? this.id,
@@ -35,6 +38,7 @@ class Group {
       description: description ?? this.description,
       createTime: createTime ?? this.createTime,
       updateTime: updateTime ?? this.updateTime,
+      mode: mode ?? this.mode,
     );
   }
 }
