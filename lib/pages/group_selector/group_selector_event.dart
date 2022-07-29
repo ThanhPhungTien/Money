@@ -17,3 +17,13 @@ class GroupSelectorEventSearching extends GroupSelectorEvent {
   @override
   List<Object?> get props => [searchKey];
 }
+
+class GroupSelectorEventDelete extends GroupSelectorEvent {
+  final Group item;
+
+  const GroupSelectorEventDelete(this.item);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [item];
+}

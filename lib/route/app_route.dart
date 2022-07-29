@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:money/pages/create_group/create_group_page.dart';
 import 'package:money/pages/create_transaction/create_transaction_page.dart';
 import 'package:money/pages/group_selector/group_selector_page.dart';
 import 'package:money/pages/home/home_page.dart';
@@ -23,10 +24,16 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => const CreateTransactionPage(),
         settings: const RouteSettings(name: RouteName.createTransaction),
-      ); case RouteName.groupSelector:
+      );
+    case RouteName.groupSelector:
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => const GroupSelectorPage(),
         settings: const RouteSettings(name: RouteName.groupSelector),
+      );
+    case RouteName.createGroup:
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const CreateGroupPage(),
+        settings: const RouteSettings(name: RouteName.createGroup),
       );
     default:
       return MaterialPageRoute<dynamic>(

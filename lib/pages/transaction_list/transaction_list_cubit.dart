@@ -48,5 +48,7 @@ class TransactionListCubit extends Cubit<TransactionListState> {
     });
   }
 
-
+  Future<void> deleteTransaction(String id) async {
+    await transactionRepository.transactionCollection.doc(id).delete();
+  }
 }

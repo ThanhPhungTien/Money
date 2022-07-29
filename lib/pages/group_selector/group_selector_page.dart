@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/pages/group_selector/group_selector_bloc.dart';
+import 'package:money/route/route_name.dart';
+import 'package:money/widgets/loading/loading_view.dart';
 
 import '../../model/group/group.dart';
+import '../../widgets/failure/failure_view.dart';
 
 class GroupSelectorPage extends StatefulWidget {
   const GroupSelectorPage({Key? key}) : super(key: key);
@@ -37,6 +40,15 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chọn nhóm'),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              await Navigator.pushNamed(context, RouteName.createGroup);
+              bloc.add(GroupSelectorEventInit());
+            },
+            icon: const Icon(Icons.add_rounded),
+          ),
+        ],
       ),
       body: BlocBuilder<GroupSelectorBloc, GroupSelectorState>(
         bloc: bloc,
@@ -61,9 +73,9 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                 const SizedBox(height: 16),
                 Expanded(
                   child: state.data.isEmpty
-                      ? const Center(child: Text('Không thấy'))
+                      ? const FailureView(message: 'Không có dữ liệu')
                       : ListView.separated(
-                    padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(8),
                           keyboardDismissBehavior:
                               ScrollViewKeyboardDismissBehavior.onDrag,
                           itemCount: state.data.length,
@@ -74,12 +86,15 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                               color: Colors.white,
                               child: ListTile(
                                 onTap: () => Navigator.pop(context, item),
+                                onLongPress: () =>
+                                    showMenuBottom(context, item),
                                 leading: const SizedBox(
                                   height: double.infinity,
                                   child: Icon(Icons.ad_units),
                                 ),
                                 title: Text(item.name),
-                                trailing: Text(item.mode == -1 ? 'Giảm' : 'Tăng'),
+                                trailing:
+                                    Text(item.mode == -1 ? 'Giảm' : 'Tăng'),
                                 subtitle: Text(item.description),
                               ),
                             );
@@ -92,19 +107,41 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
               ],
             );
           } else if (state is GroupSelectorStateFetchingError) {
-            return Center(
-              child: Text(state.message),
-            );
+            return FailureView(message: state.message);
           } else if (state is GroupSelectorStateFetching) {
-            return const Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation(Colors.blue),
-              ),
-            );
+            return const LoadingView();
           }
           return Container();
         },
       ),
     );
+  }
+
+  showMenuBottom(BuildContext context, Group item) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child:
+                    Text('Menu', style: Theme.of(context).textTheme.headline6),
+              ),
+              const SizedBox(height: 16),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  bloc.add(GroupSelectorEventDelete(item));
+
+                },
+                leading: const Icon(Icons.delete),
+                title: const Text('Xóa'),
+              ),
+            ],
+          );
+        });
   }
 }

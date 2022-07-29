@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/pages/group_list/group_list_cubit.dart';
+import 'package:money/widgets/failure/failure_view.dart';
 
 class GroupListView extends StatefulWidget {
   const GroupListView({Key? key}) : super(key: key);
@@ -28,14 +29,10 @@ class _GroupListViewState extends State<GroupListView> {
           stream: bloc.groupCR.snapshots(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasError) {
-              return Center(
-                child: Text(snapshot.error.toString()),
-              );
+              return FailureView(message: snapshot.error.toString());
             }
             if (!snapshot.hasData) {
-              return const Center(
-                child: Text('Không có dữ liệu'),
-              );
+              return const FailureView(message: 'Không có dữ liệu');
             }
             final data = snapshot.requireData;
 
