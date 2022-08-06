@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money/enum/constant.dart';
 import 'package:money/model/group_transaction/group_transaction.dart';
 import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/transaction_list/transaction_list_cubit.dart';
+import 'package:money/route/route_name.dart';
 import 'package:money/tool/tool.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
@@ -34,6 +36,9 @@ class _TransactionListViewState extends State<TransactionListView> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Giao dịch'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<TransactionListCubit, TransactionListState>(
@@ -43,15 +48,23 @@ class _TransactionListViewState extends State<TransactionListView> {
               return Column(
                 children: [
                   Material(
-                    color: Colors.white,
+                    color: Colors.green,
                     elevation: 1,
+                    borderRadius: BorderRadius.circular(8),
                     child: ListTile(
                       onTap: () => openSelectDate(state.time),
-                      leading: const Icon(Icons.date_range),
-                      title: Text(convertTime(
-                          'MM/yyyy', state.time.millisecondsSinceEpoch, false)),
+                      leading:
+                          const Icon(Icons.date_range, color: Colors.white),
+                      title: Text(
+                        convertTime('MM/yyyy',
+                            state.time.millisecondsSinceEpoch, false),
+                        style: textTheme.subtitle1?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 8),
                   Expanded(
                     child: state.data.isEmpty
                         ? const FailureView(message: 'Không có dữ liệu')
@@ -84,8 +97,17 @@ class _TransactionListViewState extends State<TransactionListView> {
                                         Transaction transaction =
                                             item.data[index];
                                         return ListTile(
-                                          onTap: () => showMenuBottom(
-                                              context, transaction),
+                                          onLongPress: () => showMenuBottom(
+                                            context,
+                                            transaction,
+                                          ),
+                                          onTap: () => Navigator.pushNamed(
+                                            context,
+                                            RouteName.createTransaction,
+                                            arguments: {
+                                              Constant.transaction: transaction,
+                                            },
+                                          ),
                                           leading: const SizedBox(
                                             height: double.infinity,
                                             child: Icon(Icons.attach_money),
@@ -94,9 +116,16 @@ class _TransactionListViewState extends State<TransactionListView> {
                                           title: Text(transaction.groupName),
                                           subtitle:
                                               Text(transaction.description),
-                                          trailing: Text(moneyFormat(
-                                              transaction.value *
-                                                  transaction.mode)),
+                                          trailing: Text(
+                                            moneyFormat(transaction.value *
+                                                transaction.mode),
+                                            style:
+                                                textTheme.subtitle1?.copyWith(
+                                              color: transaction.mode == -1
+                                                  ? Colors.red
+                                                  : Colors.green,
+                                            ),
+                                          ),
                                         );
                                       },
                                     ),

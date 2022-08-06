@@ -18,6 +18,7 @@ class TransactionListCubit extends Cubit<TransactionListState> {
     transactionRepository.transactionCollection
         .where('year', isEqualTo: time.year)
         .where('month', isEqualTo: time.month)
+        .orderBy('createdTime', descending: true)
         .snapshots()
         .listen((QuerySnapshot<Object?> data) {
       List<GroupTransaction> result = data.docs.map((e) {

@@ -34,10 +34,9 @@ class CreateTransactionEventCreate extends CreateTransactionEvent {
 
 class CreateTransactionEventInit extends CreateTransactionEvent {
 
-  final DateTime dateTime;
-  final Group group;
+  final model.Transaction initData;
 
-  const CreateTransactionEventInit(this.dateTime, this.group);
+  const CreateTransactionEventInit(this.initData);
 
   @override
   List<Object?> get props => [];

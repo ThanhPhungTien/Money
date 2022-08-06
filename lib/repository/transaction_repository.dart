@@ -1,5 +1,7 @@
 
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:money/model/transaction/transaction.dart' as model;
@@ -11,8 +13,13 @@ class TransactionRepository {
     Constant.transaction,
   );
 
-  Future<void> createTransaction(model.Transaction transaction) async {
+  Future<void> create(model.Transaction transaction) async {
 
     await transactionCollection.add(transaction.toJson());
+  }
+
+  Future<void> update(model.Transaction transaction) async {
+    log('data ${transaction.toJson()}');
+    await transactionCollection.doc(transaction.id).update(transaction.toJson());
   }
 }

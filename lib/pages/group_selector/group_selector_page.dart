@@ -37,6 +37,7 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chọn nhóm'),
@@ -83,19 +84,40 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                             Group item = state.data[index];
                             return Material(
                               elevation: 2,
-                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              color:
+                                  item.mode == -1 ? Colors.red[400] : Colors.green[400],
                               child: ListTile(
                                 onTap: () => Navigator.pop(context, item),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                minLeadingWidth: 0,
                                 onLongPress: () =>
                                     showMenuBottom(context, item),
                                 leading: const SizedBox(
                                   height: double.infinity,
-                                  child: Icon(Icons.ad_units),
+                                  child:
+                                      Icon(Icons.ad_units, color: Colors.white),
                                 ),
-                                title: Text(item.name),
-                                trailing:
-                                    Text(item.mode == -1 ? 'Giảm' : 'Tăng'),
-                                subtitle: Text(item.description),
+                                title: Text(
+                                  item.name,
+                                  style: textTheme.titleMedium?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  item.mode == -1 ? 'Giảm' : 'Tăng',
+                                  style: textTheme.titleMedium?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  item.description,
+                                  style: textTheme.subtitle2?.copyWith(
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             );
                           },
@@ -135,7 +157,6 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                 onTap: () {
                   Navigator.pop(context);
                   bloc.add(GroupSelectorEventDelete(item));
-
                 },
                 leading: const Icon(Icons.delete),
                 title: const Text('Xóa'),

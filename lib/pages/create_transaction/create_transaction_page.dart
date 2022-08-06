@@ -7,7 +7,9 @@ import 'package:money/route/route_name.dart';
 import 'package:money/tool/tool.dart';
 
 class CreateTransactionPage extends StatefulWidget {
-  const CreateTransactionPage({Key? key}) : super(key: key);
+  const CreateTransactionPage({Key? key, this.transaction = const Transaction()}) : super(key: key);
+
+  final Transaction transaction;
 
   @override
   State<CreateTransactionPage> createState() => _CreateTransactionPageState();
@@ -29,7 +31,10 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
 
   @override
   void initState() {
-    bloc.add(CreateTransactionEventInit(DateTime.now(), const Group()));
+    bloc.add(CreateTransactionEventInit(widget.transaction));
+    valueTEC.text = widget.transaction.value.toString();
+    descriptionTEC.text = widget.transaction.description;
+    
     super.initState();
   }
 
@@ -51,7 +56,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Tạo giao dịch')),
+      appBar: AppBar(title:  Text('${widget.transaction.isEmpty() ? 'Tạo' :'Sửa' } giao dịch')),
       body: BlocConsumer<CreateTransactionBloc, CreateTransactionState>(
         bloc: bloc,
         listener: (context, state) {
@@ -167,8 +172,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
 
   createTransaction(CreateTransactionStateGotData state) {
     if (keyForm.currentState!.validate()) {
-      bloc.add(CreateTransactionEventCreate(Transaction(
+      bloc.add(CreateTransactionEventCreate(widget.transaction.copyWith(
         createdTime: state.dateTime.millisecondsSinceEpoch,
+        updateTime: DateTime.now().millisecondsSinceEpoch,
         description: descriptionTEC.text,
         groupName: state.group.name,
         groupId: state.group.id,

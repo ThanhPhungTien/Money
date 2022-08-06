@@ -1,6 +1,11 @@
+import 'dart:math';
+
+import 'package:animations/animations.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/pages/report/report_cubit.dart';
+import 'package:money/pages/report_detail/report_detail_page.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../tool/tool.dart';
@@ -29,40 +34,128 @@ class _ReportPageState extends State<ReportPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    double sizePie = (MediaQuery.of(context).size.width - 32);
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Báo cáo'),
+      ),
+      backgroundColor: Colors.white,
       body: BlocBuilder<ReportCubit, ReportState>(
         bloc: bloc,
         builder: (context, state) {
           if (state is ReportStateGotData) {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Material(
-                    color: Colors.white,
-                    elevation: 1,
-                    child: ListTile(
-                      onTap: () => openSelectDate(state.time),
-                      leading: const Icon(Icons.date_range),
-                      title: Text(convertTime(
-                          'MM/yyyy', state.time.millisecondsSinceEpoch, false)),
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Material(
+                      color: Colors.green,
+                      elevation: 1,
+                      borderRadius: BorderRadius.circular(8),
+                      child: ListTile(
+                        onTap: () => openSelectDate(state.time),
+                        leading:
+                            const Icon(Icons.date_range, color: Colors.white),
+                        title: Text(
+                          convertTime('MM/yyyy',
+                              state.time.millisecondsSinceEpoch, false),
+                          style: textTheme.subtitle1?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 16),
-                ListTile(
-                  title: const Text('Tổng cộng'),
-                  trailing: Text(moneyFormat(state.total)),
-                ),
-                ListTile(
-                  title: const Text('Thu'),
-                  trailing: Text(moneyFormat(state.totalEarn)),
-                ),
-                ListTile(
-                  title: const Text('Chi'),
-                  trailing: Text(moneyFormat(state.totalPaid)),
-                ),
-              ],
+                  const SizedBox(height: 16),
+                  ListTile(
+                    title: const Text('Tổng cộng'),
+                    trailing: Text(
+                      moneyFormat(state.total),
+                      style: textTheme.headline5?.copyWith(
+                        color: state.total > 0 ? Colors.green : Colors.red,
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    height: 1,
+                    color: Colors.black,
+                    endIndent: 16,
+                    indent: 16,
+                  ),
+                  OpenContainer(
+                    closedBuilder: (context, action) {
+                      return ListTile(
+                        title: const Text('Thu'),
+                        trailing: Text(
+                          moneyFormat(state.totalEarn),
+                          style: textTheme.headline6?.copyWith(
+                            color: Colors.green,
+                          ),
+                        ),
+                      );
+                    },
+                    openBuilder: (context, action) {
+                      return ReportDetailPage(
+                        data: state.earnList,
+                        title:
+                            'Chi tiết thu ${convertTime('MM/yyyy', state.time.millisecondsSinceEpoch, false)}',
+                      );
+                    },
+                    closedElevation: 0,
+                  ),
+                  OpenContainer(
+                    closedElevation: 0,
+                    closedBuilder: (context, action) {
+                      return ListTile(
+                        title: const Text('Chi'),
+                        trailing: Text(
+                          moneyFormat(state.totalPaid),
+                          style: textTheme.headline6?.copyWith(
+                            color: Colors.red,
+                          ),
+                        ),
+                      );
+                    },
+                    openBuilder: (context, action) {
+                      return ReportDetailPage(
+                        data: state.paidList,
+                        title:
+                            'Chi tiết chi ${convertTime('MM/yyyy', state.time.millisecondsSinceEpoch, false)}',
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    height: sizePie,
+                    child: PieChart(
+                      PieChartData(
+                        sections: state.paidList
+                            .map((e) => PieChartSectionData(
+                                  title:
+                                      '${(e.totalValue.abs() / state.totalPaid * 100).round()}%',
+                                  titleStyle: textTheme.subtitle2,
+                                  value: e.totalValue.abs() /
+                                      state.totalPaid *
+                                      100,
+                                  showTitle: true,
+                                  color: Colors.accents.elementAt(
+                                      Random().nextInt(Colors.accents.length)),
+                                  titlePositionPercentageOffset: 1.2,
+                                  radius: sizePie / 4,
+                                ))
+                            .toList(),
+                        centerSpaceRadius: sizePie / 6,
+                        startDegreeOffset: 0,
+                        pieTouchData: PieTouchData(
+                          enabled: true,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             );
           }
           return Container();
@@ -83,4 +176,6 @@ class _ReportPageState extends State<ReportPage> {
       bloc.fetchData(result);
     }
   }
+
+  openReportDetail(bool isPaid) async {}
 }

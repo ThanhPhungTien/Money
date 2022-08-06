@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
@@ -7,7 +5,6 @@ import 'package:money/model/group/group.dart';
 import 'package:money/repository/group_repository.dart';
 
 part 'create_group_event.dart';
-
 part 'create_group_state.dart';
 
 class CreateGroupBloc extends Bloc<CreateGroupEvent, CreateGroupState> {

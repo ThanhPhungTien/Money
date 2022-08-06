@@ -51,8 +51,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Money',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
         backgroundColor: Colors.grey,
+        listTileTheme: const ListTileThemeData(
+          iconColor: Colors.black,
+        ),
+
       ),
       initialRoute: RouteName.homePage,
       onGenerateRoute: onGenerateRoute,

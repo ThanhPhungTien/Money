@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/model/group/group.dart';
@@ -31,5 +33,20 @@ class GroupRepository {
       data.add(Group.fromJson(item.data()).copyWith(id: item.id));
     }
     return data;
+  }
+
+  Future<Group> view(String id) async {
+    log('id $id');
+    try {
+      DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
+      if (documentSnapshot.exists) {
+        return Group.fromJson(documentSnapshot.data()).copyWith(
+          id: documentSnapshot.id,
+        );
+      }
+    } on FirebaseException catch (e) {
+      return const Group();
+    }
+    return const Group();
   }
 }

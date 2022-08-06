@@ -10,6 +10,15 @@ class ReportStateGotData extends ReportState {
   final int total;
   final int totalEarn;
   final int totalPaid;
+  final List<TransactionByName> paidList;
+  final List<TransactionByName> earnList;
 
-  ReportStateGotData(this.time, this.total, this.totalEarn, this.totalPaid);
+  ReportStateGotData(
+    this.time,
+    this.total,
+    this.totalEarn,
+    this.totalPaid,
+    this.paidList,
+    this.earnList,
+  );
 }
