@@ -25,8 +25,10 @@ class TransactionListCubit extends Cubit<TransactionListState> {
         model.Transaction transaction =
             model.Transaction.fromJson(e.data()).copyWith(id: e.id);
         return GroupTransaction(
-          dateTime: convertTime('dd/MM/yyyy', transaction.createdTime, false),
+          dateTime:
+              convertTime('EEEE, dd/MM/yyyy', transaction.createdTime, false),
           data: [transaction],
+          totalValue: transaction.value * transaction.mode,
         );
       }).toList();
 
@@ -42,10 +44,14 @@ class TransactionListCubit extends Cubit<TransactionListState> {
             mData.add(item);
           } else {
             mData[index].data.addAll(item.data);
+            mData[index] = mData[index].copyWith(
+              totalValue: mData[index].totalValue + item.totalValue,
+            );
           }
         }
       }
-      emit(TransactionListStateGotData(mData, time));
+      emit(TransactionListStateGotData(mData, time,
+          mData.map((e) => e.totalValue).toList().reduce((a, b) => a + b)));
     });
   }
 

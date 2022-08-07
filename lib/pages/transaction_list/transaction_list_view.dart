@@ -36,9 +36,7 @@ class _TransactionListViewState extends State<TransactionListView> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Giao dịch'),
-      ),
+      backgroundColor: Colors.grey[200],
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<TransactionListCubit, TransactionListState>(
@@ -53,15 +51,27 @@ class _TransactionListViewState extends State<TransactionListView> {
                     borderRadius: BorderRadius.circular(8),
                     child: ListTile(
                       onTap: () => openSelectDate(state.time),
-                      leading:
-                          const Icon(Icons.date_range, color: Colors.white),
+                      leading: const Icon(
+                        Icons.date_range,
+                        color: Colors.white,
+                      ),
                       title: Text(
-                        convertTime('MM/yyyy',
-                            state.time.millisecondsSinceEpoch, false),
-                        style: textTheme.subtitle1?.copyWith(
+                        convertTime(
+                          'MM/yyyy',
+                          state.time.millisecondsSinceEpoch,
+                          false,
+                        ),
+                        style: textTheme.headline6?.copyWith(
                           color: Colors.white,
                         ),
                       ),
+                      trailing: Text(
+                        moneyFormat(state.totalValue),
+                        style: textTheme.titleSmall?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                      minLeadingWidth: 0,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -73,64 +83,13 @@ class _TransactionListViewState extends State<TransactionListView> {
                             padding: const EdgeInsets.all(8),
                             separatorBuilder:
                                 (BuildContext context, int index) {
-                              return const SizedBox(height: 16);
+                              return const SizedBox(height: 8);
                             },
                             itemBuilder: (BuildContext context, int index) {
                               GroupTransaction item = state.data[index];
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(item.dateTime,
-                                      style: textTheme.headline6),
-                                  const SizedBox(height: 8),
-                                  Material(
-                                    elevation: 2,
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: item.data.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        Transaction transaction =
-                                            item.data[index];
-                                        return ListTile(
-                                          onLongPress: () => showMenuBottom(
-                                            context,
-                                            transaction,
-                                          ),
-                                          onTap: () => Navigator.pushNamed(
-                                            context,
-                                            RouteName.createTransaction,
-                                            arguments: {
-                                              Constant.transaction: transaction,
-                                            },
-                                          ),
-                                          leading: const SizedBox(
-                                            height: double.infinity,
-                                            child: Icon(Icons.attach_money),
-                                          ),
-                                          minLeadingWidth: 0,
-                                          title: Text(transaction.groupName),
-                                          subtitle:
-                                              Text(transaction.description),
-                                          trailing: Text(
-                                            moneyFormat(transaction.value *
-                                                transaction.mode),
-                                            style:
-                                                textTheme.subtitle1?.copyWith(
-                                              color: transaction.mode == -1
-                                                  ? Colors.red
-                                                  : Colors.green,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
+                              return ItemTransactionWidget(
+                                item: item,
+                                bloc: bloc,
                               );
                             },
                           ),
@@ -156,6 +115,76 @@ class _TransactionListViewState extends State<TransactionListView> {
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
     }
+  }
+}
+
+class ItemTransactionWidget extends StatelessWidget {
+  const ItemTransactionWidget({
+    Key? key,
+    required this.item,
+    required this.bloc,
+  }) : super(key: key);
+
+  final GroupTransaction item;
+  final TransactionListCubit bloc;
+
+  @override
+  Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Material(
+      color: Colors.white,
+      elevation: 2,
+      borderRadius: BorderRadius.circular(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ListTile(
+            title: Text(item.dateTime, style: textTheme.titleMedium),
+            trailing: Text(
+              moneyFormat(item.totalValue),
+              style: textTheme.subtitle1?.copyWith(
+                color: item.totalValue < 0 ? Colors.red : Colors.green,
+              ),
+            ),
+          ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: item.data.length,
+            itemBuilder: (BuildContext context, int index) {
+              Transaction transaction = item.data[index];
+              return ListTile(
+                onLongPress: () => showMenuBottom(
+                  context,
+                  transaction,
+                ),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  RouteName.createTransaction,
+                  arguments: {
+                    Constant.transaction: transaction,
+                  },
+                ),
+                minVerticalPadding: 0,
+                leading: const SizedBox(
+                  height: double.infinity,
+                  child: Icon(Icons.attach_money),
+                ),
+                minLeadingWidth: 0,
+                title: Text(transaction.groupName),
+                subtitle: Text(transaction.description),
+                trailing: Text(
+                  moneyFormat(transaction.value * transaction.mode),
+                  style: textTheme.subtitle1?.copyWith(
+                    color: transaction.mode == -1 ? Colors.red : Colors.green,
+                  ),
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   showMenuBottom(BuildContext context, Transaction item) {

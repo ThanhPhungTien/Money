@@ -8,9 +8,11 @@ part 'group_transaction.g.dart';
 class GroupTransaction {
   final String dateTime;
   final List<Transaction> data;
+  final int totalValue;
 
   const GroupTransaction({
     this.dateTime = '',
+    this.totalValue = 0,
     this.data = const <Transaction>[],
   });
 
@@ -21,10 +23,12 @@ class GroupTransaction {
   GroupTransaction copyWith({
     String? dateTime,
     List<Transaction>? data,
+    int? totalValue,
   }) {
     return GroupTransaction(
       dateTime: dateTime ?? this.dateTime,
       data: data ?? this.data,
+      totalValue: totalValue ?? this.totalValue,
     );
   }
 }

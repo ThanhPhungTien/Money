@@ -37,9 +37,6 @@ class _ReportPageState extends State<ReportPage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     double sizePie = (MediaQuery.of(context).size.width - 32);
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Báo cáo'),
-      ),
       backgroundColor: Colors.white,
       body: BlocBuilder<ReportCubit, ReportState>(
         bloc: bloc,
@@ -56,12 +53,16 @@ class _ReportPageState extends State<ReportPage> {
                       borderRadius: BorderRadius.circular(8),
                       child: ListTile(
                         onTap: () => openSelectDate(state.time),
+                        minLeadingWidth: 0,
                         leading:
                             const Icon(Icons.date_range, color: Colors.white),
                         title: Text(
-                          convertTime('MM/yyyy',
-                              state.time.millisecondsSinceEpoch, false),
-                          style: textTheme.subtitle1?.copyWith(
+                          convertTime(
+                            'MM/yyyy',
+                            state.time.millisecondsSinceEpoch,
+                            false,
+                          ),
+                          style: textTheme.headline6?.copyWith(
                             color: Colors.white,
                           ),
                         ),

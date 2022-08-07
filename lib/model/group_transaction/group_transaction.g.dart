@@ -9,6 +9,7 @@ part of 'group_transaction.dart';
 GroupTransaction _$GroupTransactionFromJson(Map<String, dynamic> json) =>
     GroupTransaction(
       dateTime: json['dateTime'] as String? ?? '',
+      totalValue: json['totalValue'] as int? ?? 0,
       data: (json['data'] as List<dynamic>?)
               ?.map((e) => Transaction.fromJson(e))
               .toList() ??
@@ -19,4 +20,5 @@ Map<String, dynamic> _$GroupTransactionToJson(GroupTransaction instance) =>
     <String, dynamic>{
       'dateTime': instance.dateTime,
       'data': instance.data.map((e) => e.toJson()).toList(),
+      'totalValue': instance.totalValue,
     };

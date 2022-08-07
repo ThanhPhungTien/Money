@@ -31,7 +31,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        toolbarHeight: 0,
+      ),
       body: BlocBuilder<HomeCubit, HomeState>(
         bloc: bloc,
         builder: (context, state) {
