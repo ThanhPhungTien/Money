@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:money/repository/group_repository.dart';
+import 'package:money/tool/tool.dart';
 
 import '../../model/group/group.dart';
 
@@ -18,8 +19,8 @@ class GroupSelectorBloc extends Bloc<GroupSelectorEvent, GroupSelectorState> {
     });
     on<GroupSelectorEventSearching>((event, emit) async {
       emit(GroupSelectorStateGotData(data
-          .where((item) =>
-              item.name.toLowerCase().contains(event.searchKey.toLowerCase()))
+          .where((item) => unsigned(item.name.toLowerCase().trim())
+              .contains(unsigned(event.searchKey.toLowerCase().trim())))
           .toList()));
     });
 
@@ -31,7 +32,7 @@ class GroupSelectorBloc extends Bloc<GroupSelectorEvent, GroupSelectorState> {
 
   GroupRepository groupRepository = GetIt.I.get();
 
-   _fetching(Emitter<GroupSelectorState> emit) async {
+  _fetching(Emitter<GroupSelectorState> emit) async {
     try {
       emit(GroupSelectorStateFetching());
       data = await groupRepository.get();

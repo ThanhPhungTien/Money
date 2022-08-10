@@ -24,64 +24,62 @@ class ReportDetailPage extends StatelessWidget {
         child: BlocBuilder<ReportDetailCubit, ReportDetailState>(
           builder: (context, state) {
             if (state is ReportDetailInitial) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ExpansionPanelList(
-                      expansionCallback: (index, duration) {
-                        BlocProvider.of<ReportDetailCubit>(context)
-                            .changeOpen(index, data);
-                      },
-                      children: data
-                          .map((item) => ExpansionPanel(
-                                headerBuilder: (context, isExpanded) {
+              return ListView(
+                children: [
+                  ExpansionPanelList(
+                    expansionCallback: (index, duration) {
+                      BlocProvider.of<ReportDetailCubit>(context)
+                          .changeOpen(index, data);
+                    },
+                    children: data
+                        .map((item) => ExpansionPanel(
+                              headerBuilder: (context, isExpanded) {
+                                return ListTile(
+                                  title: Text(item.name),
+                                  trailing: Text(
+                                    moneyFormat(item.totalValue),
+                                    style: textTheme.subtitle1?.copyWith(
+                                      color: item.totalValue < 0
+                                          ? Colors.red
+                                          : Colors.green,
+                                    ),
+                                  ),
+                                );
+                              },
+                              canTapOnHeader: true,
+                              isExpanded: item.isOpen,
+                              body: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: item.data.length,
+                                itemBuilder: (context, index) {
+                                  int value = item.data[index].value *
+                                      item.data[index].mode;
+                                  Transaction itemTrans = item.data[index];
                                   return ListTile(
-                                    title: Text(item.name),
+                                    title: Text(
+                                      convertTime(
+                                        'dd/MM/yyyy',
+                                        itemTrans.createdTime,
+                                        false,
+                                      ),
+                                    ),
+                                    subtitle: Text(itemTrans.description),
                                     trailing: Text(
-                                      moneyFormat(item.totalValue),
+                                      moneyFormat(value),
                                       style: textTheme.subtitle1?.copyWith(
-                                        color: item.totalValue < 0
+                                        color: value < 0
                                             ? Colors.red
                                             : Colors.green,
                                       ),
                                     ),
                                   );
                                 },
-                                canTapOnHeader: true,
-                                isExpanded: item.isOpen,
-                                body: ListView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: item.data.length,
-                                  itemBuilder: (context, index) {
-                                    int value = item.data[index].value *
-                                        item.data[index].mode;
-                                    Transaction itemTrans = item.data[index];
-                                    return ListTile(
-                                      title: Text(
-                                        convertTime(
-                                          'dd/MM/yyyy',
-                                          itemTrans.createdTime,
-                                          false,
-                                        ),
-                                      ),
-                                      subtitle: Text(itemTrans.description),
-                                      trailing: Text(
-                                        moneyFormat(value),
-                                        style: textTheme.subtitle1?.copyWith(
-                                          color: value < 0
-                                              ? Colors.red
-                                              : Colors.green,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ))
-                          .toList(),
-                    ),
-                  ],
-                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ],
               );
             }
             return Container();

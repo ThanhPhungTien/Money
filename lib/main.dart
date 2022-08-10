@@ -8,6 +8,7 @@ import 'package:money/route/app_route.dart';
 import 'package:money/route/route_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,10 +58,20 @@ class MyApp extends StatelessWidget {
         listTileTheme: const ListTileThemeData(
           iconColor: Colors.black,
         ),
-
       ),
+
       initialRoute: RouteName.homePage,
       onGenerateRoute: onGenerateRoute,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      locale: const Locale('vi', ''),
+      supportedLocales: const [
+        Locale('vi', ''),
+        Locale('en', ''),
+      ],
     );
   }
 }
