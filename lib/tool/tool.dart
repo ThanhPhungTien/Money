@@ -27,6 +27,19 @@ String moneyFormat(int param, {String unit = 'đ'}) {
   result = result.replaceAll(',', '.');
   return '$result $unit';
 }
+String moneyTextFormat(String param, {String unit = 'đ'}) {
+  int data = 0;
+  try {
+    data = int.parse(param);
+  } catch (e) {
+    data = 0;
+  }
+
+  final NumberFormat formatCurrency = NumberFormat();
+  String result = formatCurrency.format(data);
+  result = result.replaceAll(',', '.');
+  return '$result $unit';
+}
 
 Color hexToColor(String code) {
   return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
