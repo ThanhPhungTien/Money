@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 bool isMoney(String value) {
+  log('money $value');
   try {
-    int.parse(value);
+    String data = value.replaceAll(',', '').trim();
+    log('money $data');
+    int.parse(data);
   } on Exception catch (_) {
     return false;
   }
@@ -27,6 +32,7 @@ String moneyFormat(int param, {String unit = 'đ'}) {
   result = result.replaceAll(',', '.');
   return '$result $unit';
 }
+
 String moneyTextFormat(String param, {String unit = 'đ'}) {
   int data = 0;
   try {
@@ -44,7 +50,6 @@ String moneyTextFormat(String param, {String unit = 'đ'}) {
 Color hexToColor(String code) {
   return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
-
 
 const _vietnamese = 'aAeEoOuUiIdDyY';
 final _vietnameseRegex = <RegExp>[

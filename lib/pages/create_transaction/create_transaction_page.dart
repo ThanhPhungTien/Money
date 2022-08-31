@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/create_transaction/create_transaction_bloc.dart';
@@ -25,7 +25,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
 
   TextEditingController dateTEC = TextEditingController();
   TextEditingController nameTEC = TextEditingController();
-  var valueTEC = MaskedTextController(mask: '000.000.000');
+  var valueTEC = TextEditingController();
   TextEditingController descriptionTEC = TextEditingController();
 
   FocusNode nameNode = FocusNode();
@@ -127,13 +127,19 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: valueTEC,
-                      decoration:  InputDecoration(
-                        labelText: 'Giá trị',
-                        suffixText: moneyTextFormat(valueTEC.text),
-                      ),
-                      readOnly: true,
-                      onTap: () => showKeyMoneyBoard(context, valueTEC),
+                      inputFormatters: [
+                        CurrencyInputFormatter(
 
+                          mantissaLength: 0,
+
+                        )
+                      ],
+                      decoration: const InputDecoration(
+                        labelText: 'Giá trị',
+                        // suffixText: moneyTextFormat(valueTEC.text),
+                      ),
+                      // readOnly: true,
+                      // onTap: () => showKeyMoneyBoard(context, valueTEC),
                       validator: (text) {
                         if (text == null ||
                             text.isEmpty ||
@@ -199,7 +205,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
         description: descriptionTEC.text,
         groupName: state.group.name,
         groupId: state.group.id,
-        value: int.parse(valueTEC.text),
+        value: int.parse(valueTEC.text.replaceAll(',', '').trim()),
         month: state.dateTime.month,
         year: state.dateTime.year,
         mode: state.group.mode,
