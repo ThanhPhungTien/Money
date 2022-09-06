@@ -8,6 +8,7 @@ class ReportInitial extends ReportState {}
 class ReportStateGotData extends ReportState {
   final DateTime time;
   final int total;
+  final int remain;
   final int totalEarn;
   final int totalPaid;
   final List<TransactionByName> paidList;
@@ -20,5 +21,6 @@ class ReportStateGotData extends ReportState {
     this.totalPaid,
     this.paidList,
     this.earnList,
+    this.remain,
   );
 }

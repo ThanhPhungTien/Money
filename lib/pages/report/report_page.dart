@@ -85,6 +85,21 @@ class _ReportPageState extends State<ReportPage> {
                     endIndent: 16,
                     indent: 16,
                   ),
+                  ListTile(
+                    title: const Text('Đầu kỳ'),
+                    trailing: Text(
+                      moneyFormat(state.remain),
+                      style: textTheme.headline5?.copyWith(
+                        color: state.remain > 0 ? Colors.green : Colors.red,
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    height: 1,
+                    color: Colors.black,
+                    endIndent: 16,
+                    indent: 16,
+                  ),
                   OpenContainer(
                     closedBuilder: (context, action) {
                       return ListTile(

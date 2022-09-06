@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:money/enum/constant.dart';
 import 'package:money/model/transaction_by_name/transaction_by_name.dart';
 
 import '../../repository/transaction_repository.dart';
@@ -18,7 +19,7 @@ class ReportCubit extends Cubit<ReportState> {
         .where('year', isEqualTo: time.year)
         .where('month', isEqualTo: time.month)
         .snapshots()
-        .listen((QuerySnapshot<Object?> data) {
+        .listen((QuerySnapshot<Object?> data) async {
       List<model.Transaction> result = data.docs
           .map((e) => model.Transaction.fromJson(e.data()).copyWith(id: e.id))
           .toList();
@@ -26,6 +27,7 @@ class ReportCubit extends Cubit<ReportState> {
       int total = 0;
       int totalEarn = 0;
       int totalPaid = 0;
+      int remain = 0;
       List<TransactionByName> paidList = <TransactionByName>[];
       List<TransactionByName> earnList = <TransactionByName>[];
 
@@ -74,13 +76,23 @@ class ReportCubit extends Cubit<ReportState> {
         }
       }
       if (!isClosed) {
+        int year = time.month == 1 ? time.year - 1 : time.year;
+        int month = time.month == 1 ? 12 : time.month - 1;
+        var reportData = await transactionRepository.reportCollection
+            .doc('$year$month')
+            .get();
+        remain = reportData.data() == null
+            ? 0
+            : (reportData.data() as Map<String, dynamic>)[Constant.total];
+
         emit(ReportStateGotData(
           time,
-          total,
+          total + remain,
           totalEarn,
           totalPaid,
           paidList,
           earnList,
+          remain,
         ));
       }
     });

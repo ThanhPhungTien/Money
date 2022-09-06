@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
-import 'package:money/enum/constant.dart';
 import 'package:money/model/group_transaction/group_transaction.dart';
-import 'package:money/repository/transaction_repository.dart';
-
 import 'package:money/model/transaction/transaction.dart' as model;
+import 'package:money/repository/transaction_repository.dart';
 import 'package:money/tool/tool.dart';
 
 part 'transaction_list_state.dart';
@@ -52,22 +50,7 @@ class TransactionListCubit extends Cubit<TransactionListState> {
         }
       }
       if (!isClosed) {
-        int year = time.month == 1 ? time.year - 1 : time.year;
-        int month = time.month == 1 ? 12 : time.month - 1;
-        var reportData = await transactionRepository.reportCollection
-            .doc('$year$month')
-            .get();
-        int total = reportData.data() == null
-            ? 0
-            : (reportData.data() as Map<String, dynamic>)[Constant.total];
-        emit(
-          TransactionListStateGotData(
-            mData,
-            time,
-            mData.map((e) => e.totalValue).toList().reduce((a, b) => a + b) +
-                total,
-          ),
-        );
+        emit(TransactionListStateGotData(mData, time));
       }
     });
   }

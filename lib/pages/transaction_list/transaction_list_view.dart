@@ -65,12 +65,6 @@ class _TransactionListViewState extends State<TransactionListView> {
                           color: Colors.white,
                         ),
                       ),
-                      trailing: Text(
-                        moneyFormat(state.totalValue),
-                        style: textTheme.titleSmall?.copyWith(
-                          color: Colors.white,
-                        ),
-                      ),
                       minLeadingWidth: 0,
                     ),
                   ),
