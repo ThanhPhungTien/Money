@@ -14,24 +14,18 @@ class TransactionRepository {
 
   Future<void> create(model.Transaction transaction) async {
     await transactionCollection.add(transaction.toJson());
-    updateReport(
-      transaction.month == 1 ? transaction.year - 1 : transaction.year,
-      transaction.month == 1 ? 12 : transaction.month - 1,
-    );
+    updateReport(transaction.year, transaction.month);
   }
 
   Future<void> update(model.Transaction transaction) async {
     await transactionCollection
         .doc(transaction.id)
         .update(transaction.toJson());
-    updateReport(
-      transaction.month == 1 ? transaction.year - 1 : transaction.year,
-      transaction.month == 1 ? 12 : transaction.month - 1,
-    );
+    updateReport(transaction.year, transaction.month);
   }
 
   Future<void> updateReport(int year, int month) async {
-    log('updateReport');
+    log('updateReport $year $month');
     await transactionCollection
         .where('year', isEqualTo: year)
         .where('month', isEqualTo: month)
@@ -44,7 +38,7 @@ class TransactionRepository {
       }).toList();
 
       int total =
-          transaction.map((e) => e.value).toList().reduce((a, b) => a + b);
+          transaction.map((e) => e.value * e.mode).toList().reduce((a, b) => a + b);
 
       log('total $total');
 
