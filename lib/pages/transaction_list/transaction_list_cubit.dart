@@ -51,8 +51,13 @@ class TransactionListCubit extends Cubit<TransactionListState> {
         }
       }
       if (!isClosed) {
-        emit(TransactionListStateGotData(mData, time,
-            mData.map((e) => e.totalValue).toList().reduce((a, b) => a + b)));
+        emit(
+          TransactionListStateGotData(
+            mData,
+            time,
+            mData.map((e) => e.totalValue).toList().reduce((a, b) => a + b),
+          ),
+        );
       }
     });
   }

@@ -6,7 +6,7 @@ import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/transaction_list/transaction_list_cubit.dart';
 import 'package:money/route/route_name.dart';
 import 'package:money/tool/tool.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:month_picker_dialog_2/month_picker_dialog_2.dart';
 
 import '../../widgets/failure/failure_view.dart';
 

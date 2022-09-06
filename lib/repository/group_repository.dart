@@ -44,7 +44,7 @@ class GroupRepository {
           id: documentSnapshot.id,
         );
       }
-    } on FirebaseException catch (e) {
+    } on FirebaseException catch (_) {
       return const Group();
     }
     return const Group();

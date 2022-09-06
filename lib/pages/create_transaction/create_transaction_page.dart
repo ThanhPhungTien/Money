@@ -126,12 +126,12 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
+                      key: UniqueKey(),
                       controller: valueTEC,
                       inputFormatters: [
                         CurrencyInputFormatter(
-
                           mantissaLength: 0,
-
+                          useSymbolPadding: true,
                         )
                       ],
                       decoration: const InputDecoration(

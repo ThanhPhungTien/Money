@@ -6,7 +6,6 @@ import 'package:money/repository/group_repository.dart';
 import 'package:money/repository/transaction_repository.dart';
 import 'package:money/route/app_route.dart';
 import 'package:money/route/route_name.dart';
-import 'package:money/widgets/money_keyboard/money_keyboard_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

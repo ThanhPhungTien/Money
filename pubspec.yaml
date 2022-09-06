@@ -16,7 +16,7 @@ dependencies:
   intl: ^0.17.0
   http: ^0.13.5
   get_it: ^7.2.0
-  analyzer: ^4.6.0
+  analyzer: ^4.7.0
   fl_chart: ^0.55.1
   equatable: ^2.0.5
   animations: ^2.0.4
@@ -26,11 +26,11 @@ dependencies:
   cloud_firestore: ^3.4.6
   json_annotation: ^4.6.0
   shared_preferences: ^2.0.15
-  month_picker_dialog: ^0.4.0
-  flutter_multi_formatter: ^2.6.2
+  month_picker_dialog_2: ^0.5.5
+  flutter_multi_formatter: ^2.7.2
 
   bloc: ^8.1.0
-  meta: ^1.7.0
+  meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
