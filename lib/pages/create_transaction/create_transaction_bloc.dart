@@ -46,7 +46,7 @@ class CreateTransactionBloc
     });
 
     on<CreateTransactionEventCreate>((event, emit) async {
-      log('CreateTransactionEventCreate ${event.transaction.toJson()}');
+
       if (event.transaction.isEmpty()) {
         await transactionRepository.create(event.transaction);
       } else {

@@ -185,7 +185,7 @@ class _ReportPageState extends State<ReportPage> {
     dynamic result = await showMonthPicker(
       context: context,
       initialDate: time,
-      firstDate: DateTime(dateNow.year, dateNow.month - 1),
+      firstDate: DateTime(dateNow.year -1),
       lastDate: DateTime(dateNow.year + 1),
     );
     if (result != null && result is DateTime) {

@@ -26,23 +26,37 @@ class TransactionRepository {
 
   Future<void> updateReport(int year, int month) async {
     log('updateReport $year $month');
-    await transactionCollection
+    var data = await transactionCollection
         .where('year', isEqualTo: year)
         .where('month', isEqualTo: month)
-        .get()
-        .then((data) {
-      log('message');
+        .get();
 
-      List<model.Transaction> transaction = data.docs.map((e) {
-        return model.Transaction.fromJson(e.data());
-      }).toList();
+    var dataLast = await transactionCollection
+        .where('year', isEqualTo: month == 1 ? year - 1 : year)
+        .where('month', isEqualTo: month == 1 ? 12 : month - 1)
+        .get();
 
-      int total =
-          transaction.map((e) => e.value * e.mode).toList().reduce((a, b) => a + b);
+    log('message');
 
-      log('total $total');
+    List<model.Transaction> transaction = data.docs.map((e) {
+      return model.Transaction.fromJson(e.data());
+    }).toList();
 
-      reportCollection.doc('$year$month').set({'total': total});
-    });
+    List<model.Transaction> transactionLast = dataLast.docs.map((e) {
+      return model.Transaction.fromJson(e.data());
+    }).toList();
+
+    int total = transaction.isEmpty ? 0: transaction
+        .map((e) => e.value * e.mode)
+        .toList()
+        .reduce((a, b) => a + b);
+
+    int remain = transactionLast.isEmpty ? 0:  transactionLast
+        .map((e) => e.value * e.mode)
+        .toList()
+        .reduce((a, b) => a + b);
+    log('total $total');
+
+    reportCollection.doc('$year$month').set({'total': total + remain});
   }
 }
