@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:money/enum/local_db/db_constant.dart';
 import 'package:money/repository/group_repository.dart';
 import 'package:money/repository/transaction_repository.dart';
 import 'package:money/route/app_route.dart';
 import 'package:money/route/route_name.dart';
+import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
+
 import 'firebase_options.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,13 +36,31 @@ Future<void> configureDependencies() async {
 
   getIt.registerSingletonAsync<SharedPreferences>(() async => prefs);
 
+  //setup db
+  getIt.registerSingletonAsync(
+    () async {
+      String databasesPath = await getDatabasesPath();
+      String path = join(databasesPath, DBConfig.name);
+
+      return openDatabase(
+        path,
+        version: 1,
+        onCreate: (Database db, int version) async {
+          await db.execute(DBCommand.createTransactionTable);
+          await db.execute(DBCommand.createGroupTable);
+        },
+      );
+    },
+    dependsOn: [SharedPreferences],
+  );
+
   getIt.registerSingletonAsync(
     () async => GroupRepository(),
-    dependsOn: [SharedPreferences],
+    dependsOn: [SharedPreferences, Database],
   );
   getIt.registerSingletonAsync(
     () async => TransactionRepository(),
-    dependsOn: [SharedPreferences],
+    dependsOn: [SharedPreferences, Database],
   );
 
   await getIt.allReady();
