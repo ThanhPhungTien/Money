@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:money/enum/local_db/db_constant.dart';
+import 'package:money/repository/group_local_repository.dart';
 import 'package:money/repository/group_repository.dart';
+import 'package:money/repository/transaction_local_repository.dart';
 import 'package:money/repository/transaction_repository.dart';
 import 'package:money/route/app_route.dart';
 import 'package:money/route/route_name.dart';
@@ -53,14 +55,21 @@ Future<void> configureDependencies() async {
     },
     dependsOn: [SharedPreferences],
   );
-
   getIt.registerSingletonAsync(
-    () async => GroupRepository(),
+    () async => GroupLocalRepository(),
     dependsOn: [SharedPreferences, Database],
   );
   getIt.registerSingletonAsync(
-    () async => TransactionRepository(),
+    () async => TransactionLocalRepository(),
     dependsOn: [SharedPreferences, Database],
+  );
+  getIt.registerSingletonAsync(
+    () async => GroupRepository(),
+    dependsOn: [SharedPreferences, Database, GroupLocalRepository],
+  );
+  getIt.registerSingletonAsync(
+    () async => TransactionRepository(),
+    dependsOn: [SharedPreferences, Database, TransactionLocalRepository],
   );
 
   await getIt.allReady();

@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
-import 'package:money/enum/constant.dart';
 import 'package:money/model/transaction_by_name/transaction_by_name.dart';
+import 'package:money/tool/tool.dart';
 
 import '../../repository/transaction_repository.dart';
 
@@ -17,13 +17,12 @@ class ReportCubit extends Cubit<ReportState> {
   TransactionRepository transactionRepository = TransactionRepository();
 
   Future<void> fetchData(DateTime time) async {
-    log('message ${time.year} ${time.month}' );
+    log('message ${time.year} ${time.month}');
     transactionRepository.transactionCollection
         .where('year', isEqualTo: time.year)
         .where('month', isEqualTo: time.month)
         .snapshots()
         .listen((QuerySnapshot<Object?> data) async {
-
       List<model.Transaction> result = data.docs
           .map((e) => model.Transaction.fromJson(e.data()).copyWith(id: e.id))
           .toList();
@@ -80,16 +79,24 @@ class ReportCubit extends Cubit<ReportState> {
         }
       }
       if (!isClosed) {
+        // Lấy dữ liệu toàn bộ
         int year = time.month == 1 ? time.year - 1 : time.year;
         int month = time.month == 1 ? 12 : time.month - 1;
 
-        var reportData = await transactionRepository.reportCollection
-            .doc('$year$month')
-            .get();
-        remain = reportData.data() == null
-            ? 0
-            : (reportData.data() as Map<String, dynamic>)[Constant.total];
-        log('remain $remain $total');
+        var dataReport = await transactionRepository.reportCollection.get();
+
+        for (var item in dataReport.docs) {
+          int idValue = int.parse(item.id);
+
+          if (idValue <
+              int.parse(
+                  convertTime('yyyyMM', time.millisecondsSinceEpoch, false))) {
+            remain += item.get('total') as int;
+          }
+        }
+
+        log('remain $year $month $remain $total');
+
         emit(ReportStateGotData(
           time,
           total + remain,

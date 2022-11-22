@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_it/get_it.dart';
 import 'package:money/model/transaction/transaction.dart' as model;
 import 'package:money/repository/transaction_local_repository.dart';
 
@@ -13,8 +14,7 @@ class TransactionRepository {
   CollectionReference reportCollection =
       FirebaseFirestore.instance.collection(Constant.report);
 
-  TransactionLocalRepository transactionLocalRepository =
-      TransactionLocalRepository();
+  TransactionLocalRepository transactionLocalRepository = GetIt.I.get();
 
   Future<void> create(model.Transaction transaction) async {
     await transactionCollection.add(transaction.toJson());
@@ -34,18 +34,7 @@ class TransactionRepository {
         .where('month', isEqualTo: month)
         .get();
 
-    var dataLast = await transactionCollection
-        .where('year', isEqualTo: month == 1 ? year - 1 : year)
-        .where('month', isEqualTo: month == 1 ? 12 : month - 1)
-        .get();
-
-    log('message');
-
     List<model.Transaction> transaction = data.docs.map((e) {
-      return model.Transaction.fromJson(e.data());
-    }).toList();
-
-    List<model.Transaction> transactionLast = dataLast.docs.map((e) {
       return model.Transaction.fromJson(e.data());
     }).toList();
 
@@ -56,14 +45,10 @@ class TransactionRepository {
             .toList()
             .reduce((a, b) => a + b);
 
-    int remain = transactionLast.isEmpty
-        ? 0
-        : transactionLast
-            .map((e) => e.value * e.mode)
-            .toList()
-            .reduce((a, b) => a + b);
-    log('total $total');
+    log('total $total ');
 
-    reportCollection.doc('$year$month').set({'total': total + remain});
+    String id = '$year${month > 9 ? '$month' : '0$month'}';
+
+    reportCollection.doc(id).set({'total': total});
   }
 }

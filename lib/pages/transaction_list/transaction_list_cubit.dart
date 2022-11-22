@@ -18,8 +18,7 @@ class TransactionListCubit extends Cubit<TransactionListState> {
   TransactionListCubit() : super(TransactionListInitial());
 
   TransactionRepository transactionRepository = TransactionRepository();
-  TransactionLocalRepository transactionLocalRepository =
-      TransactionLocalRepository();
+  TransactionLocalRepository transactionLocalRepository = GetIt.I.get();
 
   Future<void> fetchData(DateTime time) async {
     log('message ${GetIt.I.get<SharedPreferences>().getBool(Constant.hasInternet)}');

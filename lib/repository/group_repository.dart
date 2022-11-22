@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
@@ -12,7 +11,8 @@ class GroupRepository {
     Constant.group,
   );
 
-  GroupLocalRepository groupLocalRepository = GroupLocalRepository();
+  SharedPreferences prefs = GetIt.I.get();
+  GroupLocalRepository groupLocalRepository = GetIt.I.get();
 
   Future<Group> create(Group group) async {
     DocumentReference result = await groupCollection.add(group);
@@ -25,7 +25,11 @@ class GroupRepository {
   }
 
   Future<Group> update(Group group) async {
-    await groupCollection.doc(group.id).update(group.toJson());
+    if (prefs.getBool(Constant.hasInternet) ?? false) {
+      await groupCollection.doc(group.id).update(group.toJson());
+    } else {
+      groupLocalRepository.save(group);
+    }
 
     return group.copyWith(
       updateTime: DateTime.now().millisecondsSinceEpoch,
@@ -35,8 +39,7 @@ class GroupRepository {
   Future<List<Group>> get() async {
     List<Group> data = <Group>[];
 
-    if (GetIt.I.get<SharedPreferences>().getBool(Constant.hasInternet) ??
-        false) {
+    if (prefs.getBool(Constant.hasInternet) ?? false) {
       QuerySnapshot snapshot = await groupCollection.get();
 
       for (var item in snapshot.docs) {
@@ -50,17 +53,19 @@ class GroupRepository {
   }
 
   Future<Group> view(String id) async {
-    log('id $id');
-
-    try {
-      DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
-      if (documentSnapshot.exists) {
-        return Group.fromJson(documentSnapshot.data()).copyWith(
-          id: documentSnapshot.id,
-        );
+    if (prefs.getBool(Constant.hasInternet) ?? false) {
+      try {
+        DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
+        if (documentSnapshot.exists) {
+          return Group.fromJson(documentSnapshot.data()).copyWith(
+            id: documentSnapshot.id,
+          );
+        }
+      } on FirebaseException catch (_) {
+        return const Group();
       }
-    } on FirebaseException catch (_) {
-      return const Group();
+    } else {
+      return groupLocalRepository.view(id);
     }
 
     return const Group();
