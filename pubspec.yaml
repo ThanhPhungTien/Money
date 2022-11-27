@@ -30,8 +30,8 @@ dependencies:
   another_flushbar: ^1.12.29
   connectivity_plus: ^3.0.2
   shared_preferences: ^2.0.15
-  month_picker_dialog_2: ^0.5.6
-  flutter_multi_formatter: ^2.9.6
+  month_picker_dialog_2: ^0.5.8
+  flutter_multi_formatter: ^2.9.10
   bloc: ^8.1.0
   meta: ^1.8.0
 
