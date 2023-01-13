@@ -10,9 +10,10 @@ import 'package:money/tool/tool.dart';
 import 'package:money/widgets/money_keyboard/money_keyboard_widget.dart';
 
 class CreateTransactionPage extends StatefulWidget {
-  const CreateTransactionPage(
-      {Key? key, this.transaction = const Transaction()})
-      : super(key: key);
+  const CreateTransactionPage({
+    Key? key,
+    this.transaction = const Transaction(),
+  }) : super(key: key);
 
   final Transaction transaction;
 
@@ -23,14 +24,14 @@ class CreateTransactionPage extends StatefulWidget {
 class _CreateTransactionPageState extends State<CreateTransactionPage> {
   CreateTransactionBloc bloc = CreateTransactionBloc();
 
-  TextEditingController dateTEC = TextEditingController();
-  TextEditingController nameTEC = TextEditingController();
+  var dateTEC = TextEditingController();
+  var nameTEC = TextEditingController();
   var valueTEC = TextEditingController();
-  TextEditingController descriptionTEC = TextEditingController();
+  var descriptionTEC = TextEditingController();
 
-  FocusNode nameNode = FocusNode();
-  FocusNode valueNode = FocusNode();
-  FocusNode descriptionNode = FocusNode();
+  var nameNode = FocusNode();
+  var valueNode = FocusNode();
+  var descriptionNode = FocusNode();
 
   GlobalKey<FormState> keyForm = GlobalKey<FormState>();
 
@@ -152,6 +153,8 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                     const SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: () => createTransaction(state),
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50)),
                       child: const Text('Cập nhật'),
                     )
                   ],

@@ -17,35 +17,32 @@ dependencies:
   path: ^1.8.2
   http: ^0.13.5
   get_it: ^7.2.0
-  sqflite: ^2.2.0+3
-  analyzer: ^5.2.0
+  sqflite: ^2.2.3
   fl_chart: ^0.55.2
   equatable: ^2.0.5
   animations: ^2.0.7
   flutter_bloc: ^8.1.1
-  firebase_core: ^2.3.0
+  firebase_core: ^2.4.1
   cupertino_icons: ^1.0.5
-  cloud_firestore: ^4.1.0
+  cloud_firestore: ^4.3.1
   json_annotation: ^4.7.0
   another_flushbar: ^1.12.29
   connectivity_plus: ^3.0.2
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.0.16
   month_picker_dialog_2: ^0.5.8
-  flutter_multi_formatter: ^2.9.10
+  flutter_multi_formatter: ^2.10.1
   bloc: ^8.1.0
   meta: ^1.8.0
 
 dev_dependencies:
   flutter_test:
-
     sdk: flutter
+
   flutter_lints: ^2.0.1
-  build_runner: ^2.3.2
+  build_runner: ^2.3.3
   json_serializable: ^6.5.4
 
 flutter:
 
   uses-material-design: true
 
-  assets:
-    - image/

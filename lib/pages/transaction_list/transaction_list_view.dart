@@ -103,7 +103,7 @@ class _TransactionListViewState extends State<TransactionListView> {
     dynamic result = await showMonthPicker(
       context: context,
       initialDate: time,
-      firstDate: DateTime(dateNow.year -1),
+      firstDate: DateTime(dateNow.year - 1),
       lastDate: DateTime(dateNow.year + 1),
     );
     if (result != null && result is DateTime) {
@@ -128,15 +128,15 @@ class ItemTransactionWidget extends StatelessWidget {
     return Material(
       color: Colors.white,
       elevation: 2,
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            title: Text(item.dateTime, style: textTheme.titleMedium),
+            title: Text(item.dateTime, style: textTheme.subtitle2),
             trailing: Text(
               moneyFormat(item.totalValue),
-              style: textTheme.subtitle1?.copyWith(
+              style: textTheme.subtitle2?.copyWith(
                 color: item.totalValue < 0 ? Colors.red : Colors.green,
               ),
             ),
@@ -162,14 +162,17 @@ class ItemTransactionWidget extends StatelessWidget {
                 minVerticalPadding: 0,
                 leading: const SizedBox(
                   height: double.infinity,
-                  child: Icon(Icons.attach_money),
+                  child: Icon(Icons.attach_money, color: Colors.green),
                 ),
                 minLeadingWidth: 0,
-                title: Text(transaction.groupName),
+                title: Text(
+                  transaction.groupName,
+                  style: textTheme.subtitle2,
+                ),
                 subtitle: Text(transaction.description),
                 trailing: Text(
                   moneyFormat(transaction.value * transaction.mode),
-                  style: textTheme.subtitle1?.copyWith(
+                  style: textTheme.subtitle2?.copyWith(
                     color: transaction.mode == -1 ? Colors.red : Colors.green,
                   ),
                 ),
@@ -185,24 +188,26 @@ class ItemTransactionWidget extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('Menu', style: Theme.of(context).textTheme.headline6),
-            ),
-            const SizedBox(height: 16),
-            ListTile(
-              onTap: () {
-                Navigator.pop(context);
-                bloc.deleteTransaction(item.id);
-              },
-              leading: const Icon(Icons.delete),
-              title: const Text('Xóa'),
-            ),
-          ],
+        return SafeArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text('Menu', style: Theme.of(context).textTheme.headline6),
+              ),
+              ListTile(
+                onTap: () {
+                  Navigator.pop(context);
+                  bloc.deleteTransaction(item.id);
+                },
+                minLeadingWidth: 0,
+                leading: const Icon(Icons.delete),
+                title: const Text('Xóa'),
+              ),
+            ],
+          ),
         );
       },
     );

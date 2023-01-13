@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:animations/animations.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/pages/report/report_cubit.dart';
 import 'package:money/pages/report_detail/report_detail_page.dart';
 import 'package:month_picker_dialog_2/month_picker_dialog_2.dart';
-
 import '../../tool/tool.dart';
 
 class ReportPage extends StatefulWidget {
@@ -36,12 +35,14 @@ class _ReportPageState extends State<ReportPage> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     double sizePie = (MediaQuery.of(context).size.width - 32);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: BlocBuilder<ReportCubit, ReportState>(
         bloc: bloc,
         builder: (context, state) {
           if (state is ReportStateGotData) {
+            log('length ${state.paidList.length}');
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -143,29 +144,66 @@ class _ReportPageState extends State<ReportPage> {
                     },
                   ),
                   const SizedBox(height: 32),
-                  SizedBox(
-                    height: sizePie,
-                    child: PieChart(
-                      PieChartData(
-                        sections: state.paidList
-                            .map((e) => PieChartSectionData(
-                                  title:
-                                      '${(e.totalValue.abs() / state.totalPaid * 100).round()}%',
-                                  titleStyle: textTheme.subtitle2,
-                                  value: e.totalValue.abs() /
-                                      state.totalPaid *
-                                      100,
-                                  showTitle: true,
-                                  color: Colors.accents.elementAt(
-                                      Random().nextInt(Colors.accents.length)),
-                                  titlePositionPercentageOffset: 1.2,
-                                  radius: sizePie / 4,
-                                ))
-                            .toList(),
-                        centerSpaceRadius: sizePie / 6,
-                        startDegreeOffset: 0,
-                        pieTouchData: PieTouchData(
-                          enabled: true,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: SizedBox(
+                      height: sizePie,
+                      width: (32 * state.paidDateList.length).toDouble(),
+                      child: BarChart(
+                        BarChartData(
+                          minY: 0,
+                          backgroundColor: Colors.white,
+                          barGroups: state.paidDateList.map(
+                            (e) {
+                              return BarChartGroupData(
+                                x: state.paidDateList.indexOf(e),
+                                barRods: [
+                                  BarChartRodData(
+                                      toY: (e.totalValue / 1000)
+                                          .abs()
+                                          .toDouble(),
+                                      color: Colors.red,
+                                      width: 16)
+                                ],
+                              );
+                            },
+                          ).toList(),
+                          borderData: FlBorderData(show: false),
+                          barTouchData: BarTouchData(
+                            touchTooltipData: BarTouchTooltipData(
+                              getTooltipItem: (
+                                BarChartGroupData group,
+                                int groupIndex,
+                                BarChartRodData rod,
+                                int rodIndex,
+                              ) =>
+                                  BarTooltipItem(moneyFormat(rod.toY.toInt() + 1000), textTheme.subtitle2!),
+                            ),
+                          ),
+                          titlesData: FlTitlesData(
+                            show: true,
+                            rightTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            topTitles: AxisTitles(
+                              sideTitles: SideTitles(showTitles: false),
+                            ),
+                            bottomTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: true,
+                                getTitlesWidget: (value, meta) => Text(
+                                    state.paidDateList[value.toInt()].date),
+                              ),
+                            ),
+                            leftTitles: AxisTitles(
+                              sideTitles: SideTitles(
+                                showTitles: false,
+                                interval: 1,
+                                getTitlesWidget: (value, meta) =>
+                                    Text(value.toString()),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -185,7 +223,7 @@ class _ReportPageState extends State<ReportPage> {
     dynamic result = await showMonthPicker(
       context: context,
       initialDate: time,
-      firstDate: DateTime(dateNow.year -1),
+      firstDate: DateTime(dateNow.year - 1),
       lastDate: DateTime(dateNow.year + 1),
     );
     if (result != null && result is DateTime) {

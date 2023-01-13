@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:money/model/transaction_by_date/transaction_by_date.dart';
 import 'package:money/model/transaction_by_name/transaction_by_name.dart';
 import 'package:money/tool/tool.dart';
 
@@ -31,12 +32,20 @@ class ReportCubit extends Cubit<ReportState> {
       int totalEarn = 0;
       int totalPaid = 0;
       int remain = 0;
+      int maxPaid = 0;
       List<TransactionByName> paidList = <TransactionByName>[];
       List<TransactionByName> earnList = <TransactionByName>[];
+      List<TransactionByDate> paidDateList = <TransactionByDate>[];
+      List<TransactionByDate> earnDateList = <TransactionByDate>[];
+
+      result.sort((a, b) => a.createdTime.compareTo(b.createdTime));
 
       for (model.Transaction item in result) {
         total += item.value * item.mode;
         if (item.mode == -1) {
+          if (maxPaid > item.value) {
+            maxPaid = item.value;
+          }
           totalPaid += item.value;
 
           int index =
@@ -53,6 +62,30 @@ class ReportCubit extends Cubit<ReportState> {
             );
             paidList[index].data.add(item);
             paidList[index]
+                .data
+                .sort((a, b) => a.createdTime.compareTo(b.createdTime));
+          }
+
+          int indexDate = paidDateList.indexWhere((element) =>
+              element.date ==
+              DateTime.fromMillisecondsSinceEpoch(item.createdTime)
+                  .day
+                  .toString());
+          if (indexDate == -1) {
+            paidDateList.add(TransactionByDate(
+              date: DateTime.fromMillisecondsSinceEpoch(item.createdTime)
+                  .day
+                  .toString(),
+              data: [item],
+              totalValue: item.value * item.mode,
+            ));
+          } else {
+            paidDateList[indexDate] = paidDateList[indexDate].copyWith(
+              totalValue:
+                  paidDateList[indexDate].totalValue + item.value * item.mode,
+            );
+            paidDateList[indexDate].data.add(item);
+            paidDateList[indexDate]
                 .data
                 .sort((a, b) => a.createdTime.compareTo(b.createdTime));
           }
@@ -73,6 +106,30 @@ class ReportCubit extends Cubit<ReportState> {
             );
             earnList[index].data.add(item);
             earnList[index]
+                .data
+                .sort((a, b) => a.createdTime.compareTo(b.createdTime));
+          }
+
+          int indexDate = earnDateList.indexWhere((element) =>
+              element.date ==
+              DateTime.fromMillisecondsSinceEpoch(item.createdTime)
+                  .day
+                  .toString());
+          if (indexDate == -1) {
+            earnDateList.add(TransactionByDate(
+              date: DateTime.fromMillisecondsSinceEpoch(item.createdTime)
+                  .day
+                  .toString(),
+              data: [item],
+              totalValue: item.value * item.mode,
+            ));
+          } else {
+            earnDateList[indexDate] = earnDateList[indexDate].copyWith(
+              totalValue:
+                  earnDateList[indexDate].totalValue + item.value * item.mode,
+            );
+            earnDateList[indexDate].data.add(item);
+            earnDateList[indexDate]
                 .data
                 .sort((a, b) => a.createdTime.compareTo(b.createdTime));
           }
@@ -105,6 +162,9 @@ class ReportCubit extends Cubit<ReportState> {
           paidList,
           earnList,
           remain,
+          maxPaid,
+          paidDateList,
+          earnDateList,
         ));
       }
     });
