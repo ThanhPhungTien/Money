@@ -114,7 +114,7 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                                 ),
                                 subtitle: Text(
                                   item.description,
-                                  style: textTheme.subtitle2?.copyWith(
+                                  style: textTheme.labelMedium?.copyWith(
                                     color: Colors.white,
                                   ),
                                 ),
@@ -150,7 +150,7 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child:
-                    Text('Menu', style: Theme.of(context).textTheme.headline6),
+                    Text('Menu', style: Theme.of(context).textTheme.titleLarge),
               ),
               const SizedBox(height: 16),
               ListTile(

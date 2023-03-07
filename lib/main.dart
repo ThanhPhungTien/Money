@@ -10,6 +10,7 @@ import 'package:money/repository/transaction_local_repository.dart';
 import 'package:money/repository/transaction_repository.dart';
 import 'package:money/route/app_route.dart';
 import 'package:money/route/route_name.dart';
+import 'package:money/tool/style.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -83,14 +84,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Money',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        backgroundColor: Colors.grey,
-        listTileTheme: const ListTileThemeData(
-          iconColor: Colors.black,
-        ),
-      ),
-
+      theme: appTheme,
       initialRoute: RouteName.homePage,
       // home: const KeyboardDemo(),
       onGenerateRoute: onGenerateRoute,

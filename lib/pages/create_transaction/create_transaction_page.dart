@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
-import 'package:flutter_multi_formatter/formatters/currency_input_formatter.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/create_transaction/create_transaction_bloc.dart';

@@ -38,7 +38,7 @@ class ReportDetailPage extends StatelessWidget {
                                   title: Text(item.name),
                                   trailing: Text(
                                     moneyFormat(item.totalValue),
-                                    style: textTheme.subtitle1?.copyWith(
+                                    style: textTheme.labelSmall?.copyWith(
                                       color: item.totalValue < 0
                                           ? Colors.red
                                           : Colors.green,
@@ -67,7 +67,7 @@ class ReportDetailPage extends StatelessWidget {
                                     subtitle: Text(itemTrans.description),
                                     trailing: Text(
                                       moneyFormat(value),
-                                      style: textTheme.subtitle1?.copyWith(
+                                      style: textTheme.labelSmall?.copyWith(
                                         color: value < 0
                                             ? Colors.red
                                             : Colors.green,

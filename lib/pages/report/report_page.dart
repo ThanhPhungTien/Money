@@ -63,7 +63,7 @@ class _ReportPageState extends State<ReportPage> {
                             state.time.millisecondsSinceEpoch,
                             false,
                           ),
-                          style: textTheme.headline6?.copyWith(
+                          style: textTheme.titleLarge?.copyWith(
                             color: Colors.white,
                           ),
                         ),
@@ -75,7 +75,7 @@ class _ReportPageState extends State<ReportPage> {
                     title: const Text('Tổng cộng'),
                     trailing: Text(
                       moneyFormat(state.total),
-                      style: textTheme.headline5?.copyWith(
+                      style: textTheme.headlineSmall?.copyWith(
                         color: state.total > 0 ? Colors.green : Colors.red,
                       ),
                     ),
@@ -90,7 +90,7 @@ class _ReportPageState extends State<ReportPage> {
                     title: const Text('Đầu kỳ'),
                     trailing: Text(
                       moneyFormat(state.remain),
-                      style: textTheme.headline5?.copyWith(
+                      style: textTheme.headlineSmall?.copyWith(
                         color: state.remain > 0 ? Colors.green : Colors.red,
                       ),
                     ),
@@ -107,7 +107,7 @@ class _ReportPageState extends State<ReportPage> {
                         title: const Text('Thu'),
                         trailing: Text(
                           moneyFormat(state.totalEarn),
-                          style: textTheme.headline6?.copyWith(
+                          style: textTheme.titleLarge?.copyWith(
                             color: Colors.green,
                           ),
                         ),
@@ -129,7 +129,7 @@ class _ReportPageState extends State<ReportPage> {
                         title: const Text('Chi'),
                         trailing: Text(
                           moneyFormat(state.totalPaid),
-                          style: textTheme.headline6?.copyWith(
+                          style: textTheme.titleLarge?.copyWith(
                             color: Colors.red,
                           ),
                         ),
@@ -177,7 +177,7 @@ class _ReportPageState extends State<ReportPage> {
                                 BarChartRodData rod,
                                 int rodIndex,
                               ) =>
-                                  BarTooltipItem(moneyFormat(rod.toY.toInt() + 1000), textTheme.subtitle2!),
+                                  BarTooltipItem(moneyFormat(rod.toY.toInt() + 1000), textTheme.labelMedium!),
                             ),
                           ),
                           titlesData: FlTitlesData(

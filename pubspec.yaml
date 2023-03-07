@@ -13,26 +13,26 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  intl: ^0.17.0
-  path: ^1.8.2
+  intl: any
+  path: any
   http: ^0.13.5
   get_it: ^7.2.0
-  sqflite: ^2.2.3
-  fl_chart: ^0.55.2
+  sqflite: ^2.2.5
+  fl_chart: ^0.61.0
   equatable: ^2.0.5
   animations: ^2.0.7
-  flutter_bloc: ^8.1.1
-  firebase_core: ^2.4.1
+  flutter_bloc: ^8.1.2
+  firebase_core: ^2.7.0
   cupertino_icons: ^1.0.5
-  cloud_firestore: ^4.3.1
-  json_annotation: ^4.7.0
+  cloud_firestore: ^4.4.3
+  json_annotation: ^4.8.0
   another_flushbar: ^1.12.29
-  connectivity_plus: ^3.0.2
-  shared_preferences: ^2.0.16
-  month_picker_dialog_2: ^0.5.8
-  flutter_multi_formatter: ^2.10.1
-  bloc: ^8.1.0
-  meta: ^1.8.0
+  connectivity_plus: ^3.0.3
+  shared_preferences: ^2.0.18
+  month_picker_dialog_2: ^0.6.2+1
+  flutter_multi_formatter: ^2.10.2
+  bloc: ^8.1.1
+  meta: any
 
 dev_dependencies:
   flutter_test:
@@ -40,7 +40,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.1
   build_runner: ^2.3.3
-  json_serializable: ^6.5.4
+  json_serializable: ^6.6.1
 
 flutter:
 

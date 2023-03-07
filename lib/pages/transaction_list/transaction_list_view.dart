@@ -61,7 +61,7 @@ class _TransactionListViewState extends State<TransactionListView> {
                           state.time.millisecondsSinceEpoch,
                           false,
                         ),
-                        style: textTheme.headline6?.copyWith(
+                        style: textTheme.titleLarge?.copyWith(
                           color: Colors.white,
                         ),
                       ),
@@ -133,10 +133,10 @@ class ItemTransactionWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            title: Text(item.dateTime, style: textTheme.subtitle2),
+            title: Text(item.dateTime, style: textTheme.labelMedium),
             trailing: Text(
               moneyFormat(item.totalValue),
-              style: textTheme.subtitle2?.copyWith(
+              style: textTheme.labelMedium?.copyWith(
                 color: item.totalValue < 0 ? Colors.red : Colors.green,
               ),
             ),
@@ -167,12 +167,12 @@ class ItemTransactionWidget extends StatelessWidget {
                 minLeadingWidth: 0,
                 title: Text(
                   transaction.groupName,
-                  style: textTheme.subtitle2,
+                  style: textTheme.labelMedium,
                 ),
                 subtitle: Text(transaction.description),
                 trailing: Text(
                   moneyFormat(transaction.value * transaction.mode),
-                  style: textTheme.subtitle2?.copyWith(
+                  style: textTheme.labelMedium?.copyWith(
                     color: transaction.mode == -1 ? Colors.red : Colors.green,
                   ),
                 ),
@@ -195,7 +195,7 @@ class ItemTransactionWidget extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Menu', style: Theme.of(context).textTheme.headline6),
+                child: Text('Menu', style: Theme.of(context).textTheme.titleLarge),
               ),
               ListTile(
                 onTap: () {
