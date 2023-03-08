@@ -125,27 +125,43 @@ class _HomePageState extends State<HomePage> {
       prefs.setBool(Constant.hasInternet, false);
     }
 
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-          log('result $result');
-      _showConnectionMessage(result != ConnectivityResult.none);
-      prefs.setBool(Constant.hasInternet, result != ConnectivityResult.none);
-    });
-  }
+    final flushBar = Flushbar(
+      icon: const Icon(
+        Icons.wifi,
+        color: Colors.white,
+      ),
+      title: 'Mừng quá',
+      message: 'Đã khôi phục kết nối mạng',
+      duration: const Duration(seconds: 3),
+      backgroundColor: Colors.green,
+      flushbarStyle: FlushbarStyle.FLOATING,
+    );
 
-  void _showConnectionMessage(bool hasConnection) {
-    Flushbar(
-      icon: Icon(
-        hasConnection ? Icons.wifi : Icons.wifi_off,
+    final flushBarNoInternet = Flushbar(
+      icon: const Icon(
+        Icons.wifi_off,
         color: Colors.white,
       ),
       title: 'Ét ô Ét',
-      message:
-          hasConnection ? 'Đã khôi phục kết nối mạng' : 'Không có kết nối mạng',
+      message: 'Không có kết nối mạng',
       duration: const Duration(seconds: 3),
-      backgroundColor: hasConnection ? Colors.green : Colors.black,
+      backgroundColor: Colors.black,
       flushbarStyle: FlushbarStyle.FLOATING,
-    ).show(context);
+    );
+
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+
+      if (result == ConnectivityResult.none) {
+        flushBar.dismiss();
+        flushBarNoInternet.show(context);
+      } else {
+        flushBarNoInternet.dismiss();
+        flushBar.show(context);
+      }
+
+      prefs.setBool(Constant.hasInternet, result != ConnectivityResult.none);
+    });
   }
 }

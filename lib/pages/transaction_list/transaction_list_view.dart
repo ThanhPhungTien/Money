@@ -160,9 +160,12 @@ class ItemTransactionWidget extends StatelessWidget {
                   },
                 ),
                 minVerticalPadding: 0,
-                leading: const SizedBox(
+                leading: SizedBox(
                   height: double.infinity,
-                  child: Icon(Icons.attach_money, color: Colors.green),
+                  child: CircleAvatar(
+                    backgroundColor: colorByGoal(transaction.transactionFor),
+                    maxRadius: 10,
+                  ),
                 ),
                 minLeadingWidth: 0,
                 title: Text(
@@ -195,7 +198,8 @@ class ItemTransactionWidget extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Menu', style: Theme.of(context).textTheme.titleLarge),
+                child:
+                    Text('Menu', style: Theme.of(context).textTheme.titleLarge),
               ),
               ListTile(
                 onTap: () {

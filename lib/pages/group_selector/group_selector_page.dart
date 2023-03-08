@@ -85,8 +85,9 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                             return Material(
                               elevation: 2,
                               borderRadius: BorderRadius.circular(8),
-                              color:
-                                  item.mode == -1 ? Colors.red[400] : Colors.green[400],
+                              color: item.mode == -1
+                                  ? Colors.red[400]
+                                  : Colors.green[400],
                               child: ListTile(
                                 onTap: () => Navigator.pop(context, item),
                                 shape: RoundedRectangleBorder(
@@ -95,11 +96,6 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                                 minLeadingWidth: 0,
                                 onLongPress: () =>
                                     showMenuBottom(context, item),
-                                leading: const SizedBox(
-                                  height: double.infinity,
-                                  child:
-                                      Icon(Icons.ad_units, color: Colors.white),
-                                ),
                                 title: Text(
                                   item.name,
                                   style: textTheme.titleMedium?.copyWith(
@@ -107,17 +103,19 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                                   ),
                                 ),
                                 trailing: Text(
-                                  item.mode == -1 ? 'Giảm' : 'Tăng',
+                                  item.mode == -1 ? '-' : '+',
                                   style: textTheme.titleMedium?.copyWith(
                                     color: Colors.white,
                                   ),
                                 ),
-                                subtitle: Text(
-                                  item.description,
-                                  style: textTheme.labelMedium?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                                ),
+                                subtitle: item.description.isNotEmpty
+                                    ? Text(
+                                        item.description,
+                                        style: textTheme.labelMedium?.copyWith(
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : null,
                               ),
                             );
                           },

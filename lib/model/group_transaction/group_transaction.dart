@@ -1,34 +1,19 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../transaction/transaction.dart';
 
+part 'group_transaction.freezed.dart';
 part 'group_transaction.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-class GroupTransaction {
-  final String dateTime;
-  final List<Transaction> data;
-  final int totalValue;
+@freezed
+class GroupTransaction with _$GroupTransaction {
+  const factory GroupTransaction({
+    @Default('') String dateTime,
+    @Default([]) List<Transaction> data,
+    @Default(0) int totalValue,
+}) = _GroupTransaction;
 
-  const GroupTransaction({
-    this.dateTime = '',
-    this.totalValue = 0,
-    this.data = const <Transaction>[],
-  });
-
-  factory GroupTransaction.fromJson(json) => _$GroupTransactionFromJson(json);
-
-  Map<String,dynamic> toJson() => _$GroupTransactionToJson(this);
-
-  GroupTransaction copyWith({
-    String? dateTime,
-    List<Transaction>? data,
-    int? totalValue,
-  }) {
-    return GroupTransaction(
-      dateTime: dateTime ?? this.dateTime,
-      data: data ?? this.data,
-      totalValue: totalValue ?? this.totalValue,
-    );
-  }
+  factory GroupTransaction.fromJson(Map<String, dynamic> json) =>
+      _$GroupTransactionFromJson(json);
 }
+

@@ -1,67 +1,32 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:money/enum/transaction_for/transaction_for.dart';
 import 'package:money/enum/transaction_type/transaction_type.dart';
 
 part 'transaction.g.dart';
 
-@JsonSerializable(explicitToJson: true)
-class Transaction {
-  final String id;
-  final String description;
-  final String groupId;
-  final String groupName;
-  final int value;
-  final int type;
-  final int createdTime;
-  final int updateTime;
-  final int mode;
-  final int year;
-  final int month;
+part 'transaction.freezed.dart';
 
-  const Transaction({
-    this.id = '',
-    this.description = '',
-    this.groupId = '',
-    this.groupName = '',
-    this.value = 0,
-    this.type = TransactionType.outcome,
-    this.createdTime = 0,
-    this.updateTime = 0,
-    this.year = 0,
-    this.month = 0,
-    this.mode = -1,
-  });
+@freezed
+class Transaction with _$Transaction {
+  const factory Transaction({
+    @Default('') String id,
+    @Default('') String description,
+    @Default('') String groupId,
+    @Default('') String groupName,
+    @Default(0) int value,
+    @Default(TransactionType.outcome) int type,
+    @Default(0) int createdTime,
+    @Default(0) int updateTime,
+    @Default(0) int mode,
+    @Default(0) int year,
+    @Default(-1) int month,
+    @Default(TransactionFor.all) int transactionFor,
+  }) = _Transaction;
 
-  factory Transaction.fromJson(json) => _$TransactionFromJson(json);
+  const Transaction._();
 
-  Map<String, dynamic> toJson() => _$TransactionToJson(this);
+  factory Transaction.fromJson(Map<String, dynamic> json) =>
+      _$TransactionFromJson(json);
 
-  bool isEmpty() => id.isEmpty;
-
-  Transaction copyWith({
-    String? id,
-    String? description,
-    String? groupId,
-    String? groupName,
-    int? value,
-    int? type,
-    int? createdTime,
-    int? updateTime,
-    int? mode,
-    int? year,
-    int? month,
-  }) {
-    return Transaction(
-      id: id ?? this.id,
-      description: description ?? this.description,
-      groupId: groupId ?? this.groupId,
-      groupName: groupName ?? this.groupName,
-      value: value ?? this.value,
-      type: type ?? this.type,
-      createdTime: createdTime ?? this.createdTime,
-      updateTime: updateTime ?? this.updateTime,
-      mode: mode ?? this.mode,
-      year: year ?? this.year,
-      month: month ?? this.month,
-    );
-  }
+  bool get isEmpty => id.isEmpty;
 }

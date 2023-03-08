@@ -1,15 +1,11 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:money/model/transaction/transaction.dart' as model;
 import 'package:money/model/transaction_by_date/transaction_by_date.dart';
 import 'package:money/model/transaction_by_name/transaction_by_name.dart';
 import 'package:money/tool/tool.dart';
 
 import '../../repository/transaction_repository.dart';
-
-import 'package:money/model/transaction/transaction.dart' as model;
 
 part 'report_state.dart';
 
@@ -18,14 +14,16 @@ class ReportCubit extends Cubit<ReportState> {
   TransactionRepository transactionRepository = TransactionRepository();
 
   Future<void> fetchData(DateTime time) async {
-    log('message ${time.year} ${time.month}');
     transactionRepository.transactionCollection
         .where('year', isEqualTo: time.year)
         .where('month', isEqualTo: time.month)
         .snapshots()
-        .listen((QuerySnapshot<Object?> data) async {
+        .listen((data) async {
+
       List<model.Transaction> result = data.docs
-          .map((e) => model.Transaction.fromJson(e.data()).copyWith(id: e.id))
+          .map((e) =>
+              model.Transaction.fromJson(e.data() as Map<String, dynamic>)
+                  .copyWith(id: e.id))
           .toList();
 
       int total = 0;
@@ -136,10 +134,6 @@ class ReportCubit extends Cubit<ReportState> {
         }
       }
       if (!isClosed) {
-        // Lấy dữ liệu toàn bộ
-        int year = time.month == 1 ? time.year - 1 : time.year;
-        int month = time.month == 1 ? 12 : time.month - 1;
-
         var dataReport = await transactionRepository.reportCollection.get();
 
         for (var item in dataReport.docs) {
@@ -151,8 +145,6 @@ class ReportCubit extends Cubit<ReportState> {
             remain += item.get('total') as int;
           }
         }
-
-        log('remain $year $month $remain $total');
 
         emit(ReportStateGotData(
           time,

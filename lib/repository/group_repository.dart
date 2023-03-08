@@ -43,7 +43,7 @@ class GroupRepository {
       QuerySnapshot snapshot = await groupCollection.get();
 
       for (var item in snapshot.docs) {
-        data.add(Group.fromJson(item.data()).copyWith(id: item.id));
+        data.add(Group.fromJson(item.data() as Map<String,dynamic>).copyWith(id: item.id));
       }
     } else {
       data = await groupLocalRepository.get();
@@ -57,7 +57,7 @@ class GroupRepository {
       try {
         DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
         if (documentSnapshot.exists) {
-          return Group.fromJson(documentSnapshot.data()).copyWith(
+          return Group.fromJson(documentSnapshot.data() as Map<String,dynamic>).copyWith(
             id: documentSnapshot.id,
           );
         }

@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
+import 'package:money/enum/transaction_for/transaction_for.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/model/transaction/transaction.dart' as model;
 import 'package:money/repository/group_repository.dart';
@@ -16,15 +15,16 @@ class CreateTransactionBloc
     extends Bloc<CreateTransactionEvent, CreateTransactionState> {
   CreateTransactionBloc() : super(CreateTransactionInitial()) {
     on<CreateTransactionEventInit>((event, emit) async {
-      log('CreateTransactionEventInit ${event.initData.toJson()}');
-      if (event.initData.isEmpty()) {
-        emit(CreateTransactionStateGotData(DateTime.now(), const Group()));
+      if (event.initData.isEmpty) {
+        emit(CreateTransactionStateGotData(
+            DateTime.now(), const Group(), TransactionFor.all));
       } else {
         Group group = await groupRepository.view(event.initData.groupId);
         emit(
           CreateTransactionStateGotData(
             DateTime.fromMillisecondsSinceEpoch(event.initData.createdTime),
             group,
+            TransactionFor.all,
           ),
         );
       }
@@ -34,25 +34,37 @@ class CreateTransactionBloc
       if (state is CreateTransactionStateGotData) {
         final currentState = state as CreateTransactionStateGotData;
 
-        emit(CreateTransactionStateGotData(currentState.dateTime, event.group));
+        emit(CreateTransactionStateGotData(
+            currentState.dateTime, event.group, currentState.transactionFor));
       }
     });
 
     on<CreateTransactionEventUpdateDate>((event, emit) {
       if (state is CreateTransactionStateGotData) {
         final currentState = state as CreateTransactionStateGotData;
-        emit(CreateTransactionStateGotData(event.dateTime, currentState.group));
+        emit(CreateTransactionStateGotData(
+            event.dateTime, currentState.group, currentState.transactionFor));
       }
     });
 
     on<CreateTransactionEventCreate>((event, emit) async {
-
-      if (event.transaction.isEmpty()) {
+      if (event.transaction.isEmpty) {
         await transactionRepository.create(event.transaction);
       } else {
         await transactionRepository.update(event.transaction);
       }
       emit(CreateTransactionStateCreateDone());
+    });
+
+    on<CreateTransactionEventUpdateCreated>((event, emit) async {
+      if (state is CreateTransactionStateGotData) {
+        final currentState = state as CreateTransactionStateGotData;
+        emit(CreateTransactionStateGotData(
+          currentState.dateTime,
+          currentState.group,
+          event.transactionFor,
+        ));
+      }
     });
   }
 

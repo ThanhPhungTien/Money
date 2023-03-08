@@ -10,7 +10,7 @@ TransactionByDate _$TransactionByDateFromJson(Map<String, dynamic> json) =>
     TransactionByDate(
       date: json['date'] as String? ?? '',
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Transaction.fromJson(e))
+              ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Transaction>[],
       totalValue: json['totalValue'] as int? ?? 0,

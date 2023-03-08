@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:animations/animations.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/pages/report/report_cubit.dart';
 import 'package:money/pages/report_detail/report_detail_page.dart';
 import 'package:month_picker_dialog_2/month_picker_dialog_2.dart';
+
 import '../../tool/tool.dart';
 
 class ReportPage extends StatefulWidget {
@@ -42,7 +41,6 @@ class _ReportPageState extends State<ReportPage> {
         bloc: bloc,
         builder: (context, state) {
           if (state is ReportStateGotData) {
-            log('length ${state.paidList.length}');
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -159,11 +157,10 @@ class _ReportPageState extends State<ReportPage> {
                                 x: state.paidDateList.indexOf(e),
                                 barRods: [
                                   BarChartRodData(
-                                      toY: (e.totalValue / 1000)
-                                          .abs()
-                                          .toDouble(),
-                                      color: Colors.red,
-                                      width: 16)
+                                    toY: (e.totalValue / 1000).abs().toDouble(),
+                                    color: Colors.red,
+                                    width: 16,
+                                  )
                                 ],
                               );
                             },
@@ -177,7 +174,10 @@ class _ReportPageState extends State<ReportPage> {
                                 BarChartRodData rod,
                                 int rodIndex,
                               ) =>
-                                  BarTooltipItem(moneyFormat(rod.toY.toInt() + 1000), textTheme.labelMedium!),
+                                  BarTooltipItem(
+                                moneyFormat(rod.toY.toInt() + 1000),
+                                textTheme.labelMedium!,
+                              ),
                             ),
                           ),
                           titlesData: FlTitlesData(
@@ -225,11 +225,10 @@ class _ReportPageState extends State<ReportPage> {
       initialDate: time,
       firstDate: DateTime(dateNow.year - 1),
       lastDate: DateTime(dateNow.year + 1),
+      headerColor: Colors.green,
     );
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
     }
   }
-
-  openReportDetail(bool isPaid) async {}
 }

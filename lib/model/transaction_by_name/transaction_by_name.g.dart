@@ -11,7 +11,7 @@ TransactionByName _$TransactionByNameFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String? ?? '',
       totalValue: json['totalValue'] as int? ?? 0,
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Transaction.fromJson(e))
+              ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <Transaction>[],
       isOpen: json['isOpen'] as bool? ?? false,

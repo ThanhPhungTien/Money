@@ -35,7 +35,7 @@ class TransactionRepository {
         .get();
 
     List<model.Transaction> transaction = data.docs.map((e) {
-      return model.Transaction.fromJson(e.data());
+      return model.Transaction.fromJson(e.data() as Map<String,dynamic>);
     }).toList();
 
     int total = transaction.isEmpty

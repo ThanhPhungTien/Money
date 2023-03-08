@@ -61,6 +61,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () {
         if (_controller != null) {
@@ -71,7 +72,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
       child: Scaffold(
         appBar: AppBar(
             title: Text(
-                '${widget.transaction.isEmpty() ? 'Tạo' : 'Sửa'} giao dịch')),
+                '${widget.transaction.isEmpty ? 'Tạo' : 'Sửa'} giao dịch')),
         body: BlocConsumer<CreateTransactionBloc, CreateTransactionState>(
           bloc: bloc,
           listener: (context, state) {
@@ -81,13 +82,17 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
             }
           },
           buildWhen: (prev, state) {
-            return state is CreateTransactionStateGotData ||
+            bool check = state is CreateTransactionStateGotData ||
                 state is CreateTransactionInitial;
+            return check;
           },
           builder: (context, state) {
             if (state is CreateTransactionStateGotData) {
               dateTEC.text = convertTime(
-                  'dd/MM/yyyy', state.dateTime.millisecondsSinceEpoch, true);
+                'dd/MM/yyyy',
+                state.dateTime.millisecondsSinceEpoch,
+                true,
+              );
               nameTEC.text = state.group.name;
               return Form(
                 key: keyForm,
@@ -148,6 +153,23 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                         labelText: 'Mô tả',
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    ListTile(
+                      onTap: () => showSelectGoal(context),
+                      contentPadding: EdgeInsets.zero,
+                      leading: SizedBox(
+                        height: double.infinity,
+                        child: CircleAvatar(
+                          backgroundColor: colorByGoal(state.transactionFor),
+                          maxRadius: 8,
+                        ),
+                      ),
+                      minLeadingWidth: 0,
+                      title: Text(
+                        'Giao dịch của ${textByGoal(state.transactionFor)}',
+                        style: textTheme.labelMedium,
+                      ),
+                    ),
                     const SizedBox(height: 32),
                     ElevatedButton(
                       onPressed: () => createTransaction(state),
@@ -200,6 +222,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
         month: state.dateTime.month,
         year: state.dateTime.year,
         mode: state.group.mode,
+        transactionFor: state.transactionFor,
       )));
     }
   }
@@ -207,6 +230,37 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   showKeyMoneyBoard(BuildContext context, TextEditingController valueTEC) {
     _controller = Scaffold.of(context).showBottomSheet(
       (context) => MoneyKeyBoardWidget(tec: valueTEC),
+    );
+  }
+
+  showSelectGoal(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const ListTile(
+              title: Text('Giao dịch này dùng cho ai?'),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  onTap: () {
+                    bloc.add(CreateTransactionEventUpdateCreated(index));
+                    Navigator.pop(context);
+                  },
+                  title: Text(textByGoal(index)),
+                  trailing: CircleAvatar(backgroundColor: colorByGoal(index)),
+                );
+              },
+            )
+          ],
+        );
+      },
     );
   }
 }

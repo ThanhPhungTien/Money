@@ -25,13 +25,14 @@ class TransactionListCubit extends Cubit<TransactionListState> {
     if (GetIt.I.get<SharedPreferences>().getBool(Constant.hasInternet) ??
         false) {
       transactionRepository.transactionCollection
+
           .where('year', isEqualTo: time.year)
           .where('month', isEqualTo: time.month)
           .orderBy('createdTime', descending: true)
           .snapshots()
           .listen((QuerySnapshot<Object?> data) async {
         List<model.Transaction> transactions = data.docs.map((e) {
-          return model.Transaction.fromJson(e.data()).copyWith(id: e.id);
+          return model.Transaction.fromJson(e.data() as Map<String,dynamic>).copyWith(id: e.id);
         }).toList();
 
         transactionLocalRepository.saveAll(transactions);
@@ -74,7 +75,10 @@ class TransactionListCubit extends Cubit<TransactionListState> {
         if (index == -1) {
           mData.add(item);
         } else {
-          mData[index].data.addAll(item.data);
+          mData[index] = mData[index].copyWith(
+            data: mData[index].data + item.data,
+          );
+
           mData[index] = mData[index].copyWith(
             totalValue: mData[index].totalValue + item.totalValue,
           );

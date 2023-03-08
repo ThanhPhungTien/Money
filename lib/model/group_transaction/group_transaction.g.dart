@@ -6,19 +6,19 @@ part of 'group_transaction.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GroupTransaction _$GroupTransactionFromJson(Map<String, dynamic> json) =>
-    GroupTransaction(
+_$_GroupTransaction _$$_GroupTransactionFromJson(Map<String, dynamic> json) =>
+    _$_GroupTransaction(
       dateTime: json['dateTime'] as String? ?? '',
-      totalValue: json['totalValue'] as int? ?? 0,
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Transaction.fromJson(e))
+              ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const <Transaction>[],
+          const [],
+      totalValue: json['totalValue'] as int? ?? 0,
     );
 
-Map<String, dynamic> _$GroupTransactionToJson(GroupTransaction instance) =>
+Map<String, dynamic> _$$_GroupTransactionToJson(_$_GroupTransaction instance) =>
     <String, dynamic>{
       'dateTime': instance.dateTime,
-      'data': instance.data.map((e) => e.toJson()).toList(),
+      'data': instance.data,
       'totalValue': instance.totalValue,
     };

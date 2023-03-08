@@ -16,76 +16,131 @@ class ReportDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    final bloc = ReportDetailCubit()..initData(data);
 
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: BlocProvider(
-        create: (context) => ReportDetailCubit()..initData(data),
-        child: BlocBuilder<ReportDetailCubit, ReportDetailState>(
-          builder: (context, state) {
-            if (state is ReportDetailInitial) {
-              return ListView(
-                children: [
-                  ExpansionPanelList(
-                    expansionCallback: (index, duration) {
-                      BlocProvider.of<ReportDetailCubit>(context)
-                          .changeOpen(index, data);
-                    },
-                    children: data
-                        .map((item) => ExpansionPanel(
-                              headerBuilder: (context, isExpanded) {
+      appBar: AppBar(
+        title: Text(title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.filter_alt_outlined),
+            onPressed: () => showSelectGoal(context, bloc),
+          ),
+        ],
+      ),
+      body: BlocBuilder<ReportDetailCubit, ReportDetailState>(
+        bloc: bloc,
+        builder: (context, state) {
+          if (state is ReportDetailInitial) {
+            return ListView(
+              children: [
+                ExpansionPanelList(
+                  expansionCallback: (index, duration) {
+                    bloc.changeOpen(index);
+                  },
+                  children: state.data
+                      .map((item) => ExpansionPanel(
+                            headerBuilder: (context, isExpanded) {
+                              return ListTile(
+                                title: Text(
+                                  item.name,
+                                  style: textTheme.labelMedium,
+                                ),
+                                trailing: Text(
+                                  moneyFormat(item.totalValue),
+                                  style: textTheme.labelSmall?.copyWith(
+                                    color: item.totalValue < 0
+                                        ? Colors.red
+                                        : Colors.green,
+                                  ),
+                                ),
+                              );
+                            },
+                            canTapOnHeader: true,
+                            isExpanded: item.isOpen,
+                            body: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: item.data.length,
+                              itemBuilder: (context, index) {
+                                int value = item.data[index].value *
+                                    item.data[index].mode;
+                                Transaction itemTrans = item.data[index];
                                 return ListTile(
-                                  title: Text(item.name),
+                                  minLeadingWidth: 0,
+                                  title: Text(
+                                    convertTime(
+                                      'dd/MM/yyyy',
+                                      itemTrans.createdTime,
+                                      false,
+                                    ),
+                                    style: textTheme.labelMedium,
+                                  ),
+                                  subtitle: Text(
+                                    itemTrans.description,
+                                    style: textTheme.labelSmall,
+                                  ),
+                                  leading: SizedBox(
+                                    height: double.infinity,
+                                    child: CircleAvatar(
+                                      backgroundColor:
+                                          colorByGoal(itemTrans.transactionFor),
+                                      maxRadius: 10,
+                                    ),
+                                  ),
                                   trailing: Text(
-                                    moneyFormat(item.totalValue),
+                                    moneyFormat(value),
                                     style: textTheme.labelSmall?.copyWith(
-                                      color: item.totalValue < 0
-                                          ? Colors.red
-                                          : Colors.green,
+                                      color:
+                                          value < 0 ? Colors.red : Colors.green,
                                     ),
                                   ),
                                 );
                               },
-                              canTapOnHeader: true,
-                              isExpanded: item.isOpen,
-                              body: ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: item.data.length,
-                                itemBuilder: (context, index) {
-                                  int value = item.data[index].value *
-                                      item.data[index].mode;
-                                  Transaction itemTrans = item.data[index];
-                                  return ListTile(
-                                    title: Text(
-                                      convertTime(
-                                        'dd/MM/yyyy',
-                                        itemTrans.createdTime,
-                                        false,
-                                      ),
-                                    ),
-                                    subtitle: Text(itemTrans.description),
-                                    trailing: Text(
-                                      moneyFormat(value),
-                                      style: textTheme.labelSmall?.copyWith(
-                                        color: value < 0
-                                            ? Colors.red
-                                            : Colors.green,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
+                            ),
+                          ))
+                      .toList(),
+                ),
+              ],
+            );
+          }
+          return Container();
+        },
       ),
+    );
+  }
+
+  showSelectGoal(BuildContext context, ReportDetailCubit bloc) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const ListTile(
+              title: Text('Giao dịch này dùng cho ai?'),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 3,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  onTap: () {
+                    bloc.applyFilter(index);
+                    Navigator.pop(context);
+                  },
+                  title: Text(textByGoal(index)),
+                  trailing: CircleAvatar(
+                    backgroundColor: colorByGoal(index),
+                    maxRadius: 12,
+                  ),
+                );
+              },
+            )
+          ],
+        );
+      },
     );
   }
 }
