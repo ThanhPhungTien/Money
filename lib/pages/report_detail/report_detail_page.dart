@@ -32,8 +32,30 @@ class ReportDetailPage extends StatelessWidget {
         bloc: bloc,
         builder: (context, state) {
           if (state is ReportDetailInitial) {
+            int total = state.data.fold(0, (p, c) => p + c.totalValue);
             return ListView(
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        moneyFormat(total),
+                        style: textTheme.labelMedium?.copyWith(
+                          color: total < 0 ? Colors.red : Colors.green,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                if (state.data.isEmpty)
+                  Center(
+                    child: Text(
+                      'Không có dữ liệu',
+                      style: textTheme.labelMedium,
+                    ),
+                  ),
                 ExpansionPanelList(
                   expansionCallback: (index, duration) {
                     bloc.changeOpen(index);

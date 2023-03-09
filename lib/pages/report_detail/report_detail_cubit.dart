@@ -8,11 +8,13 @@ part 'report_detail_state.dart';
 
 class ReportDetailCubit extends Cubit<ReportDetailState> {
   ReportDetailCubit() : super(ReportDetailInitial(const <TransactionByName>[]));
+  List<TransactionByName> origin = [];
   List<TransactionByName> data = [];
 
   void initData(List<TransactionByName> data) {
     data.sort((a, b) => b.totalValue.abs().compareTo(a.totalValue.abs()));
-    this.data = data;
+    this.data = List.from(data);
+    origin = List.from(data);
     emit(ReportDetailInitial(data));
   }
 
@@ -25,22 +27,17 @@ class ReportDetailCubit extends Cubit<ReportDetailState> {
   }
 
   void applyFilter(int filter) {
-    log('filter $filter');
-    emit(
-      ReportDetailInitial(
-        data
-            .map((element) => element.copyWith(
-                  data: element.data
-                      .where((item) {
-                        log('item ${item.transactionFor == filter}');
-                        return item.transactionFor == filter;
-                      })
-                      .toList(),
-                ))
-            .toList(),
-      ),
 
+    List<TransactionByName> listName = origin
+        .map((element) => element.copyWith(
+              data: element.data.where((item) {
+                return item.transactionFor == filter;
+              }).toList(),
+            ))
+        .toList();
 
-    );
+    listName.removeWhere((element) => element.data.isEmpty);
+    data = List.from(listName);
+    emit(ReportDetailInitial(listName));
   }
 }

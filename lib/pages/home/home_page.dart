@@ -154,10 +154,10 @@ class _HomePageState extends State<HomePage> {
         .listen((ConnectivityResult result) {
 
       if (result == ConnectivityResult.none) {
-        flushBar.dismiss();
+        if (flushBar.isShowing()) flushBar.dismiss();
         flushBarNoInternet.show(context);
       } else {
-        flushBarNoInternet.dismiss();
+        if (flushBarNoInternet.isShowing())  flushBarNoInternet.dismiss();
         flushBar.show(context);
       }
 

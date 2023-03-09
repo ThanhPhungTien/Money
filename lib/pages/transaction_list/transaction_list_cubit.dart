@@ -25,15 +25,18 @@ class TransactionListCubit extends Cubit<TransactionListState> {
     if (GetIt.I.get<SharedPreferences>().getBool(Constant.hasInternet) ??
         false) {
       transactionRepository.transactionCollection
-
+          .withConverter<model.Transaction>(
+            fromFirestore: (snapshot, _) =>
+                model.Transaction.fromJson(snapshot.data()!),
+            toFirestore: (model, _) => model.toJson(),
+          )
           .where('year', isEqualTo: time.year)
           .where('month', isEqualTo: time.month)
           .orderBy('createdTime', descending: true)
           .snapshots()
-          .listen((QuerySnapshot<Object?> data) async {
-        List<model.Transaction> transactions = data.docs.map((e) {
-          return model.Transaction.fromJson(e.data() as Map<String,dynamic>).copyWith(id: e.id);
-        }).toList();
+          .listen((QuerySnapshot<model.Transaction> data) async {
+        List<model.Transaction> transactions =
+            data.docs.map((e) => e.data().copyWith(id: e.id)).toList();
 
         transactionLocalRepository.saveAll(transactions);
         List<GroupTransaction> mData = await mapToGroup(transactions);
@@ -43,7 +46,6 @@ class TransactionListCubit extends Cubit<TransactionListState> {
         }
       });
     } else {
-      log('lay local');
       List<model.Transaction> transactions =
           await transactionLocalRepository.get(time);
       emit(TransactionListStateGotData(await mapToGroup(transactions), time));
