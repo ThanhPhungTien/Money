@@ -413,6 +413,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  function_tree:
+    dependency: transitive
+    description:
+      name: function_tree
+      sha256: "204efae1786814cee404e68000aebda48bcf0419cc52b10e547c6c82f1b1da92"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.8.13"
   get_it:
     dependency: "direct main"
     description:
@@ -549,14 +557,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  month_picker_dialog_2:
+  money_input_formatter:
     dependency: "direct main"
     description:
-      name: month_picker_dialog_2
-      sha256: b388e766c20ed225892cb05c09793d70fe987b19c0c8a6e8bd350a791f862986
+      name: money_input_formatter
+      sha256: "1fa75953ca6e19698c1ab8280c0f0d80932178a6996a52616bc68880753c8ca6"
       url: "https://pub.dev"
     source: hosted
-    version: "0.6.2+1"
+    version: "2.0.0"
+  month_picker_dialog:
+    dependency: "direct main"
+    description:
+      name: month_picker_dialog
+      sha256: a47e7502b1298608589216bcba4163b140cc9241d9e6d42f658940897d163c7a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   nested:
     dependency: transitive
     description:
@@ -677,14 +693,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.2"
-  rxdart:
-    dependency: transitive
-    description:
-      name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.27.7"
   shared_preferences:
     dependency: "direct main"
     description:

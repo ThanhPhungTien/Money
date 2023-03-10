@@ -6,6 +6,7 @@ import 'package:money/pages/create_transaction/create_transaction_bloc.dart';
 import 'package:money/route/route_name.dart';
 import 'package:money/tool/tool.dart';
 import 'package:money/widgets/money_keyboard/money_keyboard_widget.dart';
+import 'package:money_input_formatter/money_input_formatter.dart';
 
 class CreateTransactionPage extends StatefulWidget {
   const CreateTransactionPage({
@@ -35,10 +36,18 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
 
   PersistentBottomSheetController? _controller;
 
+  final moneyFormat = MoneyInputFormatter(
+    thousandSeparator: '.',
+    decimalSeparator: ',',
+  );
+
   @override
   void initState() {
     bloc.add(CreateTransactionEventInit(widget.transaction));
-    valueTEC.text = widget.transaction.value.toString();
+    valueTEC.value = moneyFormat.formatEditUpdate(
+      TextEditingValue.empty,
+      TextEditingValue(text: widget.transaction.value.toString()),
+    );
     descriptionTEC.text = widget.transaction.description;
 
     super.initState();
@@ -132,8 +141,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                     TextFormField(
                       controller: valueTEC,
                       decoration: const InputDecoration(labelText: 'Giá trị'),
-                      // readOnly: true,
-                      // onTap: () => showKeyMoneyBoard(context, valueTEC),
+                      inputFormatters: [moneyFormat],
                       validator: (text) {
                         if (text == null ||
                             text.isEmpty ||

@@ -35,19 +35,26 @@ class ReportDetailPage extends StatelessWidget {
             int total = state.data.fold(0, (p, c) => p + c.totalValue);
             return ListView(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          textByGoal(state.filter),
+                          style: textTheme.labelMedium?.copyWith(
+                            color: total < 0 ? Colors.red : Colors.green,
+                          ),
+                        ),
+                      ),
+                      Text(
                         moneyFormat(total),
                         style: textTheme.labelMedium?.copyWith(
                           color: total < 0 ? Colors.red : Colors.green,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 if (state.data.isEmpty)
                   Center(
@@ -146,6 +153,7 @@ class ReportDetailPage extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 3,
+              padding: EdgeInsets.zero,
               itemBuilder: (context, index) {
                 return ListTile(
                   onTap: () {
@@ -159,7 +167,16 @@ class ReportDetailPage extends StatelessWidget {
                   ),
                 );
               },
-            )
+            ),
+            ListTile(
+              onTap: () {
+                bloc.applyFilter(-1);
+                Navigator.pop(context);
+              },
+              title: const Text('Bỏ lọc'),
+              trailing: const Icon(Icons.filter_alt_off_outlined),
+            ),
+            const SizedBox(height: 16),
           ],
         );
       },

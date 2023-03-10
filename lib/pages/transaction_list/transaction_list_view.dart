@@ -6,7 +6,7 @@ import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/transaction_list/transaction_list_cubit.dart';
 import 'package:money/route/route_name.dart';
 import 'package:money/tool/tool.dart';
-import 'package:month_picker_dialog_2/month_picker_dialog_2.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 import '../../widgets/failure/failure_view.dart';
 
@@ -105,6 +105,11 @@ class _TransactionListViewState extends State<TransactionListView> {
       initialDate: time,
       firstDate: DateTime(dateNow.year - 1),
       lastDate: DateTime(dateNow.year + 1),
+      headerColor: Colors.green,
+      roundedCornersRadius: 8,
+
+      confirmWidget: const Text('OK'),
+      cancelWidget:  const Text('Hủy'),
     );
     if (result != null && result is DateTime) {
       bloc.fetchData(result);

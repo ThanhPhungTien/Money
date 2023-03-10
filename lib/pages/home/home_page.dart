@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:animations/animations.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -27,6 +26,8 @@ class _HomePageState extends State<HomePage> {
   HomeCubit bloc = HomeCubit();
 
   late StreamSubscription<ConnectivityResult> subscription;
+
+  ConnectivityResult lastNetworkStatus = ConnectivityResult.none;
 
   List<Widget> pageList = <Widget>[
     const TransactionListView(),
@@ -152,15 +153,19 @@ class _HomePageState extends State<HomePage> {
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
-
-      if (result == ConnectivityResult.none) {
-        if (flushBar.isShowing()) flushBar.dismiss();
+      if (result == ConnectivityResult.none &&
+          lastNetworkStatus != ConnectivityResult.none) {
+        if (flushBar.isShowing()) {
+          flushBar.dismiss();
+        }
         flushBarNoInternet.show(context);
-      } else {
-        if (flushBarNoInternet.isShowing())  flushBarNoInternet.dismiss();
+      } else if (lastNetworkStatus == ConnectivityResult.none && flushBar.isShowing()) {
+        if (flushBarNoInternet.isShowing()) {
+          flushBarNoInternet.dismiss();
+        }
         flushBar.show(context);
       }
-
+      lastNetworkStatus = result;
       prefs.setBool(Constant.hasInternet, result != ConnectivityResult.none);
     });
   }

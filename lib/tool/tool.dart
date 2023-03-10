@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:money/enum/transaction_for/transaction_for.dart';
 
 bool isMoney(String value) {
+  log('input ${value.trim()}');
   try {
     String data = value.replaceAll(',', '').trim();
     int.parse(data);
@@ -83,7 +86,7 @@ String textByGoal(int type) {
     case TransactionFor.thanh:
       return 'Thành';
     default:
-      return 'Chung';
+      return 'Không lọc';
   }
 }
 Color colorByGoal(int type) {
