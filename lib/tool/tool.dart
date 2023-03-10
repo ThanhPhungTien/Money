@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -120,7 +118,7 @@ Widget iconByGoal(int type) {
   String imagePath = imageByGoal(type);
 
   return CircleAvatar(
-    maxRadius: 12,
+    maxRadius: 13,
     child: Image.asset(imagePath, fit: BoxFit.fill),
   );
 }
