@@ -36,6 +36,7 @@ dependencies:
   freezed_annotation: ^2.2.0
   freezed: ^2.3.2
   money_input_formatter: ^2.0.0
+  google_fonts: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -48,4 +49,6 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  assets:
+    - assets/
 

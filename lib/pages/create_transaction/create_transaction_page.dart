@@ -167,10 +167,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       contentPadding: EdgeInsets.zero,
                       leading: SizedBox(
                         height: double.infinity,
-                        child: CircleAvatar(
-                          backgroundColor: colorByGoal(state.transactionFor),
-                          maxRadius: 8,
-                        ),
+                        child: iconByGoal(state.transactionFor),
                       ),
                       minLeadingWidth: 0,
                       title: Text(
@@ -262,7 +259,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                     Navigator.pop(context);
                   },
                   title: Text(textByGoal(index)),
-                  trailing: CircleAvatar(backgroundColor: colorByGoal(index)),
+                  trailing: iconByGoal(index),
                 );
               },
             )

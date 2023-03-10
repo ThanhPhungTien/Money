@@ -226,6 +226,7 @@ class _ReportPageState extends State<ReportPage> {
       firstDate: DateTime(dateNow.year - 1),
       lastDate: DateTime(dateNow.year + 1),
       headerColor: Colors.green,
+      roundedCornersRadius: 8,
     );
     if (result != null && result is DateTime) {
       bloc.fetchData(result);

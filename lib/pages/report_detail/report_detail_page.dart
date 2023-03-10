@@ -111,11 +111,7 @@ class ReportDetailPage extends StatelessWidget {
                                   ),
                                   leading: SizedBox(
                                     height: double.infinity,
-                                    child: CircleAvatar(
-                                      backgroundColor:
-                                          colorByGoal(itemTrans.transactionFor),
-                                      maxRadius: 10,
-                                    ),
+                                    child: iconByGoal(state.filter),
                                   ),
                                   trailing: Text(
                                     moneyFormat(value),
@@ -161,10 +157,7 @@ class ReportDetailPage extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   title: Text(textByGoal(index)),
-                  trailing: CircleAvatar(
-                    backgroundColor: colorByGoal(index),
-                    maxRadius: 12,
-                  ),
+                  trailing: iconByGoal(index),
                 );
               },
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 ThemeData appTheme = ThemeData(
   textTheme: textTheme,
@@ -6,72 +7,74 @@ ThemeData appTheme = ThemeData(
     background: Colors.grey,
   ),
   listTileTheme: listTileThemeData,
+
 );
 
 ListTileThemeData listTileThemeData = const ListTileThemeData(
   iconColor: Colors.black,
 );
 
-TextTheme textTheme = const TextTheme(
-  displayLarge: TextStyle(
+TextTheme textTheme =  TextTheme(
+  displayLarge: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 51,
+
   ),
-  displayMedium: TextStyle(
+  displayMedium: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 45,
   ),
-  displaySmall: TextStyle(
+  displaySmall: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 40,
   ),
-  headlineLarge: TextStyle(
+  headlineLarge: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 36,
   ),
-  headlineMedium: TextStyle(
+  headlineMedium: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 32,
   ),
-  headlineSmall: TextStyle(
+  headlineSmall: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 28,
   ),
-  titleLarge: TextStyle(
+  titleLarge: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 25,
   ),
-  titleMedium: TextStyle(
+  titleMedium: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 22,
   ),
-  titleSmall: TextStyle(
+  titleSmall: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 20,
   ),
-  labelLarge: TextStyle(
+  labelLarge: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 18,
   ),
-  labelMedium: TextStyle(
+  labelMedium: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 16,
     height: 20 / 16,
   ),
-  labelSmall: TextStyle(
+  labelSmall: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 14,
     height: 20 / 14,
   ),
-  bodyLarge: TextStyle(
+  bodyLarge: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 12,
   ),
-  bodyMedium: TextStyle(
+  bodyMedium: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 11,
   ),
-  bodySmall: TextStyle(
+  bodySmall: GoogleFonts.robotoFlex(
     color: Colors.black,
     fontSize: 10,
   ),

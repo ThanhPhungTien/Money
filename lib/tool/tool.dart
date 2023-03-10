@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:money/enum/icon_asset.dart';
 import 'package:money/enum/transaction_for/transaction_for.dart';
 
 bool isMoney(String value) {
-  log('input ${value.trim()}');
   try {
     String data = value.replaceAll(',', '').trim();
     int.parse(data);
@@ -89,6 +89,7 @@ String textByGoal(int type) {
       return 'Không lọc';
   }
 }
+
 Color colorByGoal(int type) {
   switch (type) {
     case TransactionFor.all:
@@ -100,4 +101,26 @@ Color colorByGoal(int type) {
     default:
       return Colors.red;
   }
+}
+
+String imageByGoal(int type) {
+  switch (type) {
+    case TransactionFor.all:
+      return IconAsset.house;
+    case TransactionFor.quyen:
+      return IconAsset.woman;
+    case TransactionFor.thanh:
+      return IconAsset.man;
+    default:
+      return IconAsset.house;
+  }
+}
+
+Widget iconByGoal(int type) {
+  String imagePath = imageByGoal(type);
+
+  return CircleAvatar(
+    maxRadius: 12,
+    child: Image.asset(imagePath, fit: BoxFit.fill),
+  );
 }

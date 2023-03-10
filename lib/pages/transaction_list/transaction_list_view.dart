@@ -167,10 +167,7 @@ class ItemTransactionWidget extends StatelessWidget {
                 minVerticalPadding: 0,
                 leading: SizedBox(
                   height: double.infinity,
-                  child: CircleAvatar(
-                    backgroundColor: colorByGoal(transaction.transactionFor),
-                    maxRadius: 10,
-                  ),
+                  child: iconByGoal(transaction.transactionFor),
                 ),
                 minLeadingWidth: 0,
                 title: Text(
