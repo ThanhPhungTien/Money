@@ -65,7 +65,7 @@ TextTheme textTheme = TextTheme(
   ),
   bodyLarge: GoogleFonts.robotoFlex(
     color: Colors.black,
-    fontSize: 12,
+    fontSize: 16,
   ),
   bodyMedium: GoogleFonts.robotoFlex(
     color: Colors.black,

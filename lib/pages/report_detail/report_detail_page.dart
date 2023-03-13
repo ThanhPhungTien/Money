@@ -67,6 +67,7 @@ class ReportDetailPage extends StatelessWidget {
                   expansionCallback: (index, duration) {
                     bloc.changeOpen(index);
                   },
+                  elevation: 0,
                   children: state.data
                       .map((item) => ExpansionPanel(
                             headerBuilder: (context, isExpanded) {

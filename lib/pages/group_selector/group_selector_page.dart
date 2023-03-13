@@ -84,10 +84,8 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                             Group item = state.data[index];
                             return Material(
                               elevation: 2,
+                              color: Colors.green.shade100,
                               borderRadius: BorderRadius.circular(8),
-                              color: item.mode == -1
-                                  ? Colors.red[400]
-                                  : Colors.green[400],
                               child: ListTile(
                                 onTap: () => Navigator.pop(context, item),
                                 shape: RoundedRectangleBorder(
@@ -96,25 +94,18 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                                 minLeadingWidth: 0,
                                 onLongPress: () =>
                                     showMenuBottom(context, item),
-                                title: Text(
-                                  item.name,
-                                  style: textTheme.titleMedium?.copyWith(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                trailing: Text(
-                                  item.mode == -1 ? '-' : '+',
-                                  style: textTheme.titleMedium?.copyWith(
+                                title: Text(item.name),
+                                trailing: CircleAvatar(
+                                  backgroundColor: item.mode == -1
+                                      ? Colors.red[400]
+                                      : Colors.green[400],
+                                  child: Icon(
+                                    item.mode == -1 ? Icons.remove : Icons.add,
                                     color: Colors.white,
                                   ),
                                 ),
                                 subtitle: item.description.isNotEmpty
-                                    ? Text(
-                                        item.description,
-                                        style: textTheme.labelMedium?.copyWith(
-                                          color: Colors.white,
-                                        ),
-                                      )
+                                    ? Text(item.description)
                                     : null,
                               ),
                             );

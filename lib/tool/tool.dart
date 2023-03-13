@@ -119,6 +119,7 @@ Widget iconByGoal(int type) {
 
   return CircleAvatar(
     maxRadius: 13,
+    backgroundColor: Colors.white,
     child: Image.asset(imagePath, fit: BoxFit.fill),
   );
 }
