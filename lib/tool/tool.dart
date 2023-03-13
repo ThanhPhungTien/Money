@@ -6,7 +6,7 @@ import 'package:money/enum/transaction_for/transaction_for.dart';
 
 bool isMoney(String value) {
   try {
-    String data = value.replaceAll(',', '').trim();
+    String data = value.replaceAll(',', '').replaceAll('.', '').trim();
     int.parse(data);
   } on Exception catch (_) {
     return false;

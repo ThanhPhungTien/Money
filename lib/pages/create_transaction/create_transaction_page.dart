@@ -223,7 +223,8 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
         description: descriptionTEC.text,
         groupName: state.group.name,
         groupId: state.group.id,
-        value: int.parse(valueTEC.text.replaceAll(',', '').trim()),
+        value: int.parse(
+            valueTEC.text.replaceAll(',', '').replaceAll('.', '').trim()),
         month: state.dateTime.month,
         year: state.dateTime.year,
         mode: state.group.mode,
