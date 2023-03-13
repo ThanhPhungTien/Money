@@ -6,6 +6,7 @@ import 'package:money/pages/create_transaction/create_transaction_bloc.dart';
 import 'package:money/route/route_name.dart';
 import 'package:money/tool/tool.dart';
 import 'package:money/widgets/money_keyboard/money_keyboard_widget.dart';
+import 'package:money/widgets/suggest_money/suggest_money.dart';
 import 'package:money_input_formatter/money_input_formatter.dart';
 
 class CreateTransactionPage extends StatefulWidget {
@@ -155,6 +156,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: 8),
+                    SuggestMoneyView(textController: valueTEC),
                     TextFormField(
                       controller: descriptionTEC,
                       decoration: const InputDecoration(

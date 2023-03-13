@@ -17,7 +17,10 @@ class CreateTransactionBloc
     on<CreateTransactionEventInit>((event, emit) async {
       if (event.initData.isEmpty) {
         emit(CreateTransactionStateGotData(
-            DateTime.now(), const Group(), TransactionFor.all));
+          DateTime.now(),
+          const Group(),
+          TransactionFor.all,
+        ));
       } else {
         Group group = await groupRepository.view(event.initData.groupId);
         emit(
@@ -34,8 +37,15 @@ class CreateTransactionBloc
       if (state is CreateTransactionStateGotData) {
         final currentState = state as CreateTransactionStateGotData;
 
+        groupRepository.update(event.group.copyWith(
+          updateTime: DateTime.now().millisecondsSinceEpoch,
+        ));
+
         emit(CreateTransactionStateGotData(
-            currentState.dateTime, event.group, currentState.transactionFor));
+          currentState.dateTime,
+          event.group,
+          currentState.transactionFor,
+        ));
       }
     });
 
@@ -43,7 +53,10 @@ class CreateTransactionBloc
       if (state is CreateTransactionStateGotData) {
         final currentState = state as CreateTransactionStateGotData;
         emit(CreateTransactionStateGotData(
-            event.dateTime, currentState.group, currentState.transactionFor));
+          event.dateTime,
+          currentState.group,
+          currentState.transactionFor,
+        ));
       }
     });
 

@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:money/enum/constant.dart';
@@ -43,12 +42,14 @@ class GroupRepository {
       QuerySnapshot snapshot = await groupCollection.get();
 
       for (var item in snapshot.docs) {
-        data.add(Group.fromJson(item.data() as Map<String,dynamic>).copyWith(id: item.id));
+        data.add(Group.fromJson(item.data() as Map<String, dynamic>)
+            .copyWith(id: item.id));
       }
     } else {
       data = await groupLocalRepository.get();
     }
 
+    data.sort((a, b) => b.updateTime.compareTo(a.updateTime));
     return data;
   }
 
@@ -57,7 +58,8 @@ class GroupRepository {
       try {
         DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
         if (documentSnapshot.exists) {
-          return Group.fromJson(documentSnapshot.data() as Map<String,dynamic>).copyWith(
+          return Group.fromJson(documentSnapshot.data() as Map<String, dynamic>)
+              .copyWith(
             id: documentSnapshot.id,
           );
         }
