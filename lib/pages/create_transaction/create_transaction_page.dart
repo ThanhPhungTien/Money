@@ -81,8 +81,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-            title: Text(
-                '${widget.transaction.isEmpty ? 'Tạo' : 'Sửa'} giao dịch')),
+          title:
+              Text('${widget.transaction.isEmpty ? 'Tạo' : 'Sửa'} giao dịch'),
+        ),
         body: BlocConsumer<CreateTransactionBloc, CreateTransactionState>(
           bloc: bloc,
           listener: (context, state) {

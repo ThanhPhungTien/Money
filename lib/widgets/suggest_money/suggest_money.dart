@@ -65,7 +65,6 @@ class _SuggestMoneyViewState extends State<SuggestMoneyView> {
                         moneyFormat(state.number * e),
                         style: textTheme.bodyLarge,
                       ),
-                      backgroundColor: Colors.green.shade100,
                     ))
                 .toList(),
           );
