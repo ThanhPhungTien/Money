@@ -37,7 +37,6 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chọn nhóm'),

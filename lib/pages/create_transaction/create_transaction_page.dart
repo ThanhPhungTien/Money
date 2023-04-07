@@ -144,6 +144,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       controller: valueTEC,
                       decoration: const InputDecoration(labelText: 'Giá trị'),
                       inputFormatters: [moneyFormat],
+
                       validator: (text) {
                         if (text == null ||
                             text.isEmpty ||
