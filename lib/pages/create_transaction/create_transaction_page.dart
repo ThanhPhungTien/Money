@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/model/transaction/transaction.dart';
 import 'package:money/pages/create_transaction/create_transaction_bloc.dart';
@@ -7,7 +10,6 @@ import 'package:money/route/route_name.dart';
 import 'package:money/tool/tool.dart';
 import 'package:money/widgets/money_keyboard/money_keyboard_widget.dart';
 import 'package:money/widgets/suggest_money/suggest_money.dart';
-import 'package:money_input_formatter/money_input_formatter.dart';
 
 class CreateTransactionPage extends StatefulWidget {
   const CreateTransactionPage({
@@ -37,9 +39,10 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
 
   PersistentBottomSheetController? _controller;
 
-  final moneyFormat = MoneyInputFormatter(
-    thousandSeparator: '.',
-    decimalSeparator: ',',
+  final moneyFormat = CurrencyInputFormatter(
+    thousandSeparator: ThousandSeparator.Comma,
+    mantissaLength:  0,
+    trailingSymbol: ''
   );
 
   @override
@@ -144,6 +147,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       controller: valueTEC,
                       decoration: const InputDecoration(labelText: 'Giá trị'),
                       inputFormatters: [moneyFormat],
+                      onChanged: (text) {
+                        log('text $text');
+                      },
 
                       validator: (text) {
                         if (text == null ||

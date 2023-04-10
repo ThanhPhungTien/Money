@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:money/tool/tool.dart';
 import 'package:money/widgets/suggest_money/suggest_money_cubit.dart';
-import 'package:money_input_formatter/money_input_formatter.dart';
 
 class SuggestMoneyView extends StatefulWidget {
   const SuggestMoneyView({
@@ -18,9 +18,10 @@ class SuggestMoneyView extends StatefulWidget {
 
 class _SuggestMoneyViewState extends State<SuggestMoneyView> {
   SuggestMoneyCubit bloc = SuggestMoneyCubit();
-  final moneyFormatter = MoneyInputFormatter(
-    thousandSeparator: '.',
-    decimalSeparator: ',',
+  final moneyFormatter = CurrencyInputFormatter(
+      thousandSeparator: ThousandSeparator.Comma,
+      mantissaLength:  0,
+      trailingSymbol: ''
   );
 
   @override

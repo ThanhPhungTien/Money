@@ -413,14 +413,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
-  function_tree:
-    dependency: transitive
-    description:
-      name: function_tree
-      sha256: "204efae1786814cee404e68000aebda48bcf0419cc52b10e547c6c82f1b1da92"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.13"
   get_it:
     dependency: "direct main"
     description:
@@ -565,14 +557,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  money_input_formatter:
-    dependency: "direct main"
-    description:
-      name: money_input_formatter
-      sha256: "1fa75953ca6e19698c1ab8280c0f0d80932178a6996a52616bc68880753c8ca6"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   month_picker_dialog:
     dependency: "direct main"
     description:
