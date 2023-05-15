@@ -107,9 +107,8 @@ class _TransactionListViewState extends State<TransactionListView> {
       lastDate: DateTime(dateNow.year + 1),
       headerColor: Colors.green,
       roundedCornersRadius: 8,
-
       confirmWidget: const Text('OK'),
-      cancelWidget:  const Text('Hủy'),
+      cancelWidget: const Text('Hủy'),
     );
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
@@ -199,7 +198,7 @@ class ItemTransactionWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(16.0),
                 child:
                     Text('Menu', style: Theme.of(context).textTheme.titleLarge),
               ),

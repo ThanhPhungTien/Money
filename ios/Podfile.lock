@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (4.6.0):
+  - cloud_firestore (4.7.0):
     - Firebase/Firestore (= 10.7.0)
     - firebase_core
     - Flutter
@@ -12,7 +12,7 @@ PODS:
   - Firebase/Firestore (10.7.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 10.7.0)
-  - firebase_core (2.11.0):
+  - firebase_core (2.12.0):
     - Firebase/CoreOnly (= 10.7.0)
     - Flutter
   - FirebaseCore (10.7.0):
@@ -61,8 +61,8 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `10.7.0`)
   - Flutter (from `Flutter`)
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
-  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
 
 SPEC REPOS:
@@ -89,9 +89,9 @@ EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   path_provider_foundation:
-    :path: ".symlinks/plugins/path_provider_foundation/ios"
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_foundation:
-    :path: ".symlinks/plugins/shared_preferences_foundation/ios"
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
   sqflite:
     :path: ".symlinks/plugins/sqflite/ios"
 
@@ -101,10 +101,10 @@ CHECKOUT OPTIONS:
     :tag: 10.7.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: 3809dfc121ab99b81bba51eb84ac6ca3f9033325
-  connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
+  cloud_firestore: 511b4d22a2b3c73d1d6f1974b1cf0971a034ea16
+  connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   Firebase: 0219acf760880eeec8ce479895bd7767466d9f81
-  firebase_core: dee76ded6c693fdb38b8ea39aef7129e32e587a3
+  firebase_core: 312d0d81b346ec20540822c8498e626d6918ef48
   FirebaseCore: e317665b9d744727a97e623edbbed009320afdd7
   FirebaseCoreInternal: 8845798510aae74703467480f71ac613788d0696
   FirebaseFirestore: 7b7d95b74637ed61b76996077a2b292167dae7e5

@@ -102,10 +102,13 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
           },
           builder: (context, state) {
             if (state is CreateTransactionStateGotData) {
+              
+              log('CreateTransactionStateGotData ${state.dateTime}');
+              
               dateTEC.text = convertTime(
                 'dd/MM/yyyy',
                 state.dateTime.millisecondsSinceEpoch,
-                true,
+                false,
               );
               nameTEC.text = state.group.name;
               return Form(
@@ -114,9 +117,11 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                   padding: const EdgeInsets.all(16),
                   children: [
                     GestureDetector(
-                      onTap: () => openDateSelector(DateTime.now()),
+                      onTap: () => openDateSelector(state.dateTime),
+                      behavior: HitTestBehavior.translucent,
                       child: TextFormField(
                         controller: dateTEC,
+                        // readOnly: true,
                         decoration: const InputDecoration(
                           labelText: 'Ngày tạo',
                           enabled: false,
@@ -213,6 +218,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   }
 
   openDateSelector(DateTime initialDate) async {
+    log('init date $initialDate');
     DateTime dateNow = DateTime.now();
     dynamic result = await showDatePicker(
       context: context,

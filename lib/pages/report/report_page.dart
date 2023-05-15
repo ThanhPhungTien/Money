@@ -68,78 +68,63 @@ class _ReportPageState extends State<ReportPage> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  ListTile(
-                    title: const Text('Tổng cộng'),
-                    trailing: Text(
-                      moneyFormat(state.total),
-                      style: textTheme.headlineSmall?.copyWith(
-                        color: state.total > 0 ? Colors.green : Colors.red,
+                  GridView.count(
+                    shrinkWrap: true,
+                    crossAxisCount: 2,
+                    childAspectRatio: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
+                    padding: const EdgeInsets.all(8),
+                    children: [
+                      ItemView(
+                        title: 'Tổng cộng',
+                        content: moneyFormat(state.total),
+                        onTap: () {},
+                        backgroundColor: Colors.blue.shade50,
                       ),
-                    ),
-                  ),
-                  const Divider(
-                    height: 1,
-                    color: Colors.black,
-                    endIndent: 16,
-                    indent: 16,
-                  ),
-                  ListTile(
-                    title: const Text('Đầu kỳ'),
-                    trailing: Text(
-                      moneyFormat(state.remain),
-                      style: textTheme.headlineSmall?.copyWith(
-                        color: state.remain > 0 ? Colors.green : Colors.red,
+                      ItemView(
+                        title: 'Đầu kỳ',
+                        content: moneyFormat(state.remain),
+                        onTap: () {},
+                        backgroundColor: Colors.purple.shade50,
                       ),
-                    ),
-                  ),
-                  const Divider(
-                    height: 1,
-                    color: Colors.black,
-                    endIndent: 16,
-                    indent: 16,
-                  ),
-                  OpenContainer(
-                    closedBuilder: (context, action) {
-                      return ListTile(
-                        title: const Text('Thu'),
-                        trailing: Text(
-                          moneyFormat(state.totalEarn),
-                          style: textTheme.titleLarge?.copyWith(
-                            color: Colors.green,
-                          ),
-                        ),
-                      );
-                    },
-                    openBuilder: (context, action) {
-                      return ReportDetailPage(
-                        data: state.earnList,
-                        title:
-                            'Chi tiết thu ${convertTime('MM/yyyy', state.time.millisecondsSinceEpoch, false)}',
-                      );
-                    },
-                    closedElevation: 0,
-                  ),
-                  OpenContainer(
-                    closedElevation: 0,
-                    closedBuilder: (context, action) {
-                      return ListTile(
-                        title: const Text('Chi'),
-                        trailing: Text(
-                          moneyFormat(state.totalPaid),
-                          style: textTheme.titleLarge?.copyWith(
-                            color: Colors.red,
-                          ),
-                        ),
-                      );
-                    },
-                    openBuilder: (context, action) {
-                      return ReportDetailPage(
-                        data: state.paidList,
-                        title:
-                            'Chi tiết chi ${convertTime('MM/yyyy', state.time.millisecondsSinceEpoch, false)}',
-                      );
-                    },
+                      OpenContainer(
+                        closedBuilder: (context, action) {
+                          return ItemView(
+                            title: 'Thu',
+                            content: moneyFormat(state.totalEarn),
+                            onTap: () {},
+                            backgroundColor: Colors.green.shade50,
+                          );
+                        },
+                        openBuilder: (context, action) {
+                          return ReportDetailPage(
+                            data: state.earnList,
+                            title:
+                                'Chi tiết thu ${convertTime('MM/yyyy', state.time.millisecondsSinceEpoch, false)}',
+                          );
+                        },
+                        closedElevation: 0,
+                      ),
+                      OpenContainer(
+                        closedElevation: 0,
+                        closedBuilder: (context, action) {
+                          return ItemView(
+                            title: 'Chi',
+                            content: moneyFormat(state.totalPaid),
+                            onTap: () {},
+                            backgroundColor: Colors.red.shade50,
+                          );
+                        },
+                        openBuilder: (context, action) {
+                          return ReportDetailPage(
+                            data: state.paidList,
+                            title:
+                                'Chi tiết chi ${convertTime('MM/yyyy', state.time.millisecondsSinceEpoch, false)}',
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 32),
                   SingleChildScrollView(
@@ -158,7 +143,7 @@ class _ReportPageState extends State<ReportPage> {
                                 barRods: [
                                   BarChartRodData(
                                     toY: (e.totalValue / 1000).abs().toDouble(),
-                                    color: Colors.red,
+                                    color: Colors.blueAccent,
                                     width: 16,
                                   )
                                 ],
@@ -227,9 +212,52 @@ class _ReportPageState extends State<ReportPage> {
       lastDate: DateTime(dateNow.year + 1),
       headerColor: Colors.green,
       roundedCornersRadius: 8,
+      selectedMonthBackgroundColor: Colors.green,
+      selectedMonthTextColor: Colors.white,
+      unselectedMonthTextColor: Colors.green,
     );
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
     }
+  }
+}
+
+class ItemView extends StatelessWidget {
+  const ItemView({
+    Key? key,
+    required this.title,
+    required this.content,
+    required this.onTap,
+    required this.backgroundColor,
+  }) : super(key: key);
+
+  final String title;
+  final String content;
+  final VoidCallback onTap;
+  final Color backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: textTheme.labelSmall),
+          Text(
+            content,
+            style: textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              color: const Color(0xff1B1C21),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
