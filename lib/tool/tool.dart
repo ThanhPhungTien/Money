@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:lunar_calendar_converter_new/lunar_solar_converter.dart';
 import 'package:money/enum/icon_asset.dart';
 import 'package:money/enum/transaction_for/transaction_for.dart';
 
@@ -12,6 +13,15 @@ bool isMoney(String value) {
     return false;
   }
   return true;
+}
+
+DateTime solarToLunar(DateTime dateTime) {
+  Lunar lunar = LunarSolarConverter.solarToLunar(Solar(
+    solarYear: DateTime.now().year,
+    solarMonth: DateTime.now().month,
+    solarDay: DateTime.now().day,
+  ));
+  return DateTime(lunar.lunarYear!, lunar.lunarMonth!, lunar.lunarDay!);
 }
 
 String convertTime(String format, int time, bool isUTC) {

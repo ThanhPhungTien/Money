@@ -66,6 +66,21 @@ class _TransactionListViewState extends State<TransactionListView> {
                         ),
                       ),
                       minLeadingWidth: 0,
+                      trailing: ActionChip(
+                        shape: const StadiumBorder(side: BorderSide(width: 0)),
+                        elevation: 0,
+                        avatar: const Icon(Icons.nights_stay_outlined),
+                        label: Text(
+                          convertTime(
+                            'dd/MM/yyyy',
+                            solarToLunar(DateTime.now()).millisecondsSinceEpoch,
+                            false,
+                          ),
+                        ),
+
+                        side: const BorderSide(width: 0),
+                        onPressed: () async {},
+                      ),
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -105,7 +120,6 @@ class _TransactionListViewState extends State<TransactionListView> {
       initialDate: time,
       firstDate: DateTime(dateNow.year - 1),
       lastDate: DateTime(dateNow.year + 1),
-      headerColor: Colors.green,
       roundedCornersRadius: 8,
       confirmWidget: const Text('OK'),
       cancelWidget: const Text('Hủy'),
@@ -129,10 +143,7 @@ class ItemTransactionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    return Material(
-      color: Colors.white,
-      elevation: 2,
-      borderRadius: BorderRadius.circular(16),
+    return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

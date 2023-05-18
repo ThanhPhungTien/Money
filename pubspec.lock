@@ -525,6 +525,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  lunar_calendar_converter_new:
+    dependency: "direct main"
+    description:
+      name: lunar_calendar_converter_new
+      sha256: "0f516ca8f6e33f32c504861cb8e60b7e53fd984d16f07bb326711168e77ab984"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   matcher:
     dependency: transitive
     description:
