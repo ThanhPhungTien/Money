@@ -161,7 +161,10 @@ class _ReportPageState extends State<ReportPage> {
                               ) =>
                                   BarTooltipItem(
                                 moneyFormat(rod.toY.toInt() + 1000),
-                                textTheme.labelMedium!,
+                                textTheme.labelMedium!.copyWith(
+                                  color: Colors.white,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           ),

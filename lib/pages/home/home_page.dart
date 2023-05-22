@@ -31,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> pageList = <Widget>[
     const TransactionListView(),
-    Container(),
     const ReportPage(),
   ];
 
@@ -79,10 +78,42 @@ class _HomePageState extends State<HomePage> {
           return Container();
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: Colors.green,
+        child: const Icon(Icons.add, color: Colors.white),
+        onPressed: () =>
+            Navigator.pushNamed(context, RouteName.createTransaction),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
         bloc: bloc,
         builder: (context, state) {
           if (state is HomeInitial) {
+            return BottomAppBar(
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      if (state.index != 0) {
+                        bloc.updateIndex(0);
+                      }
+                    },
+                    icon: const Icon(Icons.fact_check),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      if (state.index != 1) {
+                        bloc.updateIndex(1);
+                      }
+                    },
+                    icon: const Icon(Icons.bar_chart),
+                  )
+                ],
+              ),
+            );
+
             return NavigationBar(
               selectedIndex: state.index,
               onDestinationSelected: (index) {
@@ -159,7 +190,8 @@ class _HomePageState extends State<HomePage> {
           flushBar.dismiss();
         }
         flushBarNoInternet.show(context);
-      } else if (lastNetworkStatus == ConnectivityResult.none && flushBar.isShowing()) {
+      } else if (lastNetworkStatus == ConnectivityResult.none &&
+          flushBar.isShowing()) {
         if (flushBarNoInternet.isShowing()) {
           flushBarNoInternet.dismiss();
         }

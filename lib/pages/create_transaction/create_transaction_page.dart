@@ -40,10 +40,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   PersistentBottomSheetController? _controller;
 
   final moneyFormat = CurrencyInputFormatter(
-    thousandSeparator: ThousandSeparator.Comma,
-    mantissaLength:  0,
-    trailingSymbol: ''
-  );
+      thousandSeparator: ThousandSeparator.Comma,
+      mantissaLength: 0,
+      trailingSymbol: '');
 
   @override
   void initState() {
@@ -102,9 +101,6 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
           },
           builder: (context, state) {
             if (state is CreateTransactionStateGotData) {
-              
-              log('CreateTransactionStateGotData ${state.dateTime}');
-              
               dateTEC.text = convertTime(
                 'dd/MM/yyyy',
                 state.dateTime.millisecondsSinceEpoch,
@@ -116,46 +112,40 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                 child: ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    GestureDetector(
-                      onTap: () => openDateSelector(state.dateTime),
-                      behavior: HitTestBehavior.translucent,
-                      child: TextFormField(
-                        controller: dateTEC,
-                        // readOnly: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Ngày tạo',
-                          enabled: false,
-                          suffixIcon: Icon(Icons.arrow_drop_down),
+                    TextFormField(
+                      controller: dateTEC,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        labelText: 'Ngày tạo',
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.calendar_month),
+                          onPressed: () => openDateSelector(state.dateTime),
                         ),
                       ),
                     ),
                     const SizedBox(height: 8),
-                    GestureDetector(
-                      onTap: openGroupSelector,
-                      child: TextFormField(
-                        controller: nameTEC,
-                        decoration: const InputDecoration(
-                          labelText: 'Tên giao dịch',
-                          enabled: false,
-                          suffixIcon: Icon(Icons.arrow_drop_down),
+                    TextFormField(
+                      controller: nameTEC,
+                      readOnly: true,
+                      decoration: InputDecoration(
+                        labelText: 'Tên giao dịch',
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.navigate_next_rounded),
+                          onPressed: openGroupSelector,
                         ),
-                        validator: (text) {
-                          if (text == null || text.isEmpty) {
-                            return 'Không để trống giá trị';
-                          }
-                          return null;
-                        },
                       ),
+                      validator: (text) {
+                        if (text == null || text.isEmpty) {
+                          return 'Không để trống giá trị';
+                        }
+                        return null;
+                      },
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
                       controller: valueTEC,
                       decoration: const InputDecoration(labelText: 'Giá trị'),
                       inputFormatters: [moneyFormat],
-                      onChanged: (text) {
-                        log('text $text');
-                      },
-
                       validator: (text) {
                         if (text == null ||
                             text.isEmpty ||
@@ -218,7 +208,6 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   }
 
   openDateSelector(DateTime initialDate) async {
-    log('init date $initialDate');
     DateTime dateNow = DateTime.now();
     dynamic result = await showDatePicker(
       context: context,
