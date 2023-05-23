@@ -18,7 +18,7 @@ dependencies:
   path: any
   http: ^0.13.6
   get_it: ^7.6.0
-  sqflite: ^2.2.8+2
+  sqflite: ^2.2.8+4
   fl_chart: ^0.62.0
   equatable: ^2.0.5
   animations: ^2.0.7

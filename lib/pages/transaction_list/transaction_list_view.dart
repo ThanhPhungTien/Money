@@ -45,41 +45,47 @@ class _TransactionListViewState extends State<TransactionListView> {
             if (state is TransactionListStateGotData) {
               return Column(
                 children: [
-                  Material(
-                    color: Colors.green,
-                    elevation: 1,
-                    borderRadius: BorderRadius.circular(8),
-                    child: ListTile(
-                      onTap: () => openSelectDate(state.time),
-                      leading: const Icon(
-                        Icons.date_range,
-                        color: Colors.white,
+                  ListTile(
+                    onTap: () => openSelectDate(state.time),
+                    leading: const Icon(Icons.date_range),
+                    title: Text(
+                      convertTime(
+                        'MM/yyyy',
+                        state.time.millisecondsSinceEpoch,
+                        false,
                       ),
-                      title: Text(
-                        convertTime(
-                          'MM/yyyy',
-                          state.time.millisecondsSinceEpoch,
-                          false,
-                        ),
-                        style: textTheme.titleLarge?.copyWith(
-                          color: Colors.white,
-                        ),
+                      style: textTheme.titleMedium,
+                    ),
+                    minLeadingWidth: 0,
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 4,
                       ),
-                      minLeadingWidth: 0,
-                      trailing: ActionChip(
-                        shape: const StadiumBorder(side: BorderSide(width: 0)),
-                        elevation: 0,
-                        avatar: const Icon(Icons.nights_stay_outlined),
-                        label: Text(
-                          convertTime(
-                            'dd/MM/yyyy',
-                            solarToLunar(DateTime.now()).millisecondsSinceEpoch,
-                            false,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(24),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.nights_stay_outlined,
+                            color: Colors.white,
                           ),
-                        ),
-
-                        side: const BorderSide(width: 0),
-                        onPressed: () async {},
+                          const SizedBox(width: 4),
+                          Text(
+                            convertTime(
+                              'dd/MM/yyyy',
+                              solarToLunar(DateTime.now())
+                                  .millisecondsSinceEpoch,
+                              false,
+                            ),
+                            style: textTheme.titleSmall?.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -162,33 +168,48 @@ class ItemTransactionWidget extends StatelessWidget {
             itemCount: item.data.length,
             itemBuilder: (BuildContext context, int index) {
               Transaction transaction = item.data[index];
-              return ListTile(
-                onLongPress: () => showMenuBottom(
-                  context,
-                  transaction,
+              return Dismissible(
+                key: Key(transaction.id),
+                onDismissed: (direction) {
+                  bloc.deleteTransaction(transaction.id);
+                },
+                background: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.red,
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  alignment: Alignment.centerRight,
+                  child: const Icon(
+                    Icons.delete_outline,
+                    color: Colors.white,
+                  ),
                 ),
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  RouteName.createTransaction,
-                  arguments: {
-                    Constant.transaction: transaction,
-                  },
-                ),
-                minVerticalPadding: 0,
-                leading: SizedBox(
-                  height: double.infinity,
-                  child: iconByGoal(transaction.transactionFor),
-                ),
-                minLeadingWidth: 0,
-                title: Text(
-                  transaction.groupName,
-                  style: textTheme.labelMedium,
-                ),
-                subtitle: Text(transaction.description),
-                trailing: Text(
-                  moneyFormat(transaction.value * transaction.mode),
-                  style: textTheme.labelMedium?.copyWith(
-                    color: transaction.mode == -1 ? Colors.red : Colors.green,
+                direction: DismissDirection.endToStart,
+                child: ListTile(
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    RouteName.createTransaction,
+                    arguments: {
+                      Constant.transaction: transaction,
+                    },
+                  ),
+                  minVerticalPadding: 0,
+                  leading: SizedBox(
+                    height: double.infinity,
+                    child: iconByGoal(transaction.transactionFor),
+                  ),
+                  minLeadingWidth: 0,
+                  title: Text(
+                    transaction.groupName,
+                    style: textTheme.labelMedium,
+                  ),
+                  subtitle: Text(transaction.description),
+                  trailing: Text(
+                    moneyFormat(transaction.value * transaction.mode),
+                    style: textTheme.labelMedium?.copyWith(
+                      color: transaction.mode == -1 ? Colors.red : Colors.green,
+                    ),
                   ),
                 ),
               );

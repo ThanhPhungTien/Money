@@ -50,99 +50,70 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        toolbarHeight: 0,
-      ),
-      body: BlocBuilder<HomeCubit, HomeState>(
-        bloc: bloc,
-        builder: (context, state) {
-          if (state is HomeInitial) {
-            return PageTransitionSwitcher(
-              transitionBuilder: (
-                Widget child,
-                Animation<double> animation,
-                Animation<double> secondaryAnimation,
-              ) {
-                return FadeThroughTransition(
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  child: child,
-                );
-              },
-              child: pageList[state.index],
-            );
-          }
-          return Container();
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        shape: const CircleBorder(),
-        backgroundColor: Colors.green,
-        child: const Icon(Icons.add, color: Colors.white),
-        onPressed: () =>
-            Navigator.pushNamed(context, RouteName.createTransaction),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
-      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-      bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
-        bloc: bloc,
-        builder: (context, state) {
-          if (state is HomeInitial) {
-            return BottomAppBar(
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      if (state.index != 0) {
-                        bloc.updateIndex(0);
-                      }
-                    },
-                    icon: const Icon(Icons.fact_check),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      if (state.index != 1) {
-                        bloc.updateIndex(1);
-                      }
-                    },
-                    icon: const Icon(Icons.bar_chart),
-                  )
-                ],
-              ),
-            );
-
-            return NavigationBar(
-              selectedIndex: state.index,
-              onDestinationSelected: (index) {
-                if (index != 1) {
-                  bloc.updateIndex(index);
-                }
-              },
-              destinations: [
-                const NavigationDestination(
-                  icon: Icon(Icons.fact_check),
-                  label: 'Giao dịch',
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          toolbarHeight: 0,
+        ),
+        body: BlocBuilder<HomeCubit, HomeState>(
+          bloc: bloc,
+          builder: (context, state) {
+            if (state is HomeInitial) {
+              return PageTransitionSwitcher(
+                transitionBuilder: (
+                  Widget child,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation,
+                ) {
+                  return FadeThroughTransition(
+                    animation: animation,
+                    secondaryAnimation: secondaryAnimation,
+                    child: child,
+                  );
+                },
+                child: pageList[state.index],
+              );
+            }
+            return Container();
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          elevation: 2,
+          backgroundColor: Colors.green,
+          child: const Icon(Icons.add, color: Colors.white),
+          onPressed: () =>
+              Navigator.pushNamed(context, RouteName.createTransaction),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+        bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
+          bloc: bloc,
+          builder: (context, state) {
+            if (state is HomeInitial) {
+              return BottomAppBar(
+                child: ButtonBar(
+                  alignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () => bloc.updateIndex(0),
+                      icon: const Icon(Icons.wysiwyg),
+                      tooltip: 'Giao dịch',
+                    ),
+                    IconButton(
+                      onPressed: () => bloc.updateIndex(1),
+                      icon: const Icon(Icons.bar_chart),
+                      tooltip: 'Báo cáo',
+                    )
+                  ],
                 ),
-                NavigationDestination(
-                  icon: FloatingActionButton(
-                    onPressed: () => Navigator.pushNamed(
-                        context, RouteName.createTransaction),
-                    child: const Icon(Icons.add),
-                  ),
-                  label: '',
-                ),
-                const NavigationDestination(
-                  icon: Icon(Icons.bar_chart),
-                  label: 'Báo cáo',
-                ),
-              ],
-            );
-          }
-          return Container();
-        },
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -118,7 +116,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       decoration: InputDecoration(
                         labelText: 'Ngày tạo',
                         suffixIcon: IconButton(
-                          icon: const Icon(Icons.calendar_month),
+                          icon: const Icon(Icons.calendar_month_outlined),
                           onPressed: () => openDateSelector(state.dateTime),
                         ),
                       ),
@@ -130,7 +128,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       decoration: InputDecoration(
                         labelText: 'Tên giao dịch',
                         suffixIcon: IconButton(
-                          icon: const Icon(Icons.navigate_next_rounded),
+                          icon: const Icon(Icons.bookmark_add_outlined),
                           onPressed: openGroupSelector,
                         ),
                       ),
