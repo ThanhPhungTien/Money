@@ -36,7 +36,7 @@ class _TransactionListViewState extends State<TransactionListView> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<TransactionListCubit, TransactionListState>(
@@ -93,20 +93,25 @@ class _TransactionListViewState extends State<TransactionListView> {
                   Expanded(
                     child: state.data.isEmpty
                         ? const FailureView(message: 'Không có dữ liệu')
-                        : ListView.separated(
-                            itemCount: state.data.length,
-                            padding: const EdgeInsets.all(8),
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(height: 8);
+                        : RefreshIndicator(
+                            onRefresh: () async {
+                              bloc.fetchData(state.time);
                             },
-                            itemBuilder: (BuildContext context, int index) {
-                              GroupTransaction item = state.data[index];
-                              return ItemTransactionWidget(
-                                item: item,
-                                bloc: bloc,
-                              );
-                            },
+                            child: ListView.separated(
+                              itemCount: state.data.length,
+                              padding: const EdgeInsets.all(8),
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return const SizedBox(height: 8);
+                              },
+                              itemBuilder: (BuildContext context, int index) {
+                                GroupTransaction item = state.data[index];
+                                return ItemTransactionWidget(
+                                  item: item,
+                                  bloc: bloc,
+                                );
+                              },
+                            ),
                           ),
                   ),
                 ],
@@ -185,6 +190,8 @@ class ItemTransactionWidget extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
+                confirmDismiss: (DismissDirection direction) =>
+                    showDeleteConfirm(context, transaction),
                 direction: DismissDirection.endToStart,
                 child: ListTile(
                   onTap: () => Navigator.pushNamed(
@@ -245,6 +252,31 @@ class ItemTransactionWidget extends StatelessWidget {
               ),
             ],
           ),
+        );
+      },
+    );
+  }
+
+  Future<bool?> showDeleteConfirm(
+      BuildContext context, Transaction transaction) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Xác nhận xóa'),
+          content: Text(
+            'Bạn có chắc muốn xóa "${transaction.groupName}/${transaction.description}" ?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Đóng'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Xác nhận'),
+            ),
+          ],
         );
       },
     );

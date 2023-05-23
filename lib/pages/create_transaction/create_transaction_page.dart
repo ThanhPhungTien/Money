@@ -182,7 +182,8 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                     ElevatedButton(
                       onPressed: () => createTransaction(state),
                       style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50)),
+                        minimumSize: const Size.fromHeight(50),
+                      ),
                       child: const Text('Cập nhật'),
                     )
                   ],

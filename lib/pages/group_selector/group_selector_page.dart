@@ -81,36 +81,29 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                           itemCount: state.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             Group item = state.data[index];
-                            return Material(
-                              elevation: 2,
-                              color: Colors.green.shade100,
-                              borderRadius: BorderRadius.circular(8),
-                              child: ListTile(
-                                onTap: () => Navigator.pop(context, item),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                            return ListTile(
+                              titleAlignment:
+                                  ListTileTitleAlignment.titleHeight,
+                              onTap: () => Navigator.pop(context, item),
+                              minLeadingWidth: 0,
+                              onLongPress: () => showMenuBottom(context, item),
+                              title: Text(item.name),
+                              leading: CircleAvatar(
+                                backgroundColor: item.mode == -1
+                                    ? Colors.red.shade400
+                                    : Colors.green.shade400,
+                                child: Icon(
+                                  item.mode == -1 ? Icons.remove : Icons.add,
+                                  color: Colors.white,
                                 ),
-                                minLeadingWidth: 0,
-                                onLongPress: () =>
-                                    showMenuBottom(context, item),
-                                title: Text(item.name),
-                                trailing: CircleAvatar(
-                                  backgroundColor: item.mode == -1
-                                      ? Colors.red[400]
-                                      : Colors.green[400],
-                                  child: Icon(
-                                    item.mode == -1 ? Icons.remove : Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                subtitle: item.description.isNotEmpty
-                                    ? Text(item.description)
-                                    : null,
                               ),
+                              subtitle: item.description.isNotEmpty
+                                  ? Text(item.description)
+                                  : null,
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {
-                            return const SizedBox(height: 8);
+                            return const Divider();
                           },
                         ),
                 ),
