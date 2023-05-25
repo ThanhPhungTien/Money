@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
@@ -21,7 +19,6 @@ class TransactionListCubit extends Cubit<TransactionListState> {
   TransactionLocalRepository transactionLocalRepository = GetIt.I.get();
 
   Future<void> fetchData(DateTime time) async {
-    log('message ${GetIt.I.get<SharedPreferences>().getBool(Constant.hasInternet)}');
     if (GetIt.I.get<SharedPreferences>().getBool(Constant.hasInternet) ??
         false) {
       transactionRepository.transactionCollection
