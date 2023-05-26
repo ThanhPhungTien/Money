@@ -37,6 +37,7 @@ dependencies:
   google_fonts: ^4.0.5
   lunar_calendar_converter_new: ^2.0.0
   dartz: ^0.10.1
+  injectable: ^2.1.1
 
 dev_dependencies:
   flutter_test:
