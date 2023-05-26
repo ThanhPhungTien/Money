@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:money/model/transaction/transaction.dart';
-import 'package:money/pages/create_group/create_group_page.dart';
-import 'package:money/pages/create_transaction/create_transaction_page.dart';
-import 'package:money/pages/group_selector/group_selector_page.dart';
-import 'package:money/pages/home/home_page.dart';
+import 'package:money/domain/transaction/transaction.dart';
+import 'package:money/presentation/create_group/create_group_page.dart';
+import 'package:money/presentation/create_transaction/create_transaction_page.dart';
+import 'package:money/presentation/group_selector/group_selector_page.dart';
+import 'package:money/presentation/home/home_page.dart';
 import 'package:money/route/route_name.dart';
 
 import '../enum/constant.dart';

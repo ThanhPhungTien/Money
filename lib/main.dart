@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:money/enum/local_db/db_constant.dart';
-import 'package:money/repository/group_local_repository.dart';
-import 'package:money/repository/group_repository.dart';
-import 'package:money/repository/transaction_local_repository.dart';
-import 'package:money/repository/transaction_repository.dart';
+import 'package:money/infrastructure/local/group_local_repository.dart';
+import 'package:money/infrastructure/remote/group_repository.dart';
+import 'package:money/infrastructure/local/transaction_local_repository.dart';
+import 'package:money/infrastructure/remote/transaction_repository.dart';
+import 'package:money/presentation/tool/style.dart';
 import 'package:money/route/app_route.dart';
 import 'package:money/route/route_name.dart';
-import 'package:money/tool/style.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
@@ -86,7 +86,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       initialRoute: RouteName.homePage,
-      // home: const KeyboardDemo(),
       onGenerateRoute: onGenerateRoute,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,

@@ -34,17 +34,19 @@ dependencies:
   bloc: ^8.1.2
   meta: any
   freezed_annotation: ^2.2.0
-  freezed: ^2.3.4
   google_fonts: ^4.0.5
   lunar_calendar_converter_new: ^2.0.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  freezed: ^2.3.4
   flutter_lints: ^2.0.1
   build_runner: ^2.4.4
   json_serializable: ^6.7.0
+  injectable_generator: ^2.1.5
 
 flutter:
 

@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../transaction/transaction.dart';
+import '../../domain/transaction/transaction.dart';
 
 part 'group_transaction.freezed.dart';
 part 'group_transaction.g.dart';
@@ -11,9 +11,8 @@ class GroupTransaction with _$GroupTransaction {
     @Default('') String dateTime,
     @Default([]) List<Transaction> data,
     @Default(0) int totalValue,
-}) = _GroupTransaction;
+  }) = _GroupTransaction;
 
   factory GroupTransaction.fromJson(Map<String, dynamic> json) =>
       _$GroupTransactionFromJson(json);
 }
-
