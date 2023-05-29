@@ -1,28 +1,9 @@
 part of 'create_group_bloc.dart';
 
-abstract class CreateGroupEvent extends Equatable {
-  const CreateGroupEvent();
-}
-
-class CreateGroupEventInit extends CreateGroupEvent {
-  @override
-  List<Object?> get props => [];
-}
-
-class CreateGroupEventUpdateCheck extends CreateGroupEvent {
-  final bool paid;
-
-  const CreateGroupEventUpdateCheck(this.paid);
-
-  @override
-  List<Object?> get props => [paid];
-}
-
-class CreateGroupEventSave extends CreateGroupEvent {
-  final Group group;
-
-  const CreateGroupEventSave(this.group);
-
-  @override
-  List<Object?> get props => [group];
+@freezed
+class CreateGroupEvent with _$CreateGroupEvent {
+  const factory CreateGroupEvent.init() = CreateGroupEventInit;
+  const factory CreateGroupEvent.updateCheck(bool paid) =
+      CreateGroupEventUpdateCheck;
+  const factory CreateGroupEvent.save(Group group) = CreateGroupEventSave;
 }

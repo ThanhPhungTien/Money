@@ -3,11 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 import 'package:money/enum/local_db/db_constant.dart';
-import 'package:money/infrastructure/local/group_local_repository.dart';
-import 'package:money/infrastructure/remote/group_repository.dart';
-import 'package:money/infrastructure/local/transaction_local_repository.dart';
-import 'package:money/infrastructure/remote/transaction_repository.dart';
+import 'package:money/main.config.dart';
 import 'package:money/presentation/tool/style.dart';
 import 'package:money/route/app_route.dart';
 import 'package:money/route/route_name.dart';
@@ -16,6 +14,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'firebase_options.dart';
+
+final GetIt getIt = GetIt.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,9 +32,8 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+@InjectableInit(initializerName: 'configDI')
 Future<void> configureDependencies() async {
-  final GetIt getIt = GetIt.instance;
-
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   getIt.registerSingletonAsync<SharedPreferences>(() async => prefs);
@@ -56,24 +55,10 @@ Future<void> configureDependencies() async {
     },
     dependsOn: [SharedPreferences],
   );
-  getIt.registerSingletonAsync(
-    () async => GroupLocalRepository(),
-    dependsOn: [SharedPreferences, Database],
-  );
-  getIt.registerSingletonAsync(
-    () async => TransactionLocalRepository(),
-    dependsOn: [SharedPreferences, Database],
-  );
-  getIt.registerSingletonAsync(
-    () async => GroupRepository(),
-    dependsOn: [SharedPreferences, Database, GroupLocalRepository],
-  );
-  getIt.registerSingletonAsync(
-    () async => TransactionRepository(),
-    dependsOn: [SharedPreferences, Database, TransactionLocalRepository],
-  );
 
   await getIt.allReady();
+
+  getIt.configDI();
 }
 
 class MyApp extends StatelessWidget {

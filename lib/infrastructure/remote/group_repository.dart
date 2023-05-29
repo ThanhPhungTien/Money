@@ -1,20 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
+import 'package:money/domain/transaction/i_group_repository.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/infrastructure/local/group_local_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class GroupRepository {
+@Injectable(as: IGroupRepository)
+class GroupRepository implements IGroupRepository {
   CollectionReference groupCollection = FirebaseFirestore.instance.collection(
     Constant.group,
   );
-
   SharedPreferences prefs = GetIt.I.get();
   GroupLocalRepository groupLocalRepository = GetIt.I.get();
 
-  Future<Group> create(Group group) async {
-    DocumentReference result = await groupCollection.add(group);
+  @override
+  Future<Group> create({required Group group}) async {
+    DocumentReference result = await groupCollection.add(group.toJson());
 
     return group.copyWith(
       id: result.id,
@@ -23,7 +26,8 @@ class GroupRepository {
     );
   }
 
-  Future<Group> update(Group group) async {
+  @override
+  Future<Group> update({required Group group}) async {
     if (prefs.getBool(Constant.hasInternet) ?? false) {
       await groupCollection.doc(group.id).update(group.toJson());
     } else {
@@ -35,6 +39,7 @@ class GroupRepository {
     );
   }
 
+  @override
   Future<List<Group>> get() async {
     List<Group> data = <Group>[];
 
@@ -53,7 +58,8 @@ class GroupRepository {
     return data;
   }
 
-  Future<Group> view(String id) async {
+  @override
+  Future<Group> view({required String id}) async {
     if (prefs.getBool(Constant.hasInternet) ?? false) {
       try {
         DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
@@ -71,5 +77,10 @@ class GroupRepository {
     }
 
     return const Group();
+  }
+
+  @override
+  Future<void> delete({required String id}) async {
+    await groupCollection.doc(id).delete();
   }
 }

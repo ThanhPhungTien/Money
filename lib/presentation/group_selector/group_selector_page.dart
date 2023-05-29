@@ -80,25 +80,46 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                           itemCount: state.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             Group item = state.data[index];
-                            return ListTile(
-                              titleAlignment:
-                                  ListTileTitleAlignment.titleHeight,
-                              onTap: () => Navigator.pop(context, item),
-                              minLeadingWidth: 0,
-                              onLongPress: () => showMenuBottom(context, item),
-                              title: Text(item.name),
-                              leading: CircleAvatar(
-                                backgroundColor: item.mode == -1
-                                    ? Colors.red.shade400
-                                    : Colors.green.shade400,
-                                child: Icon(
-                                  item.mode == -1 ? Icons.remove : Icons.add,
+                            return Dismissible(
+                              key: Key(item.id),
+                              direction: DismissDirection.endToStart,
+                              onDismissed: (direction) {
+                                bloc.add(GroupSelectorEventDelete(item));
+                              },
+                              confirmDismiss: (DismissDirection direction) =>
+                                  showDeleteConfirm(context, item),
+                              background: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.red,
+                                ),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 16),
+                                alignment: Alignment.centerRight,
+                                child: const Icon(
+                                  Icons.delete_outline,
                                   color: Colors.white,
                                 ),
                               ),
-                              subtitle: item.description.isNotEmpty
-                                  ? Text(item.description)
-                                  : null,
+                              child: ListTile(
+                                titleAlignment:
+                                    ListTileTitleAlignment.titleHeight,
+                                onTap: () => Navigator.pop(context, item),
+                                minLeadingWidth: 0,
+                                title: Text(item.name),
+                                leading: CircleAvatar(
+                                  backgroundColor: item.mode == -1
+                                      ? Colors.red.shade400
+                                      : Colors.green.shade400,
+                                  child: Icon(
+                                    item.mode == -1 ? Icons.remove : Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                subtitle: item.description.isNotEmpty
+                                    ? Text(item.description)
+                                    : null,
+                              ),
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {
@@ -119,30 +140,27 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
     );
   }
 
-  showMenuBottom(BuildContext context, Group item) {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:
-                    Text('Menu', style: Theme.of(context).textTheme.titleLarge),
-              ),
-              const SizedBox(height: 16),
-              ListTile(
-                onTap: () {
-                  Navigator.pop(context);
-                  bloc.add(GroupSelectorEventDelete(item));
-                },
-                leading: const Icon(Icons.delete),
-                title: const Text('Xóa'),
-              ),
-            ],
-          );
-        });
+  Future<bool?> showDeleteConfirm(BuildContext context, Group group) async {
+    return showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Xác nhận xóa'),
+          content: Text(
+            'Bạn có chắc muốn xóa "${group.name}" ?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Đóng'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Xác nhận'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

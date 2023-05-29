@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         body: BlocBuilder<HomeCubit, HomeState>(
           bloc: bloc,
           builder: (context, state) {
-            if (state is HomeInitial) {
+            if (state is HomeStateInitial) {
               return PageTransitionSwitcher(
                 transitionBuilder: (
                   Widget child,
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
         bottomNavigationBar: BlocBuilder<HomeCubit, HomeState>(
           bloc: bloc,
           builder: (context, state) {
-            if (state is HomeInitial) {
+            if (state is HomeStateInitial) {
               return BottomAppBar(
                 child: ButtonBar(
                   alignment: MainAxisAlignment.start,

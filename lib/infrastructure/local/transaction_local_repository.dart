@@ -1,8 +1,10 @@
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 import 'package:money/enum/local_db/db_constant.dart';
 import 'package:money/domain/transaction/transaction.dart' as model;
 import 'package:sqflite/sqflite.dart';
 
+@singleton
 class TransactionLocalRepository {
   final db = GetIt.I.get<Database>();
 

@@ -1,9 +1,11 @@
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/enum/local_db/db_constant.dart';
 import 'package:money/model/group/group.dart';
 import 'package:sqflite/sqlite_api.dart';
 
+@singleton
 class GroupLocalRepository {
   final db = GetIt.I.get<Database>();
 

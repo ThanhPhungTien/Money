@@ -1,12 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:money/enum/constant.dart';
-import 'package:money/model/group_transaction/group_transaction.dart';
+import 'package:money/domain/transaction/i_transaction_repository.dart';
 import 'package:money/domain/transaction/transaction.dart' as model;
+import 'package:money/enum/constant.dart';
 import 'package:money/infrastructure/local/transaction_local_repository.dart';
-import 'package:money/infrastructure/remote/transaction_repository.dart';
+import 'package:money/model/group_transaction/group_transaction.dart';
 import 'package:money/presentation/tool/tool.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,26 +14,15 @@ part 'transaction_list_state.dart';
 class TransactionListCubit extends Cubit<TransactionListState> {
   TransactionListCubit() : super(TransactionListInitial());
 
-  TransactionRepository transactionRepository = TransactionRepository();
+  ITransactionRepository transactionRepository = GetIt.I.get();
   TransactionLocalRepository transactionLocalRepository = GetIt.I.get();
 
   Future<void> fetchData(DateTime time) async {
     if (GetIt.I.get<SharedPreferences>().getBool(Constant.hasInternet) ??
         false) {
-      transactionRepository.transactionCollection
-          .withConverter<model.Transaction>(
-            fromFirestore: (snapshot, _) =>
-                model.Transaction.fromJson(snapshot.data()!),
-            toFirestore: (model, _) => model.toJson(),
-          )
-          .where('year', isEqualTo: time.year)
-          .where('month', isEqualTo: time.month)
-          .orderBy('createdTime', descending: true)
-          .snapshots()
-          .listen((QuerySnapshot<model.Transaction> data) async {
-        List<model.Transaction> transactions =
-            data.docs.map((e) => e.data().copyWith(id: e.id)).toList();
-
+      transactionRepository
+          .listenTransaction(time)
+          .listen((transactions) async {
         transactionLocalRepository.saveAll(transactions);
         List<GroupTransaction> mData = await mapToGroup(transactions);
 
@@ -42,6 +30,20 @@ class TransactionListCubit extends Cubit<TransactionListState> {
           emit(TransactionListStateGotData(mData, time));
         }
       });
+      // transactionRepository.transactionCollection
+      //     .withConverter<model.Transaction>(
+      //       fromFirestore: (snapshot, _) =>
+      //           model.Transaction.fromJson(snapshot.data()!),
+      //       toFirestore: (model, _) => model.toJson(),
+      //     )
+      //     .where('year', isEqualTo: time.year)
+      //     .where('month', isEqualTo: time.month)
+      //     .orderBy('createdTime', descending: true)
+      //     .snapshots()
+      //     .listen((QuerySnapshot<model.Transaction> data) async {
+      //   List<model.Transaction> transactions =
+      //       data.docs.map((e) => e.data().copyWith(id: e.id)).toList();
+      // });
     } else {
       List<model.Transaction> transactions =
           await transactionLocalRepository.get(time);
@@ -50,7 +52,7 @@ class TransactionListCubit extends Cubit<TransactionListState> {
   }
 
   Future<void> deleteTransaction(String id) async {
-    await transactionRepository.transactionCollection.doc(id).delete();
+    await transactionRepository.delete(id: id);
   }
 
   Future<List<GroupTransaction>> mapToGroup(

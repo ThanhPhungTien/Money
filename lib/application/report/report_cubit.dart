@@ -1,33 +1,22 @@
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
+import 'package:money/domain/transaction/i_transaction_repository.dart';
 import 'package:money/domain/transaction/transaction.dart' as model;
 import 'package:money/domain/transaction/transaction_by_date.dart';
 import 'package:money/domain/transaction/transaction_by_name.dart';
 import 'package:money/presentation/tool/tool.dart';
 
-import '../../infrastructure/remote/transaction_repository.dart';
-
 part 'report_state.dart';
 
 class ReportCubit extends Cubit<ReportState> {
   ReportCubit() : super(ReportInitial());
-  TransactionRepository transactionRepository = TransactionRepository();
+  ITransactionRepository transactionRepository = GetIt.I.get();
 
   Future<void> fetchData(DateTime time) async {
-    transactionRepository.transactionCollection
-        .withConverter<model.Transaction>(
-          fromFirestore: (snapshot, _) =>
-              model.Transaction.fromJson(snapshot.data()!),
-          toFirestore: (model, _) => model.toJson(),
-        )
-        .where('year', isEqualTo: time.year)
-        .where('month', isEqualTo: time.month)
-        .snapshots()
-        .listen((QuerySnapshot<model.Transaction> data) async {
-      List<model.Transaction> result =
-          data.docs.map((e) => e.data().copyWith(id: e.id)).toList();
-
+    transactionRepository
+        .listenReport(time)
+        .listen((List<model.Transaction> result) async {
       int total = 0;
       int totalEarn = 0;
       int totalPaid = 0;
@@ -60,10 +49,10 @@ class ReportCubit extends Cubit<ReportState> {
             paidList[index] = paidList[index].copyWith(
               totalValue: paidList[index].totalValue + item.value * item.mode,
             );
-            paidList[index].data.add(item);
-            paidList[index]
-                .data
-                .sort((a, b) => a.createdTime.compareTo(b.createdTime));
+            paidList[index] = paidList[index].copyWith(
+              data: [...paidList[index].data, item]
+                ..sort((a, b) => a.createdTime.compareTo(b.createdTime)),
+            );
           }
 
           int indexDate = paidDateList.indexWhere((element) =>
@@ -84,10 +73,11 @@ class ReportCubit extends Cubit<ReportState> {
               totalValue:
                   paidDateList[indexDate].totalValue + item.value * item.mode,
             );
-            paidDateList[indexDate].data.add(item);
-            paidDateList[indexDate]
-                .data
-                .sort((a, b) => a.createdTime.compareTo(b.createdTime));
+
+            paidDateList[indexDate] = paidDateList[indexDate].copyWith(
+              data: [...paidDateList[indexDate].data, item]
+                ..sort((a, b) => a.createdTime.compareTo(b.createdTime)),
+            );
           }
         } else {
           totalEarn += item.value;
@@ -104,10 +94,10 @@ class ReportCubit extends Cubit<ReportState> {
             earnList[index] = earnList[index].copyWith(
               totalValue: earnList[index].totalValue + item.value * item.mode,
             );
-            earnList[index].data.add(item);
-            earnList[index]
-                .data
-                .sort((a, b) => a.createdTime.compareTo(b.createdTime));
+
+            earnList[index] = earnList[index].copyWith(
+                data: [...earnList[index].data, item]
+                  ..sort((a, b) => a.createdTime.compareTo(b.createdTime)));
           }
 
           int indexDate = earnDateList.indexWhere((element) =>
@@ -128,15 +118,16 @@ class ReportCubit extends Cubit<ReportState> {
               totalValue:
                   earnDateList[indexDate].totalValue + item.value * item.mode,
             );
-            earnDateList[indexDate].data.add(item);
-            earnDateList[indexDate]
-                .data
-                .sort((a, b) => a.createdTime.compareTo(b.createdTime));
+            earnDateList[indexDate] = earnDateList[indexDate].copyWith(
+              data: [...earnDateList[indexDate].data, item]..sort(
+                  (a, b) => a.createdTime.compareTo(b.createdTime),
+                ),
+            );
           }
         }
       }
       if (!isClosed) {
-        var dataReport = await transactionRepository.reportCollection.get();
+        var dataReport = await transactionRepository.getReport();
 
         for (var item in dataReport.docs) {
           int idValue = int.parse(item.id);

@@ -12,7 +12,7 @@ class CreateGroupPage extends StatefulWidget {
 }
 
 class _CreateGroupPageState extends State<CreateGroupPage> {
-  CreateGroupBloc bloc = CreateGroupBloc()..add(CreateGroupEventInit());
+  CreateGroupBloc bloc = CreateGroupBloc()..add(const CreateGroupEventInit());
 
   GlobalKey<FormState> keyForm = GlobalKey<FormState>();
 

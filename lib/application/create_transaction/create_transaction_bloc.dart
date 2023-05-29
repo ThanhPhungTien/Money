@@ -1,14 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
+import 'package:money/domain/transaction/i_group_repository.dart';
+import 'package:money/domain/transaction/i_transaction_repository.dart';
+import 'package:money/domain/transaction/transaction.dart' as model;
 import 'package:money/enum/transaction_for/transaction_for.dart';
 import 'package:money/model/group/group.dart';
-import 'package:money/domain/transaction/transaction.dart' as model;
-import 'package:money/infrastructure/remote/group_repository.dart';
-import 'package:money/infrastructure/remote/transaction_repository.dart';
 
 part 'create_transaction_event.dart';
-
 part 'create_transaction_state.dart';
 
 class CreateTransactionBloc
@@ -22,12 +21,13 @@ class CreateTransactionBloc
           TransactionFor.all,
         ));
       } else {
-        Group group = await groupRepository.view(event.initData.groupId);
+        Group group = await groupRepository.view(id: event.initData.groupId);
+
         emit(
           CreateTransactionStateGotData(
             DateTime.fromMillisecondsSinceEpoch(event.initData.createdTime),
             group,
-            TransactionFor.all,
+            event.initData.transactionFor,
           ),
         );
       }
@@ -37,9 +37,11 @@ class CreateTransactionBloc
       if (state is CreateTransactionStateGotData) {
         final currentState = state as CreateTransactionStateGotData;
 
-        groupRepository.update(event.group.copyWith(
-          updateTime: DateTime.now().millisecondsSinceEpoch,
-        ));
+        groupRepository.update(
+          group: event.group.copyWith(
+            updateTime: DateTime.now().millisecondsSinceEpoch,
+          ),
+        );
 
         emit(CreateTransactionStateGotData(
           currentState.dateTime,
@@ -62,9 +64,9 @@ class CreateTransactionBloc
 
     on<CreateTransactionEventCreate>((event, emit) async {
       if (event.transaction.isEmpty) {
-        await transactionRepository.create(event.transaction);
+        await transactionRepository.create(transaction: event.transaction);
       } else {
-        await transactionRepository.update(event.transaction);
+        await transactionRepository.update(transaction: event.transaction);
       }
       emit(CreateTransactionStateCreateDone());
     });
@@ -81,6 +83,6 @@ class CreateTransactionBloc
     });
   }
 
-  TransactionRepository transactionRepository = GetIt.I.get();
-  GroupRepository groupRepository = GetIt.I.get();
+  ITransactionRepository transactionRepository = GetIt.I.get();
+  IGroupRepository groupRepository = GetIt.I.get();
 }
