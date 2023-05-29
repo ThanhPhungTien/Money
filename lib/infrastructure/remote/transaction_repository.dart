@@ -2,10 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
 import 'package:money/domain/transaction/i_transaction_repository.dart';
 import 'package:money/domain/transaction/transaction.dart' as model;
-
-import 'package:injectable/injectable.dart';
 import 'package:money/enum/constant.dart';
 
 @Injectable(as: ITransactionRepository)
@@ -25,12 +24,6 @@ class TransactionRepository implements ITransactionRepository {
   @override
   Future<void> delete({required String id}) async {
     await transactionCollection.doc(id).delete();
-  }
-
-  @override
-  Future<List<model.Transaction>> get() async {
-    // TODO: implement get
-    throw UnimplementedError();
   }
 
   @override
@@ -76,12 +69,6 @@ class TransactionRepository implements ITransactionRepository {
         .doc(transaction.id)
         .update(transaction.toJson());
     updateReport(transaction.year, transaction.month);
-  }
-
-  @override
-  Future<model.Transaction> view({required String id}) async {
-    // TODO: implement view
-    throw UnimplementedError();
   }
 
   Future<void> updateReport(int year, int month) async {

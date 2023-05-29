@@ -24,6 +24,5 @@ class GroupSelectorEventDelete extends GroupSelectorEvent {
   const GroupSelectorEventDelete(this.item);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [item];
 }
