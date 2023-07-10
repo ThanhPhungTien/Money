@@ -38,9 +38,10 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   PersistentBottomSheetController? _controller;
 
   final moneyFormat = CurrencyInputFormatter(
-      thousandSeparator: ThousandSeparator.Comma,
-      mantissaLength: 0,
-      trailingSymbol: '');
+    thousandSeparator: ThousandSeparator.Comma,
+    mantissaLength: 0,
+    trailingSymbol: '',
+  );
 
   @override
   void initState() {

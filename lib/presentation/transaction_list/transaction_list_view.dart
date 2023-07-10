@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/transaction_list/transaction_list_cubit.dart';
+import 'package:money/domain/transaction/transaction.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/model/group_transaction/group_transaction.dart';
-import 'package:money/domain/transaction/transaction.dart';
 import 'package:money/presentation/failure/failure_view.dart';
-import 'package:money/route/route_name.dart';
 import 'package:money/presentation/tool/tool.dart';
+import 'package:money/route/route_name.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class TransactionListView extends StatefulWidget {
@@ -125,14 +125,24 @@ class _TransactionListViewState extends State<TransactionListView> {
 
   openSelectDate(DateTime time) async {
     DateTime dateNow = DateTime.now();
+    TextTheme textTheme = Theme.of(context).textTheme;
     dynamic result = await showMonthPicker(
       context: context,
       initialDate: time,
+      roundedCornersRadius: 8,
       firstDate: DateTime(dateNow.year - 1),
       lastDate: DateTime(dateNow.year + 1),
-      roundedCornersRadius: 8,
       confirmWidget: const Text('OK'),
       cancelWidget: const Text('Hủy'),
+      selectedMonthBackgroundColor: Colors.green.shade800,
+      selectedMonthTextColor: Colors.white,
+      capitalizeFirstLetter: true,
+      selectableMonthPredicate: (date) => true,
+      monthStylePredicate: (DateTime date) {
+        return ButtonStyle(
+          textStyle: MaterialStateProperty.all(textTheme.bodyMedium),
+        );
+      },
     );
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
