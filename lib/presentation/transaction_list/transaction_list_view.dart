@@ -91,7 +91,12 @@ class _TransactionListViewState extends State<TransactionListView> {
                   const SizedBox(height: 8),
                   Expanded(
                     child: state.data.isEmpty
-                        ? const FailureView(message: 'Không có dữ liệu')
+                        ? FailureView(
+                            message: 'Không có dữ liệu',
+                            onPressedRetry: () {
+                              bloc.fetchData(state.time);
+                            },
+                          )
                         : RefreshIndicator(
                             onRefresh: () async {
                               bloc.fetchData(state.time);
