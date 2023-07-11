@@ -56,7 +56,8 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: TextFormField(
                     decoration: InputDecoration(
                       hintText: 'Nhập tên nhóm',
@@ -91,7 +92,7 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                               background: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Colors.red,
+                                  color: const Color(0xFFBA1A1A),
                                 ),
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 16),
@@ -101,29 +102,15 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
                                   color: Colors.white,
                                 ),
                               ),
-                              child: ListTile(
-                                titleAlignment:
-                                    ListTileTitleAlignment.titleHeight,
-                                onTap: () => Navigator.pop(context, item),
-                                minLeadingWidth: 0,
-                                title: Text(item.name),
-                                leading: CircleAvatar(
-                                  backgroundColor: item.mode == -1
-                                      ? Colors.red.shade400
-                                      : Colors.green.shade400,
-                                  child: Icon(
-                                    item.mode == -1 ? Icons.remove : Icons.add,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                subtitle: item.description.isNotEmpty
-                                    ? Text(item.description)
-                                    : null,
-                              ),
+                              child: ItemGroupView(item: item),
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) {
-                            return const Divider();
+                            return const Divider(
+                              height: 2,
+                              indent: 72,
+                              thickness: 0.5,
+                            );
                           },
                         ),
                 ),
@@ -161,6 +148,32 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
           ],
         );
       },
+    );
+  }
+}
+
+class ItemGroupView extends StatelessWidget {
+  const ItemGroupView({
+    super.key,
+    required this.item,
+  });
+
+  final Group item;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () => Navigator.pop(context, item),
+      title: Text(item.name),
+      leading: CircleAvatar(
+        backgroundColor:
+            item.mode == -1 ? const Color(0xFFBA1A1A) : const Color(0xFF286C2A),
+        child: Icon(
+          item.mode == -1 ? Icons.remove : Icons.add,
+          color: Colors.white,
+        ),
+      ),
+      subtitle: item.description.isNotEmpty ? Text(item.description) : null,
     );
   }
 }

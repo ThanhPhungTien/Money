@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:animations/animations.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,6 +121,22 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _setupConnectivity() async {
     SharedPreferences prefs = GetIt.I.get<SharedPreferences>();
+
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    await FirebaseMessaging.instance.subscribeToTopic('Money');
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {});
 
     try {
       var result = await Connectivity().checkConnectivity();

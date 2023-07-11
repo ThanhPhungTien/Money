@@ -8,6 +8,7 @@ import 'package:money/enum/transaction_for/transaction_for.dart';
 import 'package:money/model/group/group.dart';
 
 part 'create_transaction_event.dart';
+
 part 'create_transaction_state.dart';
 
 class CreateTransactionBloc
@@ -15,11 +16,26 @@ class CreateTransactionBloc
   CreateTransactionBloc() : super(CreateTransactionInitial()) {
     on<CreateTransactionEventInit>((event, emit) async {
       if (event.initData.isEmpty) {
-        emit(CreateTransactionStateGotData(
-          DateTime.now(),
-          const Group(),
-          TransactionFor.all,
-        ));
+        model.Transaction transaction =
+            await GetIt.I.get<ITransactionRepository>().getLastTransaction();
+
+        if (transaction.isEmpty) {
+          emit(CreateTransactionStateGotData(
+            DateTime.now(),
+            const Group(),
+            TransactionFor.all,
+          ));
+        } else {
+          Group group = await groupRepository.view(id: transaction.groupId);
+
+          emit(
+            CreateTransactionStateGotData(
+              DateTime.now(),
+              group,
+              transaction.transactionFor,
+            ),
+          );
+        }
       } else {
         Group group = await groupRepository.view(id: event.initData.groupId);
 

@@ -30,20 +30,6 @@ class TransactionListCubit extends Cubit<TransactionListState> {
           emit(TransactionListStateGotData(mData, time));
         }
       });
-      // transactionRepository.transactionCollection
-      //     .withConverter<model.Transaction>(
-      //       fromFirestore: (snapshot, _) =>
-      //           model.Transaction.fromJson(snapshot.data()!),
-      //       toFirestore: (model, _) => model.toJson(),
-      //     )
-      //     .where('year', isEqualTo: time.year)
-      //     .where('month', isEqualTo: time.month)
-      //     .orderBy('createdTime', descending: true)
-      //     .snapshots()
-      //     .listen((QuerySnapshot<model.Transaction> data) async {
-      //   List<model.Transaction> transactions =
-      //       data.docs.map((e) => e.data().copyWith(id: e.id)).toList();
-      // });
     } else {
       List<model.Transaction> transactions =
           await transactionLocalRepository.get(time);

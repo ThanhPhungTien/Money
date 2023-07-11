@@ -8,4 +8,5 @@ abstract class ITransactionRepository {
   Stream<List<Transaction>> listenTransaction(DateTime time);
   Stream<List<Transaction>> listenReport(DateTime time);
   Future<firestore.QuerySnapshot<Object?>> getReport();
+  Future<Transaction> getLastTransaction();
 }

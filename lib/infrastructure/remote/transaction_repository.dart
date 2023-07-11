@@ -1,11 +1,13 @@
 import 'dart:async';
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:money/domain/transaction/i_transaction_repository.dart';
 import 'package:money/domain/transaction/transaction.dart' as model;
 import 'package:money/enum/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 @Injectable(as: ITransactionRepository)
 class TransactionRepository implements ITransactionRepository {
@@ -18,6 +20,11 @@ class TransactionRepository implements ITransactionRepository {
   @override
   Future<void> create({required model.Transaction transaction}) async {
     await transactionCollection.add(transaction.toJson());
+
+    GetIt.I
+        .get<SharedPreferences>()
+        .setString(Constant.transaction, json.encode(transaction.toJson()));
+
     updateReport(transaction.year, transaction.month);
   }
 
@@ -68,6 +75,11 @@ class TransactionRepository implements ITransactionRepository {
     await transactionCollection
         .doc(transaction.id)
         .update(transaction.toJson());
+
+    GetIt.I
+        .get<SharedPreferences>()
+        .setString(Constant.transaction, json.encode(transaction.toJson()));
+
     updateReport(transaction.year, transaction.month);
   }
 
@@ -88,8 +100,6 @@ class TransactionRepository implements ITransactionRepository {
             .toList()
             .reduce((a, b) => a + b);
 
-    log('total $total ');
-
     String id = '$year${month > 9 ? '$month' : '0$month'}';
 
     reportCollection.doc(id).set({'total': total});
@@ -98,5 +108,14 @@ class TransactionRepository implements ITransactionRepository {
   @override
   Future<QuerySnapshot<Object?>> getReport() async {
     return reportCollection.get();
+  }
+
+  @override
+  Future<model.Transaction> getLastTransaction() async {
+    String lastTransaction =
+        GetIt.I.get<SharedPreferences>().getString(Constant.transaction) ?? '';
+    return lastTransaction.isEmpty
+        ? const model.Transaction()
+        : model.Transaction.fromJson(json.decode(lastTransaction));
   }
 }
