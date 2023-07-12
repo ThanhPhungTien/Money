@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/transaction_list/transaction_list_cubit.dart';
 import 'package:money/domain/transaction/transaction.dart';
-import 'package:money/enum/constant.dart';
 import 'package:money/model/group_transaction/group_transaction.dart';
+import 'package:money/presentation/create_transaction/create_transaction_page.dart';
 import 'package:money/presentation/failure/failure_view.dart';
+import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/tool/tool.dart';
-import 'package:money/route/route_name.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class TransactionListView extends StatefulWidget {
@@ -35,102 +35,96 @@ class _TransactionListViewState extends State<TransactionListView> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<TransactionListCubit, TransactionListState>(
-          bloc: bloc,
-          builder: (context, state) {
-            if (state is TransactionListStateGotData) {
-              return Column(
-                children: [
-                  ListTile(
-                    onTap: () => openSelectDate(state.time),
-                    leading: const Icon(Icons.date_range),
-                    title: Text(
-                      convertTime(
-                        'MM/yyyy',
-                        state.time.millisecondsSinceEpoch,
-                        false,
-                      ),
-                      style: textTheme.titleMedium,
+      body: BlocBuilder<TransactionListCubit, TransactionListState>(
+        bloc: bloc,
+        builder: (context, state) {
+          if (state is TransactionListStateGotData) {
+            return Column(
+              children: [
+                ListTile(
+                  onTap: () => openSelectDate(state.time),
+                  leading: const Icon(Icons.date_range),
+                  title: Text(
+                    convertTime(
+                      'MM/yyyy',
+                      state.time.millisecondsSinceEpoch,
+                      false,
                     ),
-                    minLeadingWidth: 0,
-                    trailing: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.circular(24),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.nights_stay_outlined,
+                    style: textTheme.titleMedium,
+                  ),
+                  minLeadingWidth: 0,
+                  trailing: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Palette.primary,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.nights_stay_outlined,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          convertTime(
+                            'dd/MM/yyyy',
+                            solarToLunar(DateTime.now()).millisecondsSinceEpoch,
+                            false,
+                          ),
+                          style: textTheme.titleSmall?.copyWith(
                             color: Colors.white,
                           ),
-                          const SizedBox(width: 4),
-                          Text(
-                            convertTime(
-                              'dd/MM/yyyy',
-                              solarToLunar(DateTime.now())
-                                  .millisecondsSinceEpoch,
-                              false,
-                            ),
-                            style: textTheme.titleSmall?.copyWith(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  Expanded(
-                    child: state.data.isEmpty
-                        ? FailureView(
-                            message: 'Không có dữ liệu',
-                            onPressedRetry: () {
-                              bloc.fetchData(state.time);
+                ),
+                const SizedBox(height: 8),
+                Expanded(
+                  child: state.data.isEmpty
+                      ? FailureView(
+                          message: 'Không có dữ liệu',
+                          onPressedRetry: () {
+                            bloc.fetchData(state.time);
+                          },
+                        )
+                      : RefreshIndicator(
+                          onRefresh: () async {
+                            bloc.fetchData(state.time);
+                          },
+                          child: ListView.separated(
+                            itemCount: state.data.length,
+                            padding: const EdgeInsets.all(0),
+                            separatorBuilder:
+                                (BuildContext context, int index) {
+                              return const SizedBox(height: 8);
                             },
-                          )
-                        : RefreshIndicator(
-                            onRefresh: () async {
-                              bloc.fetchData(state.time);
+                            itemBuilder: (BuildContext context, int index) {
+                              GroupTransaction item = state.data[index];
+                              return ItemTransactionWidget(
+                                item: item,
+                                bloc: bloc,
+                              );
                             },
-                            child: ListView.separated(
-                              itemCount: state.data.length,
-                              padding: const EdgeInsets.all(8),
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return const SizedBox(height: 8);
-                              },
-                              itemBuilder: (BuildContext context, int index) {
-                                GroupTransaction item = state.data[index];
-                                return ItemTransactionWidget(
-                                  item: item,
-                                  bloc: bloc,
-                                );
-                              },
-                            ),
                           ),
-                  ),
-                ],
-              );
-            }
-            return Container();
-          },
-        ),
+                        ),
+                ),
+              ],
+            );
+          }
+          return Container();
+        },
       ),
     );
   }
 
   openSelectDate(DateTime time) async {
     DateTime dateNow = DateTime.now();
-    TextTheme textTheme = Theme.of(context).textTheme;
     dynamic result = await showMonthPicker(
       context: context,
       initialDate: time,
@@ -139,15 +133,11 @@ class _TransactionListViewState extends State<TransactionListView> {
       lastDate: DateTime(dateNow.year + 1),
       confirmWidget: const Text('OK'),
       cancelWidget: const Text('Hủy'),
-      selectedMonthBackgroundColor: Colors.green.shade800,
+      selectedMonthBackgroundColor: Palette.primary,
       selectedMonthTextColor: Colors.white,
       capitalizeFirstLetter: true,
       selectableMonthPredicate: (date) => true,
-      monthStylePredicate: (DateTime date) {
-        return ButtonStyle(
-          textStyle: MaterialStateProperty.all(textTheme.bodyMedium),
-        );
-      },
+      unselectedMonthTextColor: Palette.textColor,
     );
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
@@ -169,15 +159,17 @@ class ItemTransactionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return Card(
+      elevation: 0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ListTile(
-            title: Text(item.dateTime, style: textTheme.labelMedium),
+            title: Text(item.dateTime, style: textTheme.titleMedium),
             trailing: Text(
               moneyFormat(item.totalValue),
-              style: textTheme.labelMedium?.copyWith(
-                color: item.totalValue < 0 ? Colors.red : Colors.green,
+              style: textTheme.labelLarge?.copyWith(
+                color:
+                    item.totalValue < 0 ? Palette.decrease : Palette.increase,
               ),
             ),
           ),
@@ -195,7 +187,7 @@ class ItemTransactionWidget extends StatelessWidget {
                 background: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.red,
+                    color: Palette.decrease,
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   alignment: Alignment.centerRight,
@@ -208,12 +200,9 @@ class ItemTransactionWidget extends StatelessWidget {
                     showDeleteConfirm(context, transaction),
                 direction: DismissDirection.endToStart,
                 child: ListTile(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    RouteName.createTransaction,
-                    arguments: {
-                      Constant.transaction: transaction,
-                    },
+                  onTap: () => CreateTransactionPage.show(
+                    context: context,
+                    transaction: transaction,
                   ),
                   minVerticalPadding: 0,
                   leading: SizedBox(
@@ -225,11 +214,15 @@ class ItemTransactionWidget extends StatelessWidget {
                     transaction.groupName,
                     style: textTheme.labelMedium,
                   ),
-                  subtitle: Text(transaction.description),
+                  subtitle: transaction.description.isNotEmpty
+                      ? Text(transaction.description)
+                      : null,
                   trailing: Text(
                     moneyFormat(transaction.value * transaction.mode),
                     style: textTheme.labelMedium?.copyWith(
-                      color: transaction.mode == -1 ? Colors.red : Colors.green,
+                      color: transaction.mode == -1
+                          ? Palette.decrease
+                          : Palette.increase,
                     ),
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:money/presentation/tool/palatte.dart';
 
 ThemeData appTheme = ThemeData(
   textTheme: textTheme,
@@ -8,15 +9,16 @@ ThemeData appTheme = ThemeData(
   useMaterial3: true,
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: const Color(0xFF286C2A),
+      backgroundColor: Palette.primary,
       foregroundColor: Colors.white,
     ),
   ),
+  inputDecorationTheme: inputDecorationTheme,
 );
 
-ListTileThemeData listTileThemeData = const ListTileThemeData(
-    // iconColor: Colors.black,
-    );
+InputDecorationTheme inputDecorationTheme = const InputDecorationTheme();
+
+ListTileThemeData listTileThemeData = const ListTileThemeData();
 
 TextTheme textTheme = TextTheme(
   displayLarge: GoogleFonts.robotoFlex(
@@ -47,7 +49,7 @@ TextTheme textTheme = TextTheme(
     fontSize: 20,
   ),
   labelLarge: GoogleFonts.robotoFlex(
-    fontSize: 18,
+    fontSize: 16,
   ),
   labelMedium: GoogleFonts.robotoFlex(
     fontSize: 16,

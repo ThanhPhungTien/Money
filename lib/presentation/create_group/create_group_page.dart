@@ -3,9 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/create_group/create_group_bloc.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/presentation/loading/loading_view.dart';
+import 'package:money/presentation/tool/tool.dart';
+import 'package:money/route/route_name.dart';
 
 class CreateGroupPage extends StatefulWidget {
   const CreateGroupPage({Key? key}) : super(key: key);
+
+  static Future<dynamic> show({required BuildContext context}) async {
+    return context.navigator.pushNamed(RouteName.createGroup);
+  }
 
   @override
   State<CreateGroupPage> createState() => _CreateGroupPageState();
@@ -16,8 +22,8 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
 
   GlobalKey<FormState> keyForm = GlobalKey<FormState>();
 
-  TextEditingController nameTEC = TextEditingController();
-  TextEditingController descriptionTEC = TextEditingController();
+  final nameTEC = TextEditingController();
+  final descriptionTEC = TextEditingController();
 
   FocusNode descriptionNode = FocusNode();
 

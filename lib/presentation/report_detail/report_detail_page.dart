@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/report_detail/report_detail_cubit.dart';
 import 'package:money/domain/transaction/transaction.dart';
 import 'package:money/domain/transaction/transaction_by_name.dart';
+import 'package:money/presentation/tool/palatte.dart';
 
 import 'package:money/presentation/tool/tool.dart';
 
@@ -43,14 +44,16 @@ class ReportDetailPage extends StatelessWidget {
                         child: Text(
                           textByGoal(state.filter),
                           style: textTheme.labelMedium?.copyWith(
-                            color: total < 0 ? Colors.red : Colors.green,
+                            color:
+                                total < 0 ? Palette.decrease : Palette.increase,
                           ),
                         ),
                       ),
                       Text(
                         moneyFormat(total),
                         style: textTheme.labelMedium?.copyWith(
-                          color: total < 0 ? Colors.red : Colors.green,
+                          color:
+                              total < 0 ? Palette.decrease : Palette.increase,
                         ),
                       ),
                     ],
@@ -80,8 +83,8 @@ class ReportDetailPage extends StatelessWidget {
                                   moneyFormat(item.totalValue),
                                   style: textTheme.labelSmall?.copyWith(
                                     color: item.totalValue < 0
-                                        ? Colors.red
-                                        : Colors.green,
+                                        ? Palette.decrease
+                                        : Palette.increase,
                                   ),
                                 ),
                               );
@@ -96,31 +99,10 @@ class ReportDetailPage extends StatelessWidget {
                                 int value = item.data[index].value *
                                     item.data[index].mode;
                                 Transaction itemTrans = item.data[index];
-                                return ListTile(
-                                  minLeadingWidth: 0,
-                                  title: Text(
-                                    convertTime(
-                                      'dd/MM/yyyy',
-                                      itemTrans.createdTime,
-                                      false,
-                                    ),
-                                    style: textTheme.labelMedium,
-                                  ),
-                                  subtitle: Text(
-                                    itemTrans.description,
-                                    style: textTheme.labelSmall,
-                                  ),
-                                  leading: SizedBox(
-                                    height: double.infinity,
-                                    child: iconByGoal(state.filter),
-                                  ),
-                                  trailing: Text(
-                                    moneyFormat(value),
-                                    style: textTheme.labelSmall?.copyWith(
-                                      color:
-                                          value < 0 ? Colors.red : Colors.green,
-                                    ),
-                                  ),
+                                return ItemTransactionReport(
+                                  itemTrans: itemTrans,
+                                  textTheme: textTheme,
+                                  value: value,
                                 );
                               },
                             ),
@@ -174,6 +156,48 @@ class ReportDetailPage extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class ItemTransactionReport extends StatelessWidget {
+  const ItemTransactionReport({
+    super.key,
+    required this.itemTrans,
+    required this.textTheme,
+    required this.value,
+  });
+
+  final Transaction itemTrans;
+  final TextTheme textTheme;
+  final int value;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      minLeadingWidth: 0,
+      title: Text(
+        convertTime(
+          'dd/MM/yyyy',
+          itemTrans.createdTime,
+          false,
+        ),
+        style: textTheme.labelMedium,
+      ),
+      subtitle: Text(
+        itemTrans.description,
+        style: textTheme.labelSmall,
+      ),
+      leading: SizedBox(
+        height: double.infinity,
+        child: iconByGoal(itemTrans.transactionFor),
+      ),
+      trailing: Text(
+        moneyFormat(value),
+        style: textTheme.labelSmall?.copyWith(
+          color: value < 0 ? Palette.decrease : Palette.increase,
+        ),
+      ),
     );
   }
 }

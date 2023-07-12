@@ -5,6 +5,18 @@ import 'package:lunar_calendar_converter_new/lunar_solar_converter.dart';
 import 'package:money/enum/icon_asset.dart';
 import 'package:money/enum/transaction_for/transaction_for.dart';
 
+extension ContextTool on BuildContext {
+  MediaQueryData get mediaQuery => MediaQuery.of(this);
+
+  TextTheme get textTheme => Theme.of(this).textTheme;
+
+  NavigatorState get navigator => Navigator.of(this);
+
+  ThemeData get theme => Theme.of(this);
+
+  ScaffoldMessengerState get scaffoldManager => ScaffoldMessenger.of(this);
+}
+
 bool isMoney(String value) {
   try {
     String data = value.replaceAll(',', '').replaceAll('.', '').trim();

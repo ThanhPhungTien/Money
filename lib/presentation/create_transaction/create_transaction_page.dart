@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:money/application/create_transaction/create_transaction_bloc.dart';
+import 'package:money/enum/constant.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/domain/transaction/transaction.dart';
+import 'package:money/presentation/group_selector/group_selector_page.dart';
 import 'package:money/presentation/money_keyboard/money_keyboard_widget.dart';
 import 'package:money/presentation/suggest_money/suggest_money.dart';
 import 'package:money/route/route_name.dart';
@@ -16,6 +18,16 @@ class CreateTransactionPage extends StatefulWidget {
   }) : super(key: key);
 
   final Transaction transaction;
+
+  static Future<dynamic> show({
+    required BuildContext context,
+    Transaction transaction = const Transaction(),
+  }) async {
+    return context.navigator.pushNamed(
+      RouteName.createTransaction,
+      arguments: {Constant.transaction: transaction},
+    );
+  }
 
   @override
   State<CreateTransactionPage> createState() => _CreateTransactionPageState();
@@ -200,8 +212,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   }
 
   openGroupSelector() async {
-    dynamic result =
-        await Navigator.pushNamed(context, RouteName.groupSelector);
+    dynamic result = await GroupSelectorPage.show(context: context);
 
     if (result != null && result is Group) {
       bloc.add(CreateTransactionEventUpdateGroup(result));

@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/group_selector/group_selector_bloc.dart';
 import 'package:money/model/group/group.dart';
+import 'package:money/presentation/create_group/create_group_page.dart';
 import 'package:money/presentation/failure/failure_view.dart';
 import 'package:money/presentation/loading/loading_view.dart';
+import 'package:money/presentation/tool/palatte.dart';
+import 'package:money/presentation/tool/tool.dart';
 import 'package:money/route/route_name.dart';
 
 class GroupSelectorPage extends StatefulWidget {
   const GroupSelectorPage({Key? key}) : super(key: key);
+
+  static Future<dynamic> show({required BuildContext context}) async {
+    return context.navigator.pushNamed(RouteName.groupSelector);
+  }
 
   @override
   State<GroupSelectorPage> createState() => _GroupSelectorPageState();
@@ -42,7 +49,7 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
         actions: [
           IconButton(
             onPressed: () async {
-              await Navigator.pushNamed(context, RouteName.createGroup);
+              await CreateGroupPage.show(context: context);
               bloc.add(GroupSelectorEventInit());
             },
             icon: const Icon(Icons.add_rounded),
@@ -166,8 +173,7 @@ class ItemGroupView extends StatelessWidget {
       onTap: () => Navigator.pop(context, item),
       title: Text(item.name),
       leading: CircleAvatar(
-        backgroundColor:
-            item.mode == -1 ? const Color(0xFFBA1A1A) : const Color(0xFF286C2A),
+        backgroundColor: item.mode == -1 ? Palette.decrease : Palette.increase,
         child: Icon(
           item.mode == -1 ? Icons.remove : Icons.add,
           color: Colors.white,

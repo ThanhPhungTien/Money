@@ -10,9 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:money/application/home/home_cubit.dart';
 import 'package:money/enum/constant.dart';
+import 'package:money/presentation/create_transaction/create_transaction_page.dart';
 import 'package:money/presentation/report/report_page.dart';
+import 'package:money/presentation/tool/palatte.dart';
+import 'package:money/presentation/tool/tool.dart';
 import 'package:money/presentation/transaction_list/transaction_list_view.dart';
-import 'package:money/route/route_name.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -55,7 +57,6 @@ class _HomePageState extends State<HomePage> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white,
           elevation: 0,
           toolbarHeight: 0,
         ),
@@ -83,10 +84,9 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           elevation: 2,
-          backgroundColor: Colors.green,
+          backgroundColor: Palette.primary,
           child: const Icon(Icons.add, color: Colors.white),
-          onPressed: () =>
-              Navigator.pushNamed(context, RouteName.createTransaction),
+          onPressed: () => CreateTransactionPage.show(context: context),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
@@ -136,7 +136,15 @@ class _HomePageState extends State<HomePage> {
 
     await FirebaseMessaging.instance.subscribeToTopic('Money');
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {});
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      context.scaffoldManager.showSnackBar(
+        SnackBar(
+          content: Text(message.notification?.body ?? ''),
+          showCloseIcon: true,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    });
 
     try {
       var result = await Connectivity().checkConnectivity();

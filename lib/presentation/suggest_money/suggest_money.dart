@@ -19,9 +19,10 @@ class SuggestMoneyView extends StatefulWidget {
 class _SuggestMoneyViewState extends State<SuggestMoneyView> {
   SuggestMoneyCubit bloc = SuggestMoneyCubit();
   final moneyFormatter = CurrencyInputFormatter(
-      thousandSeparator: ThousandSeparator.Comma,
-      mantissaLength: 0,
-      trailingSymbol: '');
+    thousandSeparator: ThousandSeparator.Comma,
+    mantissaLength: 0,
+    trailingSymbol: '',
+  );
 
   @override
   void initState() {
