@@ -10,9 +10,9 @@ _$_TransactionByName _$$_TransactionByNameFromJson(Map<String, dynamic> json) =>
     _$_TransactionByName(
       name: json['name'] as String? ?? '',
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const <Transaction>[],
+          const <TransactionModel>[],
       totalValue: json['totalValue'] as int? ?? 0,
       isOpen: json['isOpen'] as bool? ?? false,
     );

@@ -11,9 +11,9 @@ _$_TransactionByDate _$$_TransactionByDateFromJson(Map<String, dynamic> json) =>
       date: json['date'] as String? ?? '',
       totalValue: json['totalValue'] as int? ?? 0,
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          const <Transaction>[],
+          const <TransactionModel>[],
     );
 
 Map<String, dynamic> _$$_TransactionByDateToJson(

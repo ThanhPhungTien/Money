@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:money/domain/transaction/transaction.dart';
+import 'package:money/domain/transaction/transaction_model.dart';
 import 'package:money/presentation/create_group/create_group_page.dart';
 import 'package:money/presentation/create_transaction/create_transaction_page.dart';
 import 'package:money/presentation/group_selector/group_selector_page.dart';
 import 'package:money/presentation/home/home_page.dart';
+import 'package:money/presentation/search/search_page.dart';
 import 'package:money/route/route_name.dart';
 
 import '../enum/constant.dart';
@@ -26,7 +27,7 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
     case RouteName.createTransaction:
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => CreateTransactionPage(
-          transaction: arg[Constant.transaction] ?? const Transaction(),
+          transaction: arg[Constant.transaction] ?? const TransactionModel(),
         ),
         settings: const RouteSettings(name: RouteName.createTransaction),
       );
@@ -39,6 +40,11 @@ MaterialPageRoute onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute<dynamic>(
         builder: (BuildContext context) => const CreateGroupPage(),
         settings: const RouteSettings(name: RouteName.createGroup),
+      );
+    case RouteName.searchPage:
+      return MaterialPageRoute<dynamic>(
+        builder: (BuildContext context) => const SearchPage(),
+        settings: const RouteSettings(name: RouteName.searchPage),
       );
 
     default:

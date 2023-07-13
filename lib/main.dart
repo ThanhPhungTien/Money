@@ -25,7 +25,7 @@ Future<void> main() async {
   );
 
   FirebaseFirestore.instance.settings =
-      const Settings(persistenceEnabled: false);
+      const Settings(persistenceEnabled: true);
 
   await configureDependencies();
 
@@ -46,7 +46,7 @@ Future<void> configureDependencies() async {
 
       return openDatabase(
         path,
-        version: 1,
+        version: 2,
         onCreate: (Database db, int version) async {
           await db.execute(DBCommand.createTransactionTable);
           await db.execute(DBCommand.createGroupTable);

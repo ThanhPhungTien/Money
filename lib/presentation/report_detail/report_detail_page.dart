@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/report_detail/report_detail_cubit.dart';
-import 'package:money/domain/transaction/transaction.dart';
+import 'package:money/domain/transaction/transaction_model.dart';
 import 'package:money/domain/transaction/transaction_by_name.dart';
 import 'package:money/presentation/tool/palatte.dart';
 
@@ -98,7 +98,7 @@ class ReportDetailPage extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 int value = item.data[index].value *
                                     item.data[index].mode;
-                                Transaction itemTrans = item.data[index];
+                                TransactionModel itemTrans = item.data[index];
                                 return ItemTransactionReport(
                                   itemTrans: itemTrans,
                                   textTheme: textTheme,
@@ -168,7 +168,7 @@ class ItemTransactionReport extends StatelessWidget {
     required this.value,
   });
 
-  final Transaction itemTrans;
+  final TransactionModel itemTrans;
   final TextTheme textTheme;
   final int value;
 

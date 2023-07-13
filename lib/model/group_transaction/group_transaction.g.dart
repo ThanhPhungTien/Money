@@ -10,7 +10,7 @@ _$_GroupTransaction _$$_GroupTransactionFromJson(Map<String, dynamic> json) =>
     _$_GroupTransaction(
       dateTime: json['dateTime'] as String? ?? '',
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Transaction.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
       totalValue: json['totalValue'] as int? ?? 0,

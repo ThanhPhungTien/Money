@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'transaction.dart';
+import 'transaction_model.dart';
 
 part 'transaction_by_name.g.dart';
 
@@ -10,7 +10,7 @@ part 'transaction_by_name.freezed.dart';
 class TransactionByName with _$TransactionByName {
   const factory TransactionByName({
     @Default('') String name,
-    @Default(<Transaction>[]) List<Transaction> data,
+    @Default(<TransactionModel>[]) List<TransactionModel> data,
     @Default(0) int totalValue,
     @Default(false) bool isOpen,
   }) = _TransactionByName;

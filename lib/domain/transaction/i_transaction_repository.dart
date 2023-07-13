@@ -1,12 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-import 'package:money/domain/transaction/transaction.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:money/domain/transaction/transaction_model.dart';
 
 abstract class ITransactionRepository {
-  Future<void> create({required Transaction transaction});
-  Future<void> update({required Transaction transaction});
+  Future<void> create({required TransactionModel transaction});
+  Future<void> update({required TransactionModel transaction});
   Future<void> delete({required String id});
-  Stream<List<Transaction>> listenTransaction(DateTime time);
-  Stream<List<Transaction>> listenReport(DateTime time);
-  Future<firestore.QuerySnapshot<Object?>> getReport();
-  Future<Transaction> getLastTransaction();
+  Stream<List<TransactionModel>> listenTransaction(DateTime time);
+  Stream<List<TransactionModel>> listenReport(DateTime time);
+  Future<QuerySnapshot<Object?>> getReport();
+  Future<TransactionModel> getLastTransaction();
+  Future<List<TransactionModel>> searchByWord(String query);
 }

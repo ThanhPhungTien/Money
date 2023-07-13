@@ -21,7 +21,7 @@ TransactionByName _$TransactionByNameFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$TransactionByName {
   String get name => throw _privateConstructorUsedError;
-  List<Transaction> get data => throw _privateConstructorUsedError;
+  List<TransactionModel> get data => throw _privateConstructorUsedError;
   int get totalValue => throw _privateConstructorUsedError;
   bool get isOpen => throw _privateConstructorUsedError;
 
@@ -37,7 +37,8 @@ abstract class $TransactionByNameCopyWith<$Res> {
           TransactionByName value, $Res Function(TransactionByName) then) =
       _$TransactionByNameCopyWithImpl<$Res, TransactionByName>;
   @useResult
-  $Res call({String name, List<Transaction> data, int totalValue, bool isOpen});
+  $Res call(
+      {String name, List<TransactionModel> data, int totalValue, bool isOpen});
 }
 
 /// @nodoc
@@ -66,7 +67,7 @@ class _$TransactionByNameCopyWithImpl<$Res, $Val extends TransactionByName>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
+              as List<TransactionModel>,
       totalValue: null == totalValue
           ? _value.totalValue
           : totalValue // ignore: cast_nullable_to_non_nullable
@@ -87,7 +88,8 @@ abstract class _$$_TransactionByNameCopyWith<$Res>
       __$$_TransactionByNameCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, List<Transaction> data, int totalValue, bool isOpen});
+  $Res call(
+      {String name, List<TransactionModel> data, int totalValue, bool isOpen});
 }
 
 /// @nodoc
@@ -114,7 +116,7 @@ class __$$_TransactionByNameCopyWithImpl<$Res>
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
+              as List<TransactionModel>,
       totalValue: null == totalValue
           ? _value.totalValue
           : totalValue // ignore: cast_nullable_to_non_nullable
@@ -132,7 +134,7 @@ class __$$_TransactionByNameCopyWithImpl<$Res>
 class _$_TransactionByName implements _TransactionByName {
   const _$_TransactionByName(
       {this.name = '',
-      final List<Transaction> data = const <Transaction>[],
+      final List<TransactionModel> data = const <TransactionModel>[],
       this.totalValue = 0,
       this.isOpen = false})
       : _data = data;
@@ -143,10 +145,10 @@ class _$_TransactionByName implements _TransactionByName {
   @override
   @JsonKey()
   final String name;
-  final List<Transaction> _data;
+  final List<TransactionModel> _data;
   @override
   @JsonKey()
-  List<Transaction> get data {
+  List<TransactionModel> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_data);
@@ -199,7 +201,7 @@ class _$_TransactionByName implements _TransactionByName {
 abstract class _TransactionByName implements TransactionByName {
   const factory _TransactionByName(
       {final String name,
-      final List<Transaction> data,
+      final List<TransactionModel> data,
       final int totalValue,
       final bool isOpen}) = _$_TransactionByName;
 
@@ -209,7 +211,7 @@ abstract class _TransactionByName implements TransactionByName {
   @override
   String get name;
   @override
-  List<Transaction> get data;
+  List<TransactionModel> get data;
   @override
   int get totalValue;
   @override

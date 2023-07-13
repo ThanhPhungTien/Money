@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/transaction_list/transaction_list_cubit.dart';
-import 'package:money/domain/transaction/transaction.dart';
+import 'package:money/domain/transaction/transaction_model.dart';
 import 'package:money/model/group_transaction/group_transaction.dart';
 import 'package:money/presentation/create_transaction/create_transaction_page.dart';
 import 'package:money/presentation/failure/failure_view.dart';
@@ -178,7 +178,7 @@ class ItemTransactionWidget extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemCount: item.data.length,
             itemBuilder: (BuildContext context, int index) {
-              Transaction transaction = item.data[index];
+              TransactionModel transaction = item.data[index];
               return Dismissible(
                 key: Key(transaction.id),
                 onDismissed: (direction) {
@@ -234,7 +234,7 @@ class ItemTransactionWidget extends StatelessWidget {
     );
   }
 
-  showMenuBottom(BuildContext context, Transaction item) {
+  showMenuBottom(BuildContext context, TransactionModel item) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -265,7 +265,7 @@ class ItemTransactionWidget extends StatelessWidget {
   }
 
   Future<bool?> showDeleteConfirm(
-      BuildContext context, Transaction transaction) async {
+      BuildContext context, TransactionModel transaction) async {
     return showDialog<bool>(
       context: context,
       builder: (context) {

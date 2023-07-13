@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:money/domain/transaction/i_transaction_repository.dart';
-import 'package:money/domain/transaction/transaction.dart' as model;
+import 'package:money/domain/transaction/transaction_model.dart' as model;
 import 'package:money/domain/transaction/transaction_by_date.dart';
 import 'package:money/domain/transaction/transaction_by_name.dart';
 import 'package:money/presentation/tool/tool.dart';
@@ -16,7 +16,7 @@ class ReportCubit extends Cubit<ReportState> {
   Future<void> fetchData(DateTime time) async {
     transactionRepository
         .listenReport(time)
-        .listen((List<model.Transaction> result) async {
+        .listen((List<model.TransactionModel> result) async {
       int total = 0;
       int totalEarn = 0;
       int totalPaid = 0;
@@ -29,7 +29,7 @@ class ReportCubit extends Cubit<ReportState> {
 
       result.sort((a, b) => a.createdTime.compareTo(b.createdTime));
 
-      for (model.Transaction item in result) {
+      for (model.TransactionModel item in result) {
         total += item.value * item.mode;
         if (item.mode == -1) {
           if (maxPaid > item.value) {

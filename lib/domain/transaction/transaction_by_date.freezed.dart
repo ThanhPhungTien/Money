@@ -22,7 +22,7 @@ TransactionByDate _$TransactionByDateFromJson(Map<String, dynamic> json) {
 mixin _$TransactionByDate {
   String get date => throw _privateConstructorUsedError;
   int get totalValue => throw _privateConstructorUsedError;
-  List<Transaction> get data => throw _privateConstructorUsedError;
+  List<TransactionModel> get data => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,7 @@ abstract class $TransactionByDateCopyWith<$Res> {
           TransactionByDate value, $Res Function(TransactionByDate) then) =
       _$TransactionByDateCopyWithImpl<$Res, TransactionByDate>;
   @useResult
-  $Res call({String date, int totalValue, List<Transaction> data});
+  $Res call({String date, int totalValue, List<TransactionModel> data});
 }
 
 /// @nodoc
@@ -68,7 +68,7 @@ class _$TransactionByDateCopyWithImpl<$Res, $Val extends TransactionByDate>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
+              as List<TransactionModel>,
     ) as $Val);
   }
 }
@@ -81,7 +81,7 @@ abstract class _$$_TransactionByDateCopyWith<$Res>
       __$$_TransactionByDateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String date, int totalValue, List<Transaction> data});
+  $Res call({String date, int totalValue, List<TransactionModel> data});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$$_TransactionByDateCopyWithImpl<$Res>
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
+              as List<TransactionModel>,
     ));
   }
 }
@@ -122,7 +122,7 @@ class _$_TransactionByDate implements _TransactionByDate {
   const _$_TransactionByDate(
       {this.date = '',
       this.totalValue = 0,
-      final List<Transaction> data = const <Transaction>[]})
+      final List<TransactionModel> data = const <TransactionModel>[]})
       : _data = data;
 
   factory _$_TransactionByDate.fromJson(Map<String, dynamic> json) =>
@@ -134,10 +134,10 @@ class _$_TransactionByDate implements _TransactionByDate {
   @override
   @JsonKey()
   final int totalValue;
-  final List<Transaction> _data;
+  final List<TransactionModel> _data;
   @override
   @JsonKey()
-  List<Transaction> get data {
+  List<TransactionModel> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_data);
@@ -183,7 +183,7 @@ abstract class _TransactionByDate implements TransactionByDate {
   const factory _TransactionByDate(
       {final String date,
       final int totalValue,
-      final List<Transaction> data}) = _$_TransactionByDate;
+      final List<TransactionModel> data}) = _$_TransactionByDate;
 
   factory _TransactionByDate.fromJson(Map<String, dynamic> json) =
       _$_TransactionByDate.fromJson;
@@ -193,7 +193,7 @@ abstract class _TransactionByDate implements TransactionByDate {
   @override
   int get totalValue;
   @override
-  List<Transaction> get data;
+  List<TransactionModel> get data;
   @override
   @JsonKey(ignore: true)
   _$$_TransactionByDateCopyWith<_$_TransactionByDate> get copyWith =>

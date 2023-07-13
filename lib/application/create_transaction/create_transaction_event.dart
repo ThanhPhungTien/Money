@@ -29,11 +29,10 @@ class CreateTransactionEventUpdateCreated extends CreateTransactionEvent {
 
   @override
   List<Object?> get props => [];
-
 }
 
 class CreateTransactionEventCreate extends CreateTransactionEvent {
-  final model.Transaction transaction;
+  final model.TransactionModel transaction;
 
   const CreateTransactionEventCreate(this.transaction);
 
@@ -42,7 +41,7 @@ class CreateTransactionEventCreate extends CreateTransactionEvent {
 }
 
 class CreateTransactionEventInit extends CreateTransactionEvent {
-  final model.Transaction initData;
+  final model.TransactionModel initData;
 
   const CreateTransactionEventInit(this.initData);
 

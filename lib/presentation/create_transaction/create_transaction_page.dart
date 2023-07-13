@@ -4,7 +4,7 @@ import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:money/application/create_transaction/create_transaction_bloc.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/model/group/group.dart';
-import 'package:money/domain/transaction/transaction.dart';
+import 'package:money/domain/transaction/transaction_model.dart';
 import 'package:money/presentation/group_selector/group_selector_page.dart';
 import 'package:money/presentation/money_keyboard/money_keyboard_widget.dart';
 import 'package:money/presentation/suggest_money/suggest_money.dart';
@@ -14,14 +14,14 @@ import 'package:money/presentation/tool/tool.dart';
 class CreateTransactionPage extends StatefulWidget {
   const CreateTransactionPage({
     Key? key,
-    this.transaction = const Transaction(),
+    this.transaction = const TransactionModel(),
   }) : super(key: key);
 
-  final Transaction transaction;
+  final TransactionModel transaction;
 
   static Future<dynamic> show({
     required BuildContext context,
-    Transaction transaction = const Transaction(),
+    TransactionModel transaction = const TransactionModel(),
   }) async {
     return context.navigator.pushNamed(
       RouteName.createTransaction,

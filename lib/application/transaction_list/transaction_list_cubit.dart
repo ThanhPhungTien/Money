@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
 import 'package:money/domain/transaction/i_transaction_repository.dart';
-import 'package:money/domain/transaction/transaction.dart' as model;
+import 'package:money/domain/transaction/transaction_model.dart' as model;
 import 'package:money/enum/constant.dart';
 import 'package:money/infrastructure/local/transaction_local_repository.dart';
 import 'package:money/model/group_transaction/group_transaction.dart';
@@ -31,7 +31,7 @@ class TransactionListCubit extends Cubit<TransactionListState> {
         }
       });
     } else {
-      List<model.Transaction> transactions =
+      List<model.TransactionModel> transactions =
           await transactionLocalRepository.get(time);
       emit(TransactionListStateGotData(await mapToGroup(transactions), time));
     }
@@ -42,7 +42,7 @@ class TransactionListCubit extends Cubit<TransactionListState> {
   }
 
   Future<List<GroupTransaction>> mapToGroup(
-      List<model.Transaction> transactions) async {
+      List<model.TransactionModel> transactions) async {
     List<GroupTransaction> mData = <GroupTransaction>[];
     List<GroupTransaction> result = transactions.map((transaction) {
       return GroupTransaction(

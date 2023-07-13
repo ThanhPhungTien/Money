@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'transaction.dart';
+part of 'transaction_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,16 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Transaction _$TransactionFromJson(Map<String, dynamic> json) {
-  return _Transaction.fromJson(json);
+TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) {
+  return _TransactionModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Transaction {
+mixin _$TransactionModel {
   String get id => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get groupId => throw _privateConstructorUsedError;
   String get groupName => throw _privateConstructorUsedError;
+  List<String> get searchOptions => throw _privateConstructorUsedError;
   int get value => throw _privateConstructorUsedError;
   int get type => throw _privateConstructorUsedError;
   int get createdTime => throw _privateConstructorUsedError;
@@ -35,21 +36,22 @@ mixin _$Transaction {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TransactionCopyWith<Transaction> get copyWith =>
+  $TransactionModelCopyWith<TransactionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TransactionCopyWith<$Res> {
-  factory $TransactionCopyWith(
-          Transaction value, $Res Function(Transaction) then) =
-      _$TransactionCopyWithImpl<$Res, Transaction>;
+abstract class $TransactionModelCopyWith<$Res> {
+  factory $TransactionModelCopyWith(
+          TransactionModel value, $Res Function(TransactionModel) then) =
+      _$TransactionModelCopyWithImpl<$Res, TransactionModel>;
   @useResult
   $Res call(
       {String id,
       String description,
       String groupId,
       String groupName,
+      List<String> searchOptions,
       int value,
       int type,
       int createdTime,
@@ -61,9 +63,9 @@ abstract class $TransactionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
-    implements $TransactionCopyWith<$Res> {
-  _$TransactionCopyWithImpl(this._value, this._then);
+class _$TransactionModelCopyWithImpl<$Res, $Val extends TransactionModel>
+    implements $TransactionModelCopyWith<$Res> {
+  _$TransactionModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -77,6 +79,7 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
     Object? description = null,
     Object? groupId = null,
     Object? groupName = null,
+    Object? searchOptions = null,
     Object? value = null,
     Object? type = null,
     Object? createdTime = null,
@@ -103,6 +106,10 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
               as String,
+      searchOptions: null == searchOptions
+          ? _value.searchOptions
+          : searchOptions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -140,11 +147,11 @@ class _$TransactionCopyWithImpl<$Res, $Val extends Transaction>
 }
 
 /// @nodoc
-abstract class _$$_TransactionCopyWith<$Res>
-    implements $TransactionCopyWith<$Res> {
-  factory _$$_TransactionCopyWith(
-          _$_Transaction value, $Res Function(_$_Transaction) then) =
-      __$$_TransactionCopyWithImpl<$Res>;
+abstract class _$$_TransactionModelCopyWith<$Res>
+    implements $TransactionModelCopyWith<$Res> {
+  factory _$$_TransactionModelCopyWith(
+          _$_TransactionModel value, $Res Function(_$_TransactionModel) then) =
+      __$$_TransactionModelCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -152,6 +159,7 @@ abstract class _$$_TransactionCopyWith<$Res>
       String description,
       String groupId,
       String groupName,
+      List<String> searchOptions,
       int value,
       int type,
       int createdTime,
@@ -163,11 +171,11 @@ abstract class _$$_TransactionCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TransactionCopyWithImpl<$Res>
-    extends _$TransactionCopyWithImpl<$Res, _$_Transaction>
-    implements _$$_TransactionCopyWith<$Res> {
-  __$$_TransactionCopyWithImpl(
-      _$_Transaction _value, $Res Function(_$_Transaction) _then)
+class __$$_TransactionModelCopyWithImpl<$Res>
+    extends _$TransactionModelCopyWithImpl<$Res, _$_TransactionModel>
+    implements _$$_TransactionModelCopyWith<$Res> {
+  __$$_TransactionModelCopyWithImpl(
+      _$_TransactionModel _value, $Res Function(_$_TransactionModel) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -177,6 +185,7 @@ class __$$_TransactionCopyWithImpl<$Res>
     Object? description = null,
     Object? groupId = null,
     Object? groupName = null,
+    Object? searchOptions = null,
     Object? value = null,
     Object? type = null,
     Object? createdTime = null,
@@ -186,7 +195,7 @@ class __$$_TransactionCopyWithImpl<$Res>
     Object? month = null,
     Object? transactionFor = null,
   }) {
-    return _then(_$_Transaction(
+    return _then(_$_TransactionModel(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -203,6 +212,10 @@ class __$$_TransactionCopyWithImpl<$Res>
           ? _value.groupName
           : groupName // ignore: cast_nullable_to_non_nullable
               as String,
+      searchOptions: null == searchOptions
+          ? _value._searchOptions
+          : searchOptions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       value: null == value
           ? _value.value
           : value // ignore: cast_nullable_to_non_nullable
@@ -241,12 +254,13 @@ class __$$_TransactionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Transaction extends _Transaction {
-  const _$_Transaction(
+class _$_TransactionModel extends _TransactionModel {
+  const _$_TransactionModel(
       {this.id = '',
       this.description = '',
       this.groupId = '',
       this.groupName = '',
+      final List<String> searchOptions = const [],
       this.value = 0,
       this.type = TransactionType.outcome,
       this.createdTime = 0,
@@ -255,10 +269,11 @@ class _$_Transaction extends _Transaction {
       this.year = 0,
       this.month = -1,
       this.transactionFor = TransactionFor.all})
-      : super._();
+      : _searchOptions = searchOptions,
+        super._();
 
-  factory _$_Transaction.fromJson(Map<String, dynamic> json) =>
-      _$$_TransactionFromJson(json);
+  factory _$_TransactionModel.fromJson(Map<String, dynamic> json) =>
+      _$$_TransactionModelFromJson(json);
 
   @override
   @JsonKey()
@@ -272,6 +287,15 @@ class _$_Transaction extends _Transaction {
   @override
   @JsonKey()
   final String groupName;
+  final List<String> _searchOptions;
+  @override
+  @JsonKey()
+  List<String> get searchOptions {
+    if (_searchOptions is EqualUnmodifiableListView) return _searchOptions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchOptions);
+  }
+
   @override
   @JsonKey()
   final int value;
@@ -299,20 +323,22 @@ class _$_Transaction extends _Transaction {
 
   @override
   String toString() {
-    return 'Transaction(id: $id, description: $description, groupId: $groupId, groupName: $groupName, value: $value, type: $type, createdTime: $createdTime, updateTime: $updateTime, mode: $mode, year: $year, month: $month, transactionFor: $transactionFor)';
+    return 'TransactionModel(id: $id, description: $description, groupId: $groupId, groupName: $groupName, searchOptions: $searchOptions, value: $value, type: $type, createdTime: $createdTime, updateTime: $updateTime, mode: $mode, year: $year, month: $month, transactionFor: $transactionFor)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Transaction &&
+            other is _$_TransactionModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.groupId, groupId) || other.groupId == groupId) &&
             (identical(other.groupName, groupName) ||
                 other.groupName == groupName) &&
+            const DeepCollectionEquality()
+                .equals(other._searchOptions, _searchOptions) &&
             (identical(other.value, value) || other.value == value) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.createdTime, createdTime) ||
@@ -334,6 +360,7 @@ class _$_Transaction extends _Transaction {
       description,
       groupId,
       groupName,
+      const DeepCollectionEquality().hash(_searchOptions),
       value,
       type,
       createdTime,
@@ -346,23 +373,24 @@ class _$_Transaction extends _Transaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TransactionCopyWith<_$_Transaction> get copyWith =>
-      __$$_TransactionCopyWithImpl<_$_Transaction>(this, _$identity);
+  _$$_TransactionModelCopyWith<_$_TransactionModel> get copyWith =>
+      __$$_TransactionModelCopyWithImpl<_$_TransactionModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TransactionToJson(
+    return _$$_TransactionModelToJson(
       this,
     );
   }
 }
 
-abstract class _Transaction extends Transaction {
-  const factory _Transaction(
+abstract class _TransactionModel extends TransactionModel {
+  const factory _TransactionModel(
       {final String id,
       final String description,
       final String groupId,
       final String groupName,
+      final List<String> searchOptions,
       final int value,
       final int type,
       final int createdTime,
@@ -370,11 +398,11 @@ abstract class _Transaction extends Transaction {
       final int mode,
       final int year,
       final int month,
-      final int transactionFor}) = _$_Transaction;
-  const _Transaction._() : super._();
+      final int transactionFor}) = _$_TransactionModel;
+  const _TransactionModel._() : super._();
 
-  factory _Transaction.fromJson(Map<String, dynamic> json) =
-      _$_Transaction.fromJson;
+  factory _TransactionModel.fromJson(Map<String, dynamic> json) =
+      _$_TransactionModel.fromJson;
 
   @override
   String get id;
@@ -384,6 +412,8 @@ abstract class _Transaction extends Transaction {
   String get groupId;
   @override
   String get groupName;
+  @override
+  List<String> get searchOptions;
   @override
   int get value;
   @override
@@ -402,6 +432,6 @@ abstract class _Transaction extends Transaction {
   int get transactionFor;
   @override
   @JsonKey(ignore: true)
-  _$$_TransactionCopyWith<_$_Transaction> get copyWith =>
+  _$$_TransactionModelCopyWith<_$_TransactionModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

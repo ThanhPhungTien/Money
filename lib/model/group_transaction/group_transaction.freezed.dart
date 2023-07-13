@@ -21,7 +21,7 @@ GroupTransaction _$GroupTransactionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$GroupTransaction {
   String get dateTime => throw _privateConstructorUsedError;
-  List<Transaction> get data => throw _privateConstructorUsedError;
+  List<TransactionModel> get data => throw _privateConstructorUsedError;
   int get totalValue => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ abstract class $GroupTransactionCopyWith<$Res> {
           GroupTransaction value, $Res Function(GroupTransaction) then) =
       _$GroupTransactionCopyWithImpl<$Res, GroupTransaction>;
   @useResult
-  $Res call({String dateTime, List<Transaction> data, int totalValue});
+  $Res call({String dateTime, List<TransactionModel> data, int totalValue});
 }
 
 /// @nodoc
@@ -64,7 +64,7 @@ class _$GroupTransactionCopyWithImpl<$Res, $Val extends GroupTransaction>
       data: null == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
+              as List<TransactionModel>,
       totalValue: null == totalValue
           ? _value.totalValue
           : totalValue // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$_GroupTransactionCopyWith<$Res>
       __$$_GroupTransactionCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String dateTime, List<Transaction> data, int totalValue});
+  $Res call({String dateTime, List<TransactionModel> data, int totalValue});
 }
 
 /// @nodoc
@@ -107,7 +107,7 @@ class __$$_GroupTransactionCopyWithImpl<$Res>
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
-              as List<Transaction>,
+              as List<TransactionModel>,
       totalValue: null == totalValue
           ? _value.totalValue
           : totalValue // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class __$$_GroupTransactionCopyWithImpl<$Res>
 class _$_GroupTransaction implements _GroupTransaction {
   const _$_GroupTransaction(
       {this.dateTime = '',
-      final List<Transaction> data = const [],
+      final List<TransactionModel> data = const [],
       this.totalValue = 0})
       : _data = data;
 
@@ -131,10 +131,10 @@ class _$_GroupTransaction implements _GroupTransaction {
   @override
   @JsonKey()
   final String dateTime;
-  final List<Transaction> _data;
+  final List<TransactionModel> _data;
   @override
   @JsonKey()
-  List<Transaction> get data {
+  List<TransactionModel> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_data);
@@ -183,7 +183,7 @@ class _$_GroupTransaction implements _GroupTransaction {
 abstract class _GroupTransaction implements GroupTransaction {
   const factory _GroupTransaction(
       {final String dateTime,
-      final List<Transaction> data,
+      final List<TransactionModel> data,
       final int totalValue}) = _$_GroupTransaction;
 
   factory _GroupTransaction.fromJson(Map<String, dynamic> json) =
@@ -192,7 +192,7 @@ abstract class _GroupTransaction implements GroupTransaction {
   @override
   String get dateTime;
   @override
-  List<Transaction> get data;
+  List<TransactionModel> get data;
   @override
   int get totalValue;
   @override
