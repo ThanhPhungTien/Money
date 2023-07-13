@@ -123,6 +123,30 @@ class TransactionRepository implements ITransactionRepository {
 
   @override
   Future<List<TransactionModel>> searchByWord(String query) async {
+    // var db = await transactionCollection
+    //     .withConverter<TransactionModel>(
+    //       fromFirestore: (snapshot, _) =>
+    //           TransactionModel.fromJson(snapshot.data()!),
+    //       toFirestore: (model, _) => model.toJson(),
+    //     )
+    //     .get();
+    //
+    // for (QueryDocumentSnapshot<TransactionModel> item in db.docs) {
+    //   List<String> searchOptions = <String>[];
+    //   String text = item.data().description.toLowerCase().withoutDiacritics;
+    //   if (text.isEmpty) {
+    //     text = item.data().groupName.withoutDiacritics.toLowerCase();
+    //   }
+    //
+    //   for (int i = 0; i <= text.length - 3; i++) {
+    //     searchOptions.add(text.substring(i, i + 3));
+    //   }
+    //
+    //   transactionCollection
+    //       .doc(item.id)
+    //       .update(item.data().copyWith(searchOptions: searchOptions).toJson());
+    // }
+
     List<String> searchOptions = <String>[];
     String text = query.trim().toLowerCase().withoutDiacritics;
 

@@ -7,4 +7,5 @@ class Constant {
   static const String hasInternet = 'hasInternet';
   static const String id = 'id';
   static const String searchOptions = 'searchOptions';
+  static const String description = 'description';
 }

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:animations/animations.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -150,6 +149,7 @@ class _HomePageState extends State<HomePage> {
         SnackBar(
           content: Text(message.notification?.body ?? ''),
           showCloseIcon: true,
+          backgroundColor: Palette.primary,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -162,28 +162,34 @@ class _HomePageState extends State<HomePage> {
       prefs.setBool(Constant.hasInternet, false);
     }
 
-    final flushBar = Flushbar(
-      icon: const Icon(
-        Icons.wifi,
-        color: Colors.white,
+    const flushBar = SnackBar(
+      content: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.wifi,
+            color: Colors.white,
+          ),
+          Expanded(
+            child: Text('Đã khôi phục kết nối mạng'),
+          ),
+        ],
       ),
-      title: 'Mừng quá',
-      message: 'Đã khôi phục kết nối mạng',
-      duration: const Duration(seconds: 3),
       backgroundColor: Colors.green,
-      flushbarStyle: FlushbarStyle.FLOATING,
+      behavior: SnackBarBehavior.floating,
     );
 
-    final flushBarNoInternet = Flushbar(
-      icon: const Icon(
-        Icons.wifi_off,
-        color: Colors.white,
+    const flushBarNoInternet = SnackBar(
+      content: Row(
+        children: [
+          Icon(
+            Icons.wifi_off,
+            color: Colors.white,
+          ),
+          Text('Không có kết nối mạng'),
+        ],
       ),
-      title: 'Ét ô Ét',
-      message: 'Không có kết nối mạng',
-      duration: const Duration(seconds: 3),
-      backgroundColor: Colors.black,
-      flushbarStyle: FlushbarStyle.FLOATING,
+      behavior: SnackBarBehavior.floating,
     );
 
     subscription = Connectivity()
@@ -191,16 +197,9 @@ class _HomePageState extends State<HomePage> {
         .listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none &&
           lastNetworkStatus != ConnectivityResult.none) {
-        if (flushBar.isShowing()) {
-          flushBar.dismiss();
-        }
-        flushBarNoInternet.show(context);
-      } else if (lastNetworkStatus == ConnectivityResult.none &&
-          flushBar.isShowing()) {
-        if (flushBarNoInternet.isShowing()) {
-          flushBarNoInternet.dismiss();
-        }
-        flushBar.show(context);
+        context.scaffoldManager.showSnackBar(flushBarNoInternet);
+      } else if (lastNetworkStatus == ConnectivityResult.none) {
+        context.scaffoldManager.showSnackBar(flushBar);
       }
       lastNetworkStatus = result;
       prefs.setBool(Constant.hasInternet, result != ConnectivityResult.none);

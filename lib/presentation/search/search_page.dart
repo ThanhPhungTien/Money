@@ -24,7 +24,7 @@ class _SearchPageState extends State<SearchPage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            SearchBar(),
+            const SearchBar(),
             Expanded(child: Container()),
           ],
         ),
