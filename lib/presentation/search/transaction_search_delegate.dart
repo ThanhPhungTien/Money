@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/search/search_bloc.dart';
 import 'package:money/domain/transaction/transaction_model.dart';
 import 'package:money/presentation/create_transaction/create_transaction_page.dart';
-import 'package:money/presentation/tool/diacritics.dart';
 import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/tool/tool.dart';
 
@@ -41,7 +40,7 @@ class TransactionSearchDelegate extends SearchDelegate<TransactionModel> {
   Widget buildResults(BuildContext context) {
     if (query.length > 2) {
       bloc.add(SearchEvent.search(
-        query: query.trim().toLowerCase().withoutDiacritics,
+        query: query.trim(),
       ));
     }
     return BlocBuilder<SearchBloc, SearchState>(

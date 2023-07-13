@@ -159,7 +159,9 @@ class TransactionRepository implements ITransactionRepository {
               TransactionModel.fromJson(snapshot.data()!),
           toFirestore: (model, _) => model.toJson(),
         )
-        .where('searchOptions', arrayContainsAny: searchOptions)
+        // .where('searchOptions', arrayContainsAny: searchOptions)
+        .where(Constant.description, isGreaterThanOrEqualTo: query)
+        .where(Constant.description, isLessThan: '${query}z')
         .limit(10)
         .get();
 
