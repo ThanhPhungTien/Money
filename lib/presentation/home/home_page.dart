@@ -164,12 +164,13 @@ class _HomePageState extends State<HomePage> {
 
     const flushBar = SnackBar(
       content: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
             Icons.wifi,
             color: Colors.white,
           ),
+          SizedBox(width: 8),
           Expanded(
             child: Text('Đã khôi phục kết nối mạng'),
           ),
@@ -181,11 +182,13 @@ class _HomePageState extends State<HomePage> {
 
     const flushBarNoInternet = SnackBar(
       content: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Icon(
             Icons.wifi_off,
             color: Colors.white,
           ),
+          SizedBox(width: 8),
           Text('Không có kết nối mạng'),
         ],
       ),
