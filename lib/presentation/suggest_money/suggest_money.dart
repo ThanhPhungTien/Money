@@ -51,22 +51,24 @@ class _SuggestMoneyViewState extends State<SuggestMoneyView> {
           return Wrap(
             spacing: 8,
             children: [1000, 10000, 10000]
-                .map((e) => ActionChip(
-                      onPressed: () {
-                        widget.textController.value =
-                            moneyFormatter.formatEditUpdate(
-                          TextEditingValue.empty,
-                          TextEditingValue(text: (state.number * e).toString()),
-                        );
-                        widget.textController.selection =
-                            TextSelection.collapsed(
-                                offset: widget.textController.text.length);
-                      },
-                      label: Text(
-                        moneyFormat(state.number * e),
-                        style: textTheme.bodyLarge,
-                      ),
-                    ))
+                .map(
+                  (e) => ActionChip(
+                    onPressed: () {
+                      widget.textController.value =
+                          moneyFormatter.formatEditUpdate(
+                        TextEditingValue.empty,
+                        TextEditingValue(text: (state.number * e).toString()),
+                      );
+                      widget.textController.selection = TextSelection.collapsed(
+                          offset: widget.textController.text.length);
+                    },
+                    shape: const StadiumBorder(),
+                    label: Text(
+                      moneyFormat(state.number * e),
+                      style: textTheme.bodyMedium,
+                    ),
+                  ),
+                )
                 .toList(),
           );
         }

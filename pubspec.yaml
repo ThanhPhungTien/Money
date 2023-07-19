@@ -25,7 +25,7 @@ dependencies:
   connectivity_plus: ^4.0.1
   shared_preferences: ^2.2.0
   month_picker_dialog: ^2.0.2
-  flutter_multi_formatter: ^2.11.2
+  flutter_multi_formatter: ^2.11.5
   bloc: ^8.1.2
   meta: any
   freezed_annotation: ^2.4.1
@@ -33,9 +33,9 @@ dependencies:
   lunar_calendar_converter_new: ^2.0.0
   dartz: ^0.10.1
   injectable: ^2.1.2
-  firebase_core: ^2.14.0
-  cloud_firestore: ^4.8.2
-  firebase_messaging: ^14.6.4
+  firebase_core: ^2.15.0
+  cloud_firestore: ^4.8.3
+  firebase_messaging: ^14.6.5
 
 dev_dependencies:
   flutter_test:

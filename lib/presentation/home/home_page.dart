@@ -11,7 +11,6 @@ import 'package:money/application/home/home_cubit.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/presentation/create_transaction/create_transaction_page.dart';
 import 'package:money/presentation/report/report_page.dart';
-import 'package:money/presentation/search/search_page.dart';
 import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/tool/tool.dart';
 import 'package:money/presentation/transaction_list/transaction_list_view.dart';
@@ -108,15 +107,6 @@ class _HomePageState extends State<HomePage> {
                       icon: const Icon(Icons.bar_chart),
                       tooltip: 'Báo cáo',
                     ),
-                    IconButton(
-                      // onPressed: () => showSearch(
-                      //   context: context,
-                      //   delegate: TransactionSearchDelegate(GetIt.I.get()),
-                      // ),
-                      onPressed: () => SearchPage.show(context: context),
-                      icon: const Icon(Icons.search),
-                      tooltip: 'Báo cáo',
-                    )
                   ],
                 ),
               );
