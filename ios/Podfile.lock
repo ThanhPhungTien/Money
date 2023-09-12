@@ -1,5 +1,5 @@
 PODS:
-  - cloud_firestore (4.8.5):
+  - cloud_firestore (4.9.1):
     - Firebase/Firestore (= 10.12.0)
     - firebase_core
     - Flutter
@@ -18,7 +18,7 @@ PODS:
   - firebase_core (2.15.1):
     - Firebase/CoreOnly (= 10.12.0)
     - Flutter
-  - firebase_messaging (14.6.6):
+  - firebase_messaging (14.6.7):
     - Firebase/Messaging (= 10.12.0)
     - firebase_core
     - Flutter
@@ -144,11 +144,11 @@ CHECKOUT OPTIONS:
     :tag: 10.12.0
 
 SPEC CHECKSUMS:
-  cloud_firestore: c556fefce96568e422e453bf9aeda683dd435367
+  cloud_firestore: 85d66b543b25130c45258412a39e851e230186e7
   connectivity_plus: 07c49e96d7fc92bc9920617b83238c4d178b446a
   Firebase: 07150e75d142fb9399f6777fa56a187b17f833a0
   firebase_core: 4a3246a02f828a01c74a2c26427037786d90f17f
-  firebase_messaging: 13b378c8449cae7ec96c79570170943dd73d4738
+  firebase_messaging: 0b4f7997f491343b90d9300af54fe55c72135833
   FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
   FirebaseCoreInternal: 950500ad8a08963657f6d8c67b579740c06d6aa1
   FirebaseFirestore: 5d42819d1b219bc20e91c0cc854ed562680f31da

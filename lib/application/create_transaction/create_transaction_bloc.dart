@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:get_it/get_it.dart';
@@ -8,7 +6,6 @@ import 'package:money/domain/transaction/i_transaction_repository.dart';
 import 'package:money/domain/transaction/transaction_model.dart' as model;
 import 'package:money/enum/transaction_for/transaction_for.dart';
 import 'package:money/model/group/group.dart';
-import 'package:money/presentation/tool/diacritics.dart';
 
 part 'create_transaction_event.dart';
 part 'create_transaction_state.dart';
@@ -81,27 +78,10 @@ class CreateTransactionBloc
     });
 
     on<CreateTransactionEventCreate>((event, emit) async {
-      List<String> searchOptions = <String>[];
-      String text =
-          event.transaction.description.trim().toLowerCase().withoutDiacritics;
-
-      for (int i = 0; i <= text.length - 3; i++) {
-        searchOptions.add(text.substring(i, i + 3));
-      }
-
-      log('searchOptions $searchOptions');
       if (event.transaction.isEmpty) {
-        await transactionRepository.create(
-          transaction: event.transaction.copyWith(
-            searchOptions: searchOptions,
-          ),
-        );
+        await transactionRepository.create(transaction: event.transaction);
       } else {
-        await transactionRepository.update(
-          transaction: event.transaction.copyWith(
-            searchOptions: searchOptions,
-          ),
-        );
+        await transactionRepository.update(transaction: event.transaction);
       }
       emit(CreateTransactionStateCreateDone());
     });
