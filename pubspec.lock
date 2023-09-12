@@ -109,10 +109,10 @@ packages:
     dependency: transitive
     description:
       name: build_resolvers
-      sha256: a7417cc44d9edb3f2c8760000270c99dba8c72ff66d0146772b8326565780745
+      sha256: d912852cce27c9e80a93603db721c267716894462e7033165178b91138587972
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   build_runner:
     dependency: "direct dev"
     description:
@@ -399,10 +399,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_multi_formatter
-      sha256: "030182980c0874908564a4493ff53d961168a03e084d65566cbae08cdb5dced1"
+      sha256: a09218d96304fe918a66dba7265d31932a8a40bc7865e55d1e1133e5fc290713
       url: "https://pub.dev"
     source: hosted
-    version: "2.11.7"
+    version: "2.11.9"
   flutter_test:
     dependency: "direct dev"
     description: flutter
