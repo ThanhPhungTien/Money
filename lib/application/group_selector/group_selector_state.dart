@@ -16,19 +16,18 @@ class GroupSelectorStateFetching extends GroupSelectorState {
 
 class GroupSelectorStateGotData extends GroupSelectorState {
   final List<Group> data;
+  final bool showSearch;
 
-  const GroupSelectorStateGotData(this.data);
+  const GroupSelectorStateGotData(this.data, this.showSearch);
 
   @override
-  List<Object?> get props => [data];
+  List<Object?> get props => [data, showSearch];
 }
 
 class GroupSelectorStateFetchingError extends GroupSelectorState {
-
   final String message;
   const GroupSelectorStateFetchingError(this.message);
 
   @override
   List<Object?> get props => [message];
-
 }

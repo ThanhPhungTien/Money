@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:money/application/suggest_money/suggest_money_cubit.dart';
+import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/tool/tool.dart';
 
 class SuggestMoneyView extends StatefulWidget {
@@ -53,6 +54,7 @@ class _SuggestMoneyViewState extends State<SuggestMoneyView> {
             children: [1000, 10000, 10000]
                 .map(
                   (e) => ActionChip(
+                    backgroundColor: Palette.primary,
                     onPressed: () {
                       widget.textController.value =
                           moneyFormatter.formatEditUpdate(
@@ -65,7 +67,9 @@ class _SuggestMoneyViewState extends State<SuggestMoneyView> {
                     shape: const StadiumBorder(),
                     label: Text(
                       moneyFormat(state.number * e),
-                      style: textTheme.bodyMedium,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 )

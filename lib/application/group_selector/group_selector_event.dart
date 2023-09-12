@@ -26,3 +26,8 @@ class GroupSelectorEventDelete extends GroupSelectorEvent {
   @override
   List<Object?> get props => [item];
 }
+
+class GroupSelectorEventShowSearch extends GroupSelectorEvent {
+  @override
+  List<Object?> get props => [];
+}

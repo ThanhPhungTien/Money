@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -112,6 +114,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
           },
           builder: (context, state) {
             if (state is CreateTransactionStateGotData) {
+              log('rebuild CreateTransactionStateGotData ${state.group.toJson()}');
               dateTEC.text = convertTime(
                 'dd/MM/yyyy',
                 state.dateTime.millisecondsSinceEpoch,
@@ -172,6 +175,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                     ),
                     const SizedBox(height: 8),
                     SuggestMoneyView(textController: valueTEC),
+                    const SizedBox(height: 8),
                     TextFormField(
                       controller: descriptionTEC,
                       decoration: const InputDecoration(
@@ -198,7 +202,8 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(50),
                       ),
-                      child: const Text('Cập nhật'),
+                      child:
+                          Text(widget.transaction.isEmpty ? 'Tạo' : 'Cập nhật'),
                     )
                   ],
                 ),

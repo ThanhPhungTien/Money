@@ -48,6 +48,10 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
         title: const Text('Chọn nhóm'),
         actions: [
           IconButton(
+            onPressed: () => bloc.add(GroupSelectorEventShowSearch()),
+            icon: const Icon(Icons.search),
+          ),
+          IconButton(
             onPressed: () async {
               await CreateGroupPage.show(context: context);
               bloc.add(GroupSelectorEventInit());
@@ -62,20 +66,30 @@ class _GroupSelectorPageState extends State<GroupSelectorPage> {
           if (state is GroupSelectorStateGotData) {
             return Column(
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Nhập tên nhóm',
-                      suffixIcon: const Icon(Icons.search),
-                      suffix: GestureDetector(
-                        onTap: () => searchTEC.clear(),
-                        child: const Icon(Icons.clear),
-                      ),
-                    ),
-                    controller: searchTEC,
-                  ),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) {
+                    return SizeTransition(
+                      sizeFactor: animation,
+                      axis: Axis.vertical,
+                      child: child,
+                    );
+                  },
+                  child: state.showSearch
+                      ? Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Nhập tên nhóm',
+                              suffixIcon: GestureDetector(
+                                onTap: () => searchTEC.clear(),
+                                child: const Icon(Icons.clear),
+                              ),
+                            ),
+                            controller: searchTEC,
+                          ))
+                      : Container(),
                 ),
                 const SizedBox(height: 16),
                 Expanded(

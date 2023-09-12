@@ -21,12 +21,10 @@ class TransactionRepository implements ITransactionRepository {
 
   @override
   Future<void> create({required TransactionModel transaction}) async {
-    await transactionCollection.add(transaction.toJson());
+    final result = await transactionCollection.add(transaction.toJson());
 
-    GetIt.I
-        .get<SharedPreferences>()
-        .setString(Constant.transaction, json.encode(transaction.toJson()));
-
+    GetIt.I.get<SharedPreferences>().setString(Constant.transaction,
+        json.encode(transaction.copyWith(id: result.id).toJson()));
     updateReport(transaction.year, transaction.month);
   }
 
@@ -116,6 +114,7 @@ class TransactionRepository implements ITransactionRepository {
   Future<TransactionModel> getLastTransaction() async {
     String lastTransaction =
         GetIt.I.get<SharedPreferences>().getString(Constant.transaction) ?? '';
+
     return lastTransaction.isEmpty
         ? const TransactionModel()
         : TransactionModel.fromJson(json.decode(lastTransaction));

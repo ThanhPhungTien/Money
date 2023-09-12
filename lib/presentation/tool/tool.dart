@@ -15,6 +15,8 @@ extension ContextTool on BuildContext {
   ThemeData get theme => Theme.of(this);
 
   ScaffoldMessengerState get scaffoldManager => ScaffoldMessenger.of(this);
+
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }
 
 bool isMoney(String value) {

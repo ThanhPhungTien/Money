@@ -16,7 +16,10 @@ ThemeData appTheme = ThemeData(
   inputDecorationTheme: inputDecorationTheme,
 );
 
-InputDecorationTheme inputDecorationTheme = const InputDecorationTheme();
+InputDecorationTheme inputDecorationTheme = const InputDecorationTheme(
+  filled: true,
+  border: UnderlineInputBorder(borderSide: BorderSide.none),
+);
 
 ListTileThemeData listTileThemeData = const ListTileThemeData();
 

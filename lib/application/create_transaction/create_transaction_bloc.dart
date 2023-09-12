@@ -26,14 +26,11 @@ class CreateTransactionBloc
           ));
         } else {
           Group group = await groupRepository.view(id: transaction.groupId);
-
-          emit(
-            CreateTransactionStateGotData(
-              DateTime.now(),
-              group,
-              transaction.transactionFor,
-            ),
-          );
+          emit(CreateTransactionStateGotData(
+            DateTime.now(),
+            group,
+            transaction.transactionFor,
+          ));
         }
       } else {
         Group group = await groupRepository.view(id: event.initData.groupId);

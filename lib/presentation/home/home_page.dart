@@ -153,48 +153,48 @@ class _HomePageState extends State<HomePage> {
       prefs.setBool(Constant.hasInternet, false);
     }
 
-    const flushBar = SnackBar(
-      content: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.wifi,
-            color: Colors.white,
-          ),
-          SizedBox(width: 8),
-          Expanded(
-            child: Text('Đã khôi phục kết nối mạng'),
-          ),
-        ],
-      ),
-      backgroundColor: Colors.green,
-      behavior: SnackBarBehavior.floating,
-    );
-
-    const flushBarNoInternet = SnackBar(
-      content: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.wifi_off,
-            color: Colors.white,
-          ),
-          SizedBox(width: 8),
-          Text('Không có kết nối mạng'),
-        ],
-      ),
-      behavior: SnackBarBehavior.floating,
-    );
+    // const flushBar = SnackBar(
+    //   content: Row(
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: [
+    //       Icon(
+    //         Icons.wifi,
+    //         color: Colors.white,
+    //       ),
+    //       SizedBox(width: 8),
+    //       Expanded(
+    //         child: Text('Đã khôi phục kết nối mạng'),
+    //       ),
+    //     ],
+    //   ),
+    //   backgroundColor: Colors.green,
+    //   behavior: SnackBarBehavior.floating,
+    // );
+    //
+    // const flushBarNoInternet = SnackBar(
+    //   content: Row(
+    //     crossAxisAlignment: CrossAxisAlignment.center,
+    //     children: [
+    //       Icon(
+    //         Icons.wifi_off,
+    //         color: Colors.white,
+    //       ),
+    //       SizedBox(width: 8),
+    //       Text('Không có kết nối mạng'),
+    //     ],
+    //   ),
+    //   behavior: SnackBarBehavior.floating,
+    // );
 
     subscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.none &&
-          lastNetworkStatus != ConnectivityResult.none) {
-        context.scaffoldManager.showSnackBar(flushBarNoInternet);
-      } else if (lastNetworkStatus == ConnectivityResult.none) {
-        context.scaffoldManager.showSnackBar(flushBar);
-      }
+      // if (result == ConnectivityResult.none &&
+      //     lastNetworkStatus != ConnectivityResult.none) {
+      //   // context.scaffoldManager.showSnackBar(flushBarNoInternet);
+      // } else if (lastNetworkStatus == ConnectivityResult.none) {
+      //   // context.scaffoldManager.showSnackBar(flushBar);
+      // }
       lastNetworkStatus = result;
       prefs.setBool(Constant.hasInternet, result != ConnectivityResult.none);
     });
