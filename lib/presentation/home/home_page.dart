@@ -53,10 +53,7 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          toolbarHeight: 0,
-        ),
+        appBar: AppBar(elevation: 0, toolbarHeight: 0),
         body: BlocBuilder<HomeCubit, HomeState>(
           bloc: bloc,
           builder: (context, state) {
