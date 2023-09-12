@@ -15,7 +15,6 @@ import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/tool/tool.dart';
 import 'package:money/presentation/transaction_list/transaction_list_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -46,7 +45,6 @@ class _HomePageState extends State<HomePage> {
   void dispose() {
     bloc.close();
     subscription.cancel();
-    GetIt.I.get<Database>().close();
     super.dispose();
   }
 

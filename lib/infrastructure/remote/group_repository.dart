@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:money/domain/transaction/i_group_repository.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/model/group/group.dart';
-import 'package:money/infrastructure/local/group_local_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 @Injectable(as: IGroupRepository)
@@ -13,7 +12,7 @@ class GroupRepository implements IGroupRepository {
     Constant.group,
   );
   SharedPreferences prefs = GetIt.I.get();
-  GroupLocalRepository groupLocalRepository = GetIt.I.get();
+  // GroupLocalRepository groupLocalRepository = GetIt.I.get();
 
   @override
   Future<Group> create({required Group group}) async {
@@ -28,11 +27,7 @@ class GroupRepository implements IGroupRepository {
 
   @override
   Future<Group> update({required Group group}) async {
-    if (prefs.getBool(Constant.hasInternet) ?? false) {
-      await groupCollection.doc(group.id).update(group.toJson());
-    } else {
-      groupLocalRepository.save(group);
-    }
+    await groupCollection.doc(group.id).update(group.toJson());
 
     return group.copyWith(
       updateTime: DateTime.now().millisecondsSinceEpoch,
@@ -42,16 +37,11 @@ class GroupRepository implements IGroupRepository {
   @override
   Future<List<Group>> get() async {
     List<Group> data = <Group>[];
+    QuerySnapshot snapshot = await groupCollection.get();
 
-    if (prefs.getBool(Constant.hasInternet) ?? false) {
-      QuerySnapshot snapshot = await groupCollection.get();
-
-      for (var item in snapshot.docs) {
-        data.add(Group.fromJson(item.data() as Map<String, dynamic>)
-            .copyWith(id: item.id));
-      }
-    } else {
-      data = await groupLocalRepository.get();
+    for (var item in snapshot.docs) {
+      data.add(Group.fromJson(item.data() as Map<String, dynamic>)
+          .copyWith(id: item.id));
     }
 
     data.sort((a, b) => b.updateTime.compareTo(a.updateTime));
@@ -60,22 +50,17 @@ class GroupRepository implements IGroupRepository {
 
   @override
   Future<Group> view({required String id}) async {
-    if (prefs.getBool(Constant.hasInternet) ?? false) {
-      try {
-        DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
-        if (documentSnapshot.exists) {
-          return Group.fromJson(documentSnapshot.data() as Map<String, dynamic>)
-              .copyWith(
-            id: documentSnapshot.id,
-          );
-        }
-      } on FirebaseException catch (_) {
-        return const Group();
+    try {
+      DocumentSnapshot documentSnapshot = await groupCollection.doc(id).get();
+      if (documentSnapshot.exists) {
+        return Group.fromJson(documentSnapshot.data() as Map<String, dynamic>)
+            .copyWith(
+          id: documentSnapshot.id,
+        );
       }
-    } else {
-      return groupLocalRepository.view(id);
+    } on FirebaseException catch (_) {
+      return const Group();
     }
-
     return const Group();
   }
 
