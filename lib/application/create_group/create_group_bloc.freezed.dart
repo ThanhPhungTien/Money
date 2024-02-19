@@ -12,7 +12,7 @@ part of 'create_group_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CreateGroupEvent {
@@ -81,25 +81,25 @@ class _$CreateGroupEventCopyWithImpl<$Res, $Val extends CreateGroupEvent>
 }
 
 /// @nodoc
-abstract class _$$CreateGroupEventInitCopyWith<$Res> {
-  factory _$$CreateGroupEventInitCopyWith(_$CreateGroupEventInit value,
-          $Res Function(_$CreateGroupEventInit) then) =
-      __$$CreateGroupEventInitCopyWithImpl<$Res>;
+abstract class _$$CreateGroupEventInitImplCopyWith<$Res> {
+  factory _$$CreateGroupEventInitImplCopyWith(_$CreateGroupEventInitImpl value,
+          $Res Function(_$CreateGroupEventInitImpl) then) =
+      __$$CreateGroupEventInitImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateGroupEventInitCopyWithImpl<$Res>
-    extends _$CreateGroupEventCopyWithImpl<$Res, _$CreateGroupEventInit>
-    implements _$$CreateGroupEventInitCopyWith<$Res> {
-  __$$CreateGroupEventInitCopyWithImpl(_$CreateGroupEventInit _value,
-      $Res Function(_$CreateGroupEventInit) _then)
+class __$$CreateGroupEventInitImplCopyWithImpl<$Res>
+    extends _$CreateGroupEventCopyWithImpl<$Res, _$CreateGroupEventInitImpl>
+    implements _$$CreateGroupEventInitImplCopyWith<$Res> {
+  __$$CreateGroupEventInitImplCopyWithImpl(_$CreateGroupEventInitImpl _value,
+      $Res Function(_$CreateGroupEventInitImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateGroupEventInit implements CreateGroupEventInit {
-  const _$CreateGroupEventInit();
+class _$CreateGroupEventInitImpl implements CreateGroupEventInit {
+  const _$CreateGroupEventInitImpl();
 
   @override
   String toString() {
@@ -107,9 +107,10 @@ class _$CreateGroupEventInit implements CreateGroupEventInit {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CreateGroupEventInit);
+        (other.runtimeType == runtimeType &&
+            other is _$CreateGroupEventInitImpl);
   }
 
   @override
@@ -185,26 +186,27 @@ class _$CreateGroupEventInit implements CreateGroupEventInit {
 }
 
 abstract class CreateGroupEventInit implements CreateGroupEvent {
-  const factory CreateGroupEventInit() = _$CreateGroupEventInit;
+  const factory CreateGroupEventInit() = _$CreateGroupEventInitImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateGroupEventUpdateCheckCopyWith<$Res> {
-  factory _$$CreateGroupEventUpdateCheckCopyWith(
-          _$CreateGroupEventUpdateCheck value,
-          $Res Function(_$CreateGroupEventUpdateCheck) then) =
-      __$$CreateGroupEventUpdateCheckCopyWithImpl<$Res>;
+abstract class _$$CreateGroupEventUpdateCheckImplCopyWith<$Res> {
+  factory _$$CreateGroupEventUpdateCheckImplCopyWith(
+          _$CreateGroupEventUpdateCheckImpl value,
+          $Res Function(_$CreateGroupEventUpdateCheckImpl) then) =
+      __$$CreateGroupEventUpdateCheckImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool paid});
 }
 
 /// @nodoc
-class __$$CreateGroupEventUpdateCheckCopyWithImpl<$Res>
-    extends _$CreateGroupEventCopyWithImpl<$Res, _$CreateGroupEventUpdateCheck>
-    implements _$$CreateGroupEventUpdateCheckCopyWith<$Res> {
-  __$$CreateGroupEventUpdateCheckCopyWithImpl(
-      _$CreateGroupEventUpdateCheck _value,
-      $Res Function(_$CreateGroupEventUpdateCheck) _then)
+class __$$CreateGroupEventUpdateCheckImplCopyWithImpl<$Res>
+    extends _$CreateGroupEventCopyWithImpl<$Res,
+        _$CreateGroupEventUpdateCheckImpl>
+    implements _$$CreateGroupEventUpdateCheckImplCopyWith<$Res> {
+  __$$CreateGroupEventUpdateCheckImplCopyWithImpl(
+      _$CreateGroupEventUpdateCheckImpl _value,
+      $Res Function(_$CreateGroupEventUpdateCheckImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -212,7 +214,7 @@ class __$$CreateGroupEventUpdateCheckCopyWithImpl<$Res>
   $Res call({
     Object? paid = null,
   }) {
-    return _then(_$CreateGroupEventUpdateCheck(
+    return _then(_$CreateGroupEventUpdateCheckImpl(
       null == paid
           ? _value.paid
           : paid // ignore: cast_nullable_to_non_nullable
@@ -223,8 +225,8 @@ class __$$CreateGroupEventUpdateCheckCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CreateGroupEventUpdateCheck implements CreateGroupEventUpdateCheck {
-  const _$CreateGroupEventUpdateCheck(this.paid);
+class _$CreateGroupEventUpdateCheckImpl implements CreateGroupEventUpdateCheck {
+  const _$CreateGroupEventUpdateCheckImpl(this.paid);
 
   @override
   final bool paid;
@@ -235,10 +237,10 @@ class _$CreateGroupEventUpdateCheck implements CreateGroupEventUpdateCheck {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateGroupEventUpdateCheck &&
+            other is _$CreateGroupEventUpdateCheckImpl &&
             (identical(other.paid, paid) || other.paid == paid));
   }
 
@@ -248,9 +250,9 @@ class _$CreateGroupEventUpdateCheck implements CreateGroupEventUpdateCheck {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateGroupEventUpdateCheckCopyWith<_$CreateGroupEventUpdateCheck>
-      get copyWith => __$$CreateGroupEventUpdateCheckCopyWithImpl<
-          _$CreateGroupEventUpdateCheck>(this, _$identity);
+  _$$CreateGroupEventUpdateCheckImplCopyWith<_$CreateGroupEventUpdateCheckImpl>
+      get copyWith => __$$CreateGroupEventUpdateCheckImplCopyWithImpl<
+          _$CreateGroupEventUpdateCheckImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -323,19 +325,19 @@ class _$CreateGroupEventUpdateCheck implements CreateGroupEventUpdateCheck {
 
 abstract class CreateGroupEventUpdateCheck implements CreateGroupEvent {
   const factory CreateGroupEventUpdateCheck(final bool paid) =
-      _$CreateGroupEventUpdateCheck;
+      _$CreateGroupEventUpdateCheckImpl;
 
   bool get paid;
   @JsonKey(ignore: true)
-  _$$CreateGroupEventUpdateCheckCopyWith<_$CreateGroupEventUpdateCheck>
+  _$$CreateGroupEventUpdateCheckImplCopyWith<_$CreateGroupEventUpdateCheckImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$CreateGroupEventSaveCopyWith<$Res> {
-  factory _$$CreateGroupEventSaveCopyWith(_$CreateGroupEventSave value,
-          $Res Function(_$CreateGroupEventSave) then) =
-      __$$CreateGroupEventSaveCopyWithImpl<$Res>;
+abstract class _$$CreateGroupEventSaveImplCopyWith<$Res> {
+  factory _$$CreateGroupEventSaveImplCopyWith(_$CreateGroupEventSaveImpl value,
+          $Res Function(_$CreateGroupEventSaveImpl) then) =
+      __$$CreateGroupEventSaveImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Group group});
 
@@ -343,11 +345,11 @@ abstract class _$$CreateGroupEventSaveCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$CreateGroupEventSaveCopyWithImpl<$Res>
-    extends _$CreateGroupEventCopyWithImpl<$Res, _$CreateGroupEventSave>
-    implements _$$CreateGroupEventSaveCopyWith<$Res> {
-  __$$CreateGroupEventSaveCopyWithImpl(_$CreateGroupEventSave _value,
-      $Res Function(_$CreateGroupEventSave) _then)
+class __$$CreateGroupEventSaveImplCopyWithImpl<$Res>
+    extends _$CreateGroupEventCopyWithImpl<$Res, _$CreateGroupEventSaveImpl>
+    implements _$$CreateGroupEventSaveImplCopyWith<$Res> {
+  __$$CreateGroupEventSaveImplCopyWithImpl(_$CreateGroupEventSaveImpl _value,
+      $Res Function(_$CreateGroupEventSaveImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -355,7 +357,7 @@ class __$$CreateGroupEventSaveCopyWithImpl<$Res>
   $Res call({
     Object? group = null,
   }) {
-    return _then(_$CreateGroupEventSave(
+    return _then(_$CreateGroupEventSaveImpl(
       null == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
@@ -374,8 +376,8 @@ class __$$CreateGroupEventSaveCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CreateGroupEventSave implements CreateGroupEventSave {
-  const _$CreateGroupEventSave(this.group);
+class _$CreateGroupEventSaveImpl implements CreateGroupEventSave {
+  const _$CreateGroupEventSaveImpl(this.group);
 
   @override
   final Group group;
@@ -386,10 +388,10 @@ class _$CreateGroupEventSave implements CreateGroupEventSave {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateGroupEventSave &&
+            other is _$CreateGroupEventSaveImpl &&
             (identical(other.group, group) || other.group == group));
   }
 
@@ -399,9 +401,10 @@ class _$CreateGroupEventSave implements CreateGroupEventSave {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateGroupEventSaveCopyWith<_$CreateGroupEventSave> get copyWith =>
-      __$$CreateGroupEventSaveCopyWithImpl<_$CreateGroupEventSave>(
-          this, _$identity);
+  _$$CreateGroupEventSaveImplCopyWith<_$CreateGroupEventSaveImpl>
+      get copyWith =>
+          __$$CreateGroupEventSaveImplCopyWithImpl<_$CreateGroupEventSaveImpl>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -474,12 +477,12 @@ class _$CreateGroupEventSave implements CreateGroupEventSave {
 
 abstract class CreateGroupEventSave implements CreateGroupEvent {
   const factory CreateGroupEventSave(final Group group) =
-      _$CreateGroupEventSave;
+      _$CreateGroupEventSaveImpl;
 
   Group get group;
   @JsonKey(ignore: true)
-  _$$CreateGroupEventSaveCopyWith<_$CreateGroupEventSave> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateGroupEventSaveImplCopyWith<_$CreateGroupEventSaveImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -549,25 +552,27 @@ class _$CreateGroupStateCopyWithImpl<$Res, $Val extends CreateGroupState>
 }
 
 /// @nodoc
-abstract class _$$CreateGroupStateInitialCopyWith<$Res> {
-  factory _$$CreateGroupStateInitialCopyWith(_$CreateGroupStateInitial value,
-          $Res Function(_$CreateGroupStateInitial) then) =
-      __$$CreateGroupStateInitialCopyWithImpl<$Res>;
+abstract class _$$CreateGroupStateInitialImplCopyWith<$Res> {
+  factory _$$CreateGroupStateInitialImplCopyWith(
+          _$CreateGroupStateInitialImpl value,
+          $Res Function(_$CreateGroupStateInitialImpl) then) =
+      __$$CreateGroupStateInitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateGroupStateInitialCopyWithImpl<$Res>
-    extends _$CreateGroupStateCopyWithImpl<$Res, _$CreateGroupStateInitial>
-    implements _$$CreateGroupStateInitialCopyWith<$Res> {
-  __$$CreateGroupStateInitialCopyWithImpl(_$CreateGroupStateInitial _value,
-      $Res Function(_$CreateGroupStateInitial) _then)
+class __$$CreateGroupStateInitialImplCopyWithImpl<$Res>
+    extends _$CreateGroupStateCopyWithImpl<$Res, _$CreateGroupStateInitialImpl>
+    implements _$$CreateGroupStateInitialImplCopyWith<$Res> {
+  __$$CreateGroupStateInitialImplCopyWithImpl(
+      _$CreateGroupStateInitialImpl _value,
+      $Res Function(_$CreateGroupStateInitialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateGroupStateInitial implements CreateGroupStateInitial {
-  const _$CreateGroupStateInitial();
+class _$CreateGroupStateInitialImpl implements CreateGroupStateInitial {
+  const _$CreateGroupStateInitialImpl();
 
   @override
   String toString() {
@@ -575,10 +580,10 @@ class _$CreateGroupStateInitial implements CreateGroupStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateGroupStateInitial);
+            other is _$CreateGroupStateInitialImpl);
   }
 
   @override
@@ -654,24 +659,26 @@ class _$CreateGroupStateInitial implements CreateGroupStateInitial {
 }
 
 abstract class CreateGroupStateInitial implements CreateGroupState {
-  const factory CreateGroupStateInitial() = _$CreateGroupStateInitial;
+  const factory CreateGroupStateInitial() = _$CreateGroupStateInitialImpl;
 }
 
 /// @nodoc
-abstract class _$$CreateGroupStateNormalCopyWith<$Res> {
-  factory _$$CreateGroupStateNormalCopyWith(_$CreateGroupStateNormal value,
-          $Res Function(_$CreateGroupStateNormal) then) =
-      __$$CreateGroupStateNormalCopyWithImpl<$Res>;
+abstract class _$$CreateGroupStateNormalImplCopyWith<$Res> {
+  factory _$$CreateGroupStateNormalImplCopyWith(
+          _$CreateGroupStateNormalImpl value,
+          $Res Function(_$CreateGroupStateNormalImpl) then) =
+      __$$CreateGroupStateNormalImplCopyWithImpl<$Res>;
   @useResult
   $Res call({bool paid});
 }
 
 /// @nodoc
-class __$$CreateGroupStateNormalCopyWithImpl<$Res>
-    extends _$CreateGroupStateCopyWithImpl<$Res, _$CreateGroupStateNormal>
-    implements _$$CreateGroupStateNormalCopyWith<$Res> {
-  __$$CreateGroupStateNormalCopyWithImpl(_$CreateGroupStateNormal _value,
-      $Res Function(_$CreateGroupStateNormal) _then)
+class __$$CreateGroupStateNormalImplCopyWithImpl<$Res>
+    extends _$CreateGroupStateCopyWithImpl<$Res, _$CreateGroupStateNormalImpl>
+    implements _$$CreateGroupStateNormalImplCopyWith<$Res> {
+  __$$CreateGroupStateNormalImplCopyWithImpl(
+      _$CreateGroupStateNormalImpl _value,
+      $Res Function(_$CreateGroupStateNormalImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -679,7 +686,7 @@ class __$$CreateGroupStateNormalCopyWithImpl<$Res>
   $Res call({
     Object? paid = null,
   }) {
-    return _then(_$CreateGroupStateNormal(
+    return _then(_$CreateGroupStateNormalImpl(
       null == paid
           ? _value.paid
           : paid // ignore: cast_nullable_to_non_nullable
@@ -690,8 +697,8 @@ class __$$CreateGroupStateNormalCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CreateGroupStateNormal implements CreateGroupStateNormal {
-  const _$CreateGroupStateNormal(this.paid);
+class _$CreateGroupStateNormalImpl implements CreateGroupStateNormal {
+  const _$CreateGroupStateNormalImpl(this.paid);
 
   @override
   final bool paid;
@@ -702,10 +709,10 @@ class _$CreateGroupStateNormal implements CreateGroupStateNormal {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CreateGroupStateNormal &&
+            other is _$CreateGroupStateNormalImpl &&
             (identical(other.paid, paid) || other.paid == paid));
   }
 
@@ -715,9 +722,9 @@ class _$CreateGroupStateNormal implements CreateGroupStateNormal {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$CreateGroupStateNormalCopyWith<_$CreateGroupStateNormal> get copyWith =>
-      __$$CreateGroupStateNormalCopyWithImpl<_$CreateGroupStateNormal>(
-          this, _$identity);
+  _$$CreateGroupStateNormalImplCopyWith<_$CreateGroupStateNormalImpl>
+      get copyWith => __$$CreateGroupStateNormalImplCopyWithImpl<
+          _$CreateGroupStateNormalImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -790,34 +797,34 @@ class _$CreateGroupStateNormal implements CreateGroupStateNormal {
 
 abstract class CreateGroupStateNormal implements CreateGroupState {
   const factory CreateGroupStateNormal(final bool paid) =
-      _$CreateGroupStateNormal;
+      _$CreateGroupStateNormalImpl;
 
   bool get paid;
   @JsonKey(ignore: true)
-  _$$CreateGroupStateNormalCopyWith<_$CreateGroupStateNormal> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$CreateGroupStateNormalImplCopyWith<_$CreateGroupStateNormalImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$CreateGroupStateDoneCopyWith<$Res> {
-  factory _$$CreateGroupStateDoneCopyWith(_$CreateGroupStateDone value,
-          $Res Function(_$CreateGroupStateDone) then) =
-      __$$CreateGroupStateDoneCopyWithImpl<$Res>;
+abstract class _$$CreateGroupStateDoneImplCopyWith<$Res> {
+  factory _$$CreateGroupStateDoneImplCopyWith(_$CreateGroupStateDoneImpl value,
+          $Res Function(_$CreateGroupStateDoneImpl) then) =
+      __$$CreateGroupStateDoneImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$CreateGroupStateDoneCopyWithImpl<$Res>
-    extends _$CreateGroupStateCopyWithImpl<$Res, _$CreateGroupStateDone>
-    implements _$$CreateGroupStateDoneCopyWith<$Res> {
-  __$$CreateGroupStateDoneCopyWithImpl(_$CreateGroupStateDone _value,
-      $Res Function(_$CreateGroupStateDone) _then)
+class __$$CreateGroupStateDoneImplCopyWithImpl<$Res>
+    extends _$CreateGroupStateCopyWithImpl<$Res, _$CreateGroupStateDoneImpl>
+    implements _$$CreateGroupStateDoneImplCopyWith<$Res> {
+  __$$CreateGroupStateDoneImplCopyWithImpl(_$CreateGroupStateDoneImpl _value,
+      $Res Function(_$CreateGroupStateDoneImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$CreateGroupStateDone implements CreateGroupStateDone {
-  const _$CreateGroupStateDone();
+class _$CreateGroupStateDoneImpl implements CreateGroupStateDone {
+  const _$CreateGroupStateDoneImpl();
 
   @override
   String toString() {
@@ -825,9 +832,10 @@ class _$CreateGroupStateDone implements CreateGroupStateDone {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CreateGroupStateDone);
+        (other.runtimeType == runtimeType &&
+            other is _$CreateGroupStateDoneImpl);
   }
 
   @override
@@ -903,5 +911,5 @@ class _$CreateGroupStateDone implements CreateGroupStateDone {
 }
 
 abstract class CreateGroupStateDone implements CreateGroupState {
-  const factory CreateGroupStateDone() = _$CreateGroupStateDone;
+  const factory CreateGroupStateDone() = _$CreateGroupStateDoneImpl;
 }

@@ -12,7 +12,7 @@ part of 'transaction_by_date.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TransactionByDate _$TransactionByDateFromJson(Map<String, dynamic> json) {
   return _TransactionByDate.fromJson(json);
@@ -74,22 +74,22 @@ class _$TransactionByDateCopyWithImpl<$Res, $Val extends TransactionByDate>
 }
 
 /// @nodoc
-abstract class _$$_TransactionByDateCopyWith<$Res>
+abstract class _$$TransactionByDateImplCopyWith<$Res>
     implements $TransactionByDateCopyWith<$Res> {
-  factory _$$_TransactionByDateCopyWith(_$_TransactionByDate value,
-          $Res Function(_$_TransactionByDate) then) =
-      __$$_TransactionByDateCopyWithImpl<$Res>;
+  factory _$$TransactionByDateImplCopyWith(_$TransactionByDateImpl value,
+          $Res Function(_$TransactionByDateImpl) then) =
+      __$$TransactionByDateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String date, int totalValue, List<TransactionModel> data});
 }
 
 /// @nodoc
-class __$$_TransactionByDateCopyWithImpl<$Res>
-    extends _$TransactionByDateCopyWithImpl<$Res, _$_TransactionByDate>
-    implements _$$_TransactionByDateCopyWith<$Res> {
-  __$$_TransactionByDateCopyWithImpl(
-      _$_TransactionByDate _value, $Res Function(_$_TransactionByDate) _then)
+class __$$TransactionByDateImplCopyWithImpl<$Res>
+    extends _$TransactionByDateCopyWithImpl<$Res, _$TransactionByDateImpl>
+    implements _$$TransactionByDateImplCopyWith<$Res> {
+  __$$TransactionByDateImplCopyWithImpl(_$TransactionByDateImpl _value,
+      $Res Function(_$TransactionByDateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_TransactionByDateCopyWithImpl<$Res>
     Object? totalValue = null,
     Object? data = null,
   }) {
-    return _then(_$_TransactionByDate(
+    return _then(_$TransactionByDateImpl(
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -118,15 +118,15 @@ class __$$_TransactionByDateCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TransactionByDate implements _TransactionByDate {
-  const _$_TransactionByDate(
+class _$TransactionByDateImpl implements _TransactionByDate {
+  const _$TransactionByDateImpl(
       {this.date = '',
       this.totalValue = 0,
       final List<TransactionModel> data = const <TransactionModel>[]})
       : _data = data;
 
-  factory _$_TransactionByDate.fromJson(Map<String, dynamic> json) =>
-      _$$_TransactionByDateFromJson(json);
+  factory _$TransactionByDateImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TransactionByDateImplFromJson(json);
 
   @override
   @JsonKey()
@@ -149,10 +149,10 @@ class _$_TransactionByDate implements _TransactionByDate {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TransactionByDate &&
+            other is _$TransactionByDateImpl &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.totalValue, totalValue) ||
                 other.totalValue == totalValue) &&
@@ -167,13 +167,13 @@ class _$_TransactionByDate implements _TransactionByDate {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TransactionByDateCopyWith<_$_TransactionByDate> get copyWith =>
-      __$$_TransactionByDateCopyWithImpl<_$_TransactionByDate>(
+  _$$TransactionByDateImplCopyWith<_$TransactionByDateImpl> get copyWith =>
+      __$$TransactionByDateImplCopyWithImpl<_$TransactionByDateImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TransactionByDateToJson(
+    return _$$TransactionByDateImplToJson(
       this,
     );
   }
@@ -183,10 +183,10 @@ abstract class _TransactionByDate implements TransactionByDate {
   const factory _TransactionByDate(
       {final String date,
       final int totalValue,
-      final List<TransactionModel> data}) = _$_TransactionByDate;
+      final List<TransactionModel> data}) = _$TransactionByDateImpl;
 
   factory _TransactionByDate.fromJson(Map<String, dynamic> json) =
-      _$_TransactionByDate.fromJson;
+      _$TransactionByDateImpl.fromJson;
 
   @override
   String get date;
@@ -196,6 +196,6 @@ abstract class _TransactionByDate implements TransactionByDate {
   List<TransactionModel> get data;
   @override
   @JsonKey(ignore: true)
-  _$$_TransactionByDateCopyWith<_$_TransactionByDate> get copyWith =>
+  _$$TransactionByDateImplCopyWith<_$TransactionByDateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -12,7 +12,7 @@ part of 'transaction_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TransactionModel _$TransactionModelFromJson(Map<String, dynamic> json) {
   return _TransactionModel.fromJson(json);
@@ -147,11 +147,11 @@ class _$TransactionModelCopyWithImpl<$Res, $Val extends TransactionModel>
 }
 
 /// @nodoc
-abstract class _$$_TransactionModelCopyWith<$Res>
+abstract class _$$TransactionModelImplCopyWith<$Res>
     implements $TransactionModelCopyWith<$Res> {
-  factory _$$_TransactionModelCopyWith(
-          _$_TransactionModel value, $Res Function(_$_TransactionModel) then) =
-      __$$_TransactionModelCopyWithImpl<$Res>;
+  factory _$$TransactionModelImplCopyWith(_$TransactionModelImpl value,
+          $Res Function(_$TransactionModelImpl) then) =
+      __$$TransactionModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -171,11 +171,11 @@ abstract class _$$_TransactionModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TransactionModelCopyWithImpl<$Res>
-    extends _$TransactionModelCopyWithImpl<$Res, _$_TransactionModel>
-    implements _$$_TransactionModelCopyWith<$Res> {
-  __$$_TransactionModelCopyWithImpl(
-      _$_TransactionModel _value, $Res Function(_$_TransactionModel) _then)
+class __$$TransactionModelImplCopyWithImpl<$Res>
+    extends _$TransactionModelCopyWithImpl<$Res, _$TransactionModelImpl>
+    implements _$$TransactionModelImplCopyWith<$Res> {
+  __$$TransactionModelImplCopyWithImpl(_$TransactionModelImpl _value,
+      $Res Function(_$TransactionModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -195,7 +195,7 @@ class __$$_TransactionModelCopyWithImpl<$Res>
     Object? month = null,
     Object? transactionFor = null,
   }) {
-    return _then(_$_TransactionModel(
+    return _then(_$TransactionModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -254,8 +254,8 @@ class __$$_TransactionModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TransactionModel extends _TransactionModel {
-  const _$_TransactionModel(
+class _$TransactionModelImpl extends _TransactionModel {
+  const _$TransactionModelImpl(
       {this.id = '',
       this.description = '',
       this.groupId = '',
@@ -272,8 +272,8 @@ class _$_TransactionModel extends _TransactionModel {
       : _searchOptions = searchOptions,
         super._();
 
-  factory _$_TransactionModel.fromJson(Map<String, dynamic> json) =>
-      _$$_TransactionModelFromJson(json);
+  factory _$TransactionModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TransactionModelImplFromJson(json);
 
   @override
   @JsonKey()
@@ -327,10 +327,10 @@ class _$_TransactionModel extends _TransactionModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TransactionModel &&
+            other is _$TransactionModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -373,12 +373,13 @@ class _$_TransactionModel extends _TransactionModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TransactionModelCopyWith<_$_TransactionModel> get copyWith =>
-      __$$_TransactionModelCopyWithImpl<_$_TransactionModel>(this, _$identity);
+  _$$TransactionModelImplCopyWith<_$TransactionModelImpl> get copyWith =>
+      __$$TransactionModelImplCopyWithImpl<_$TransactionModelImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TransactionModelToJson(
+    return _$$TransactionModelImplToJson(
       this,
     );
   }
@@ -398,11 +399,11 @@ abstract class _TransactionModel extends TransactionModel {
       final int mode,
       final int year,
       final int month,
-      final int transactionFor}) = _$_TransactionModel;
+      final int transactionFor}) = _$TransactionModelImpl;
   const _TransactionModel._() : super._();
 
   factory _TransactionModel.fromJson(Map<String, dynamic> json) =
-      _$_TransactionModel.fromJson;
+      _$TransactionModelImpl.fromJson;
 
   @override
   String get id;
@@ -432,6 +433,6 @@ abstract class _TransactionModel extends TransactionModel {
   int get transactionFor;
   @override
   @JsonKey(ignore: true)
-  _$$_TransactionModelCopyWith<_$_TransactionModel> get copyWith =>
+  _$$TransactionModelImplCopyWith<_$TransactionModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

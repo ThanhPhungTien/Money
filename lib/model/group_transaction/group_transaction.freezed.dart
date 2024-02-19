@@ -12,7 +12,7 @@ part of 'group_transaction.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 GroupTransaction _$GroupTransactionFromJson(Map<String, dynamic> json) {
   return _GroupTransaction.fromJson(json);
@@ -74,22 +74,22 @@ class _$GroupTransactionCopyWithImpl<$Res, $Val extends GroupTransaction>
 }
 
 /// @nodoc
-abstract class _$$_GroupTransactionCopyWith<$Res>
+abstract class _$$GroupTransactionImplCopyWith<$Res>
     implements $GroupTransactionCopyWith<$Res> {
-  factory _$$_GroupTransactionCopyWith(
-          _$_GroupTransaction value, $Res Function(_$_GroupTransaction) then) =
-      __$$_GroupTransactionCopyWithImpl<$Res>;
+  factory _$$GroupTransactionImplCopyWith(_$GroupTransactionImpl value,
+          $Res Function(_$GroupTransactionImpl) then) =
+      __$$GroupTransactionImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String dateTime, List<TransactionModel> data, int totalValue});
 }
 
 /// @nodoc
-class __$$_GroupTransactionCopyWithImpl<$Res>
-    extends _$GroupTransactionCopyWithImpl<$Res, _$_GroupTransaction>
-    implements _$$_GroupTransactionCopyWith<$Res> {
-  __$$_GroupTransactionCopyWithImpl(
-      _$_GroupTransaction _value, $Res Function(_$_GroupTransaction) _then)
+class __$$GroupTransactionImplCopyWithImpl<$Res>
+    extends _$GroupTransactionCopyWithImpl<$Res, _$GroupTransactionImpl>
+    implements _$$GroupTransactionImplCopyWith<$Res> {
+  __$$GroupTransactionImplCopyWithImpl(_$GroupTransactionImpl _value,
+      $Res Function(_$GroupTransactionImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_GroupTransactionCopyWithImpl<$Res>
     Object? data = null,
     Object? totalValue = null,
   }) {
-    return _then(_$_GroupTransaction(
+    return _then(_$GroupTransactionImpl(
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -118,15 +118,15 @@ class __$$_GroupTransactionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_GroupTransaction implements _GroupTransaction {
-  const _$_GroupTransaction(
+class _$GroupTransactionImpl implements _GroupTransaction {
+  const _$GroupTransactionImpl(
       {this.dateTime = '',
       final List<TransactionModel> data = const [],
       this.totalValue = 0})
       : _data = data;
 
-  factory _$_GroupTransaction.fromJson(Map<String, dynamic> json) =>
-      _$$_GroupTransactionFromJson(json);
+  factory _$GroupTransactionImpl.fromJson(Map<String, dynamic> json) =>
+      _$$GroupTransactionImplFromJson(json);
 
   @override
   @JsonKey()
@@ -150,10 +150,10 @@ class _$_GroupTransaction implements _GroupTransaction {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GroupTransaction &&
+            other is _$GroupTransactionImpl &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
@@ -169,12 +169,13 @@ class _$_GroupTransaction implements _GroupTransaction {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GroupTransactionCopyWith<_$_GroupTransaction> get copyWith =>
-      __$$_GroupTransactionCopyWithImpl<_$_GroupTransaction>(this, _$identity);
+  _$$GroupTransactionImplCopyWith<_$GroupTransactionImpl> get copyWith =>
+      __$$GroupTransactionImplCopyWithImpl<_$GroupTransactionImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GroupTransactionToJson(
+    return _$$GroupTransactionImplToJson(
       this,
     );
   }
@@ -184,10 +185,10 @@ abstract class _GroupTransaction implements GroupTransaction {
   const factory _GroupTransaction(
       {final String dateTime,
       final List<TransactionModel> data,
-      final int totalValue}) = _$_GroupTransaction;
+      final int totalValue}) = _$GroupTransactionImpl;
 
   factory _GroupTransaction.fromJson(Map<String, dynamic> json) =
-      _$_GroupTransaction.fromJson;
+      _$GroupTransactionImpl.fromJson;
 
   @override
   String get dateTime;
@@ -197,6 +198,6 @@ abstract class _GroupTransaction implements GroupTransaction {
   int get totalValue;
   @override
   @JsonKey(ignore: true)
-  _$$_GroupTransactionCopyWith<_$_GroupTransaction> get copyWith =>
+  _$$GroupTransactionImplCopyWith<_$GroupTransactionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

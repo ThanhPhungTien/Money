@@ -12,7 +12,7 @@ part of 'transaction_by_name.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 TransactionByName _$TransactionByNameFromJson(Map<String, dynamic> json) {
   return _TransactionByName.fromJson(json);
@@ -81,11 +81,11 @@ class _$TransactionByNameCopyWithImpl<$Res, $Val extends TransactionByName>
 }
 
 /// @nodoc
-abstract class _$$_TransactionByNameCopyWith<$Res>
+abstract class _$$TransactionByNameImplCopyWith<$Res>
     implements $TransactionByNameCopyWith<$Res> {
-  factory _$$_TransactionByNameCopyWith(_$_TransactionByName value,
-          $Res Function(_$_TransactionByName) then) =
-      __$$_TransactionByNameCopyWithImpl<$Res>;
+  factory _$$TransactionByNameImplCopyWith(_$TransactionByNameImpl value,
+          $Res Function(_$TransactionByNameImpl) then) =
+      __$$TransactionByNameImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -93,11 +93,11 @@ abstract class _$$_TransactionByNameCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TransactionByNameCopyWithImpl<$Res>
-    extends _$TransactionByNameCopyWithImpl<$Res, _$_TransactionByName>
-    implements _$$_TransactionByNameCopyWith<$Res> {
-  __$$_TransactionByNameCopyWithImpl(
-      _$_TransactionByName _value, $Res Function(_$_TransactionByName) _then)
+class __$$TransactionByNameImplCopyWithImpl<$Res>
+    extends _$TransactionByNameCopyWithImpl<$Res, _$TransactionByNameImpl>
+    implements _$$TransactionByNameImplCopyWith<$Res> {
+  __$$TransactionByNameImplCopyWithImpl(_$TransactionByNameImpl _value,
+      $Res Function(_$TransactionByNameImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -108,7 +108,7 @@ class __$$_TransactionByNameCopyWithImpl<$Res>
     Object? totalValue = null,
     Object? isOpen = null,
   }) {
-    return _then(_$_TransactionByName(
+    return _then(_$TransactionByNameImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -131,16 +131,16 @@ class __$$_TransactionByNameCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_TransactionByName implements _TransactionByName {
-  const _$_TransactionByName(
+class _$TransactionByNameImpl implements _TransactionByName {
+  const _$TransactionByNameImpl(
       {this.name = '',
       final List<TransactionModel> data = const <TransactionModel>[],
       this.totalValue = 0,
       this.isOpen = false})
       : _data = data;
 
-  factory _$_TransactionByName.fromJson(Map<String, dynamic> json) =>
-      _$$_TransactionByNameFromJson(json);
+  factory _$TransactionByNameImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TransactionByNameImplFromJson(json);
 
   @override
   @JsonKey()
@@ -167,10 +167,10 @@ class _$_TransactionByName implements _TransactionByName {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TransactionByName &&
+            other is _$TransactionByNameImpl &&
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
             (identical(other.totalValue, totalValue) ||
@@ -186,13 +186,13 @@ class _$_TransactionByName implements _TransactionByName {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TransactionByNameCopyWith<_$_TransactionByName> get copyWith =>
-      __$$_TransactionByNameCopyWithImpl<_$_TransactionByName>(
+  _$$TransactionByNameImplCopyWith<_$TransactionByNameImpl> get copyWith =>
+      __$$TransactionByNameImplCopyWithImpl<_$TransactionByNameImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_TransactionByNameToJson(
+    return _$$TransactionByNameImplToJson(
       this,
     );
   }
@@ -203,10 +203,10 @@ abstract class _TransactionByName implements TransactionByName {
       {final String name,
       final List<TransactionModel> data,
       final int totalValue,
-      final bool isOpen}) = _$_TransactionByName;
+      final bool isOpen}) = _$TransactionByNameImpl;
 
   factory _TransactionByName.fromJson(Map<String, dynamic> json) =
-      _$_TransactionByName.fromJson;
+      _$TransactionByNameImpl.fromJson;
 
   @override
   String get name;
@@ -218,6 +218,6 @@ abstract class _TransactionByName implements TransactionByName {
   bool get isOpen;
   @override
   @JsonKey(ignore: true)
-  _$$_TransactionByNameCopyWith<_$_TransactionByName> get copyWith =>
+  _$$TransactionByNameImplCopyWith<_$TransactionByNameImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

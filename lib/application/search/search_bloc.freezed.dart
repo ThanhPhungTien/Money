@@ -12,7 +12,7 @@ part of 'search_bloc.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$SearchEvent {
@@ -87,20 +87,20 @@ class _$SearchEventCopyWithImpl<$Res, $Val extends SearchEvent>
 }
 
 /// @nodoc
-abstract class _$$SearchEventSearchCopyWith<$Res> {
-  factory _$$SearchEventSearchCopyWith(
-          _$SearchEventSearch value, $Res Function(_$SearchEventSearch) then) =
-      __$$SearchEventSearchCopyWithImpl<$Res>;
+abstract class _$$SearchEventSearchImplCopyWith<$Res> {
+  factory _$$SearchEventSearchImplCopyWith(_$SearchEventSearchImpl value,
+          $Res Function(_$SearchEventSearchImpl) then) =
+      __$$SearchEventSearchImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String query});
 }
 
 /// @nodoc
-class __$$SearchEventSearchCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventSearch>
-    implements _$$SearchEventSearchCopyWith<$Res> {
-  __$$SearchEventSearchCopyWithImpl(
-      _$SearchEventSearch _value, $Res Function(_$SearchEventSearch) _then)
+class __$$SearchEventSearchImplCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventSearchImpl>
+    implements _$$SearchEventSearchImplCopyWith<$Res> {
+  __$$SearchEventSearchImplCopyWithImpl(_$SearchEventSearchImpl _value,
+      $Res Function(_$SearchEventSearchImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -108,7 +108,7 @@ class __$$SearchEventSearchCopyWithImpl<$Res>
   $Res call({
     Object? query = null,
   }) {
-    return _then(_$SearchEventSearch(
+    return _then(_$SearchEventSearchImpl(
       query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
@@ -119,8 +119,8 @@ class __$$SearchEventSearchCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchEventSearch implements SearchEventSearch {
-  const _$SearchEventSearch({required this.query});
+class _$SearchEventSearchImpl implements SearchEventSearch {
+  const _$SearchEventSearchImpl({required this.query});
 
   @override
   final String query;
@@ -131,10 +131,10 @@ class _$SearchEventSearch implements SearchEventSearch {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchEventSearch &&
+            other is _$SearchEventSearchImpl &&
             (identical(other.query, query) || other.query == query));
   }
 
@@ -144,8 +144,9 @@ class _$SearchEventSearch implements SearchEventSearch {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SearchEventSearchCopyWith<_$SearchEventSearch> get copyWith =>
-      __$$SearchEventSearchCopyWithImpl<_$SearchEventSearch>(this, _$identity);
+  _$$SearchEventSearchImplCopyWith<_$SearchEventSearchImpl> get copyWith =>
+      __$$SearchEventSearchImplCopyWithImpl<_$SearchEventSearchImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -224,29 +225,31 @@ class _$SearchEventSearch implements SearchEventSearch {
 
 abstract class SearchEventSearch implements SearchEvent {
   const factory SearchEventSearch({required final String query}) =
-      _$SearchEventSearch;
+      _$SearchEventSearchImpl;
 
   String get query;
   @JsonKey(ignore: true)
-  _$$SearchEventSearchCopyWith<_$SearchEventSearch> get copyWith =>
+  _$$SearchEventSearchImplCopyWith<_$SearchEventSearchImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SearchEventUpdateMonthCopyWith<$Res> {
-  factory _$$SearchEventUpdateMonthCopyWith(_$SearchEventUpdateMonth value,
-          $Res Function(_$SearchEventUpdateMonth) then) =
-      __$$SearchEventUpdateMonthCopyWithImpl<$Res>;
+abstract class _$$SearchEventUpdateMonthImplCopyWith<$Res> {
+  factory _$$SearchEventUpdateMonthImplCopyWith(
+          _$SearchEventUpdateMonthImpl value,
+          $Res Function(_$SearchEventUpdateMonthImpl) then) =
+      __$$SearchEventUpdateMonthImplCopyWithImpl<$Res>;
   @useResult
   $Res call({DateTime dateTime});
 }
 
 /// @nodoc
-class __$$SearchEventUpdateMonthCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventUpdateMonth>
-    implements _$$SearchEventUpdateMonthCopyWith<$Res> {
-  __$$SearchEventUpdateMonthCopyWithImpl(_$SearchEventUpdateMonth _value,
-      $Res Function(_$SearchEventUpdateMonth) _then)
+class __$$SearchEventUpdateMonthImplCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventUpdateMonthImpl>
+    implements _$$SearchEventUpdateMonthImplCopyWith<$Res> {
+  __$$SearchEventUpdateMonthImplCopyWithImpl(
+      _$SearchEventUpdateMonthImpl _value,
+      $Res Function(_$SearchEventUpdateMonthImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -254,7 +257,7 @@ class __$$SearchEventUpdateMonthCopyWithImpl<$Res>
   $Res call({
     Object? dateTime = null,
   }) {
-    return _then(_$SearchEventUpdateMonth(
+    return _then(_$SearchEventUpdateMonthImpl(
       dateTime: null == dateTime
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -265,8 +268,8 @@ class __$$SearchEventUpdateMonthCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchEventUpdateMonth implements SearchEventUpdateMonth {
-  const _$SearchEventUpdateMonth({required this.dateTime});
+class _$SearchEventUpdateMonthImpl implements SearchEventUpdateMonth {
+  const _$SearchEventUpdateMonthImpl({required this.dateTime});
 
   @override
   final DateTime dateTime;
@@ -277,10 +280,10 @@ class _$SearchEventUpdateMonth implements SearchEventUpdateMonth {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchEventUpdateMonth &&
+            other is _$SearchEventUpdateMonthImpl &&
             (identical(other.dateTime, dateTime) ||
                 other.dateTime == dateTime));
   }
@@ -291,9 +294,9 @@ class _$SearchEventUpdateMonth implements SearchEventUpdateMonth {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SearchEventUpdateMonthCopyWith<_$SearchEventUpdateMonth> get copyWith =>
-      __$$SearchEventUpdateMonthCopyWithImpl<_$SearchEventUpdateMonth>(
-          this, _$identity);
+  _$$SearchEventUpdateMonthImplCopyWith<_$SearchEventUpdateMonthImpl>
+      get copyWith => __$$SearchEventUpdateMonthImplCopyWithImpl<
+          _$SearchEventUpdateMonthImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -372,29 +375,31 @@ class _$SearchEventUpdateMonth implements SearchEventUpdateMonth {
 
 abstract class SearchEventUpdateMonth implements SearchEvent {
   const factory SearchEventUpdateMonth({required final DateTime dateTime}) =
-      _$SearchEventUpdateMonth;
+      _$SearchEventUpdateMonthImpl;
 
   DateTime get dateTime;
   @JsonKey(ignore: true)
-  _$$SearchEventUpdateMonthCopyWith<_$SearchEventUpdateMonth> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SearchEventUpdateMonthImplCopyWith<_$SearchEventUpdateMonthImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SearchEventUpdateUseForCopyWith<$Res> {
-  factory _$$SearchEventUpdateUseForCopyWith(_$SearchEventUpdateUseFor value,
-          $Res Function(_$SearchEventUpdateUseFor) then) =
-      __$$SearchEventUpdateUseForCopyWithImpl<$Res>;
+abstract class _$$SearchEventUpdateUseForImplCopyWith<$Res> {
+  factory _$$SearchEventUpdateUseForImplCopyWith(
+          _$SearchEventUpdateUseForImpl value,
+          $Res Function(_$SearchEventUpdateUseForImpl) then) =
+      __$$SearchEventUpdateUseForImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int useFor});
 }
 
 /// @nodoc
-class __$$SearchEventUpdateUseForCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventUpdateUseFor>
-    implements _$$SearchEventUpdateUseForCopyWith<$Res> {
-  __$$SearchEventUpdateUseForCopyWithImpl(_$SearchEventUpdateUseFor _value,
-      $Res Function(_$SearchEventUpdateUseFor) _then)
+class __$$SearchEventUpdateUseForImplCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventUpdateUseForImpl>
+    implements _$$SearchEventUpdateUseForImplCopyWith<$Res> {
+  __$$SearchEventUpdateUseForImplCopyWithImpl(
+      _$SearchEventUpdateUseForImpl _value,
+      $Res Function(_$SearchEventUpdateUseForImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -402,7 +407,7 @@ class __$$SearchEventUpdateUseForCopyWithImpl<$Res>
   $Res call({
     Object? useFor = null,
   }) {
-    return _then(_$SearchEventUpdateUseFor(
+    return _then(_$SearchEventUpdateUseForImpl(
       useFor: null == useFor
           ? _value.useFor
           : useFor // ignore: cast_nullable_to_non_nullable
@@ -413,8 +418,8 @@ class __$$SearchEventUpdateUseForCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchEventUpdateUseFor implements SearchEventUpdateUseFor {
-  const _$SearchEventUpdateUseFor({required this.useFor});
+class _$SearchEventUpdateUseForImpl implements SearchEventUpdateUseFor {
+  const _$SearchEventUpdateUseForImpl({required this.useFor});
 
   @override
   final int useFor;
@@ -425,10 +430,10 @@ class _$SearchEventUpdateUseFor implements SearchEventUpdateUseFor {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchEventUpdateUseFor &&
+            other is _$SearchEventUpdateUseForImpl &&
             (identical(other.useFor, useFor) || other.useFor == useFor));
   }
 
@@ -438,9 +443,9 @@ class _$SearchEventUpdateUseFor implements SearchEventUpdateUseFor {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SearchEventUpdateUseForCopyWith<_$SearchEventUpdateUseFor> get copyWith =>
-      __$$SearchEventUpdateUseForCopyWithImpl<_$SearchEventUpdateUseFor>(
-          this, _$identity);
+  _$$SearchEventUpdateUseForImplCopyWith<_$SearchEventUpdateUseForImpl>
+      get copyWith => __$$SearchEventUpdateUseForImplCopyWithImpl<
+          _$SearchEventUpdateUseForImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -519,19 +524,20 @@ class _$SearchEventUpdateUseFor implements SearchEventUpdateUseFor {
 
 abstract class SearchEventUpdateUseFor implements SearchEvent {
   const factory SearchEventUpdateUseFor({required final int useFor}) =
-      _$SearchEventUpdateUseFor;
+      _$SearchEventUpdateUseForImpl;
 
   int get useFor;
   @JsonKey(ignore: true)
-  _$$SearchEventUpdateUseForCopyWith<_$SearchEventUpdateUseFor> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SearchEventUpdateUseForImplCopyWith<_$SearchEventUpdateUseForImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SearchEventUpdateGroupCopyWith<$Res> {
-  factory _$$SearchEventUpdateGroupCopyWith(_$SearchEventUpdateGroup value,
-          $Res Function(_$SearchEventUpdateGroup) then) =
-      __$$SearchEventUpdateGroupCopyWithImpl<$Res>;
+abstract class _$$SearchEventUpdateGroupImplCopyWith<$Res> {
+  factory _$$SearchEventUpdateGroupImplCopyWith(
+          _$SearchEventUpdateGroupImpl value,
+          $Res Function(_$SearchEventUpdateGroupImpl) then) =
+      __$$SearchEventUpdateGroupImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Group group});
 
@@ -539,11 +545,12 @@ abstract class _$$SearchEventUpdateGroupCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$SearchEventUpdateGroupCopyWithImpl<$Res>
-    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventUpdateGroup>
-    implements _$$SearchEventUpdateGroupCopyWith<$Res> {
-  __$$SearchEventUpdateGroupCopyWithImpl(_$SearchEventUpdateGroup _value,
-      $Res Function(_$SearchEventUpdateGroup) _then)
+class __$$SearchEventUpdateGroupImplCopyWithImpl<$Res>
+    extends _$SearchEventCopyWithImpl<$Res, _$SearchEventUpdateGroupImpl>
+    implements _$$SearchEventUpdateGroupImplCopyWith<$Res> {
+  __$$SearchEventUpdateGroupImplCopyWithImpl(
+      _$SearchEventUpdateGroupImpl _value,
+      $Res Function(_$SearchEventUpdateGroupImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -551,7 +558,7 @@ class __$$SearchEventUpdateGroupCopyWithImpl<$Res>
   $Res call({
     Object? group = null,
   }) {
-    return _then(_$SearchEventUpdateGroup(
+    return _then(_$SearchEventUpdateGroupImpl(
       group: null == group
           ? _value.group
           : group // ignore: cast_nullable_to_non_nullable
@@ -570,8 +577,8 @@ class __$$SearchEventUpdateGroupCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchEventUpdateGroup implements SearchEventUpdateGroup {
-  const _$SearchEventUpdateGroup({required this.group});
+class _$SearchEventUpdateGroupImpl implements SearchEventUpdateGroup {
+  const _$SearchEventUpdateGroupImpl({required this.group});
 
   @override
   final Group group;
@@ -582,10 +589,10 @@ class _$SearchEventUpdateGroup implements SearchEventUpdateGroup {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchEventUpdateGroup &&
+            other is _$SearchEventUpdateGroupImpl &&
             (identical(other.group, group) || other.group == group));
   }
 
@@ -595,9 +602,9 @@ class _$SearchEventUpdateGroup implements SearchEventUpdateGroup {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SearchEventUpdateGroupCopyWith<_$SearchEventUpdateGroup> get copyWith =>
-      __$$SearchEventUpdateGroupCopyWithImpl<_$SearchEventUpdateGroup>(
-          this, _$identity);
+  _$$SearchEventUpdateGroupImplCopyWith<_$SearchEventUpdateGroupImpl>
+      get copyWith => __$$SearchEventUpdateGroupImplCopyWithImpl<
+          _$SearchEventUpdateGroupImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -676,12 +683,12 @@ class _$SearchEventUpdateGroup implements SearchEventUpdateGroup {
 
 abstract class SearchEventUpdateGroup implements SearchEvent {
   const factory SearchEventUpdateGroup({required final Group group}) =
-      _$SearchEventUpdateGroup;
+      _$SearchEventUpdateGroupImpl;
 
   Group get group;
   @JsonKey(ignore: true)
-  _$$SearchEventUpdateGroupCopyWith<_$SearchEventUpdateGroup> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$SearchEventUpdateGroupImplCopyWith<_$SearchEventUpdateGroupImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -793,11 +800,11 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
 }
 
 /// @nodoc
-abstract class _$$SearchStateNormalCopyWith<$Res>
+abstract class _$$SearchStateNormalImplCopyWith<$Res>
     implements $SearchStateCopyWith<$Res> {
-  factory _$$SearchStateNormalCopyWith(
-          _$SearchStateNormal value, $Res Function(_$SearchStateNormal) then) =
-      __$$SearchStateNormalCopyWithImpl<$Res>;
+  factory _$$SearchStateNormalImplCopyWith(_$SearchStateNormalImpl value,
+          $Res Function(_$SearchStateNormalImpl) then) =
+      __$$SearchStateNormalImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<TransactionModel> data, int month, Group group, int useFor});
@@ -807,11 +814,11 @@ abstract class _$$SearchStateNormalCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SearchStateNormalCopyWithImpl<$Res>
-    extends _$SearchStateCopyWithImpl<$Res, _$SearchStateNormal>
-    implements _$$SearchStateNormalCopyWith<$Res> {
-  __$$SearchStateNormalCopyWithImpl(
-      _$SearchStateNormal _value, $Res Function(_$SearchStateNormal) _then)
+class __$$SearchStateNormalImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$SearchStateNormalImpl>
+    implements _$$SearchStateNormalImplCopyWith<$Res> {
+  __$$SearchStateNormalImplCopyWithImpl(_$SearchStateNormalImpl _value,
+      $Res Function(_$SearchStateNormalImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -822,7 +829,7 @@ class __$$SearchStateNormalCopyWithImpl<$Res>
     Object? group = null,
     Object? useFor = null,
   }) {
-    return _then(_$SearchStateNormal(
+    return _then(_$SearchStateNormalImpl(
       data: null == data
           ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
@@ -845,8 +852,8 @@ class __$$SearchStateNormalCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SearchStateNormal implements SearchStateNormal {
-  const _$SearchStateNormal(
+class _$SearchStateNormalImpl implements SearchStateNormal {
+  const _$SearchStateNormalImpl(
       {final List<TransactionModel> data = const [],
       this.month = 0,
       this.group = const Group(),
@@ -878,10 +885,10 @@ class _$SearchStateNormal implements SearchStateNormal {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SearchStateNormal &&
+            other is _$SearchStateNormalImpl &&
             const DeepCollectionEquality().equals(other._data, _data) &&
             (identical(other.month, month) || other.month == month) &&
             (identical(other.group, group) || other.group == group) &&
@@ -895,8 +902,9 @@ class _$SearchStateNormal implements SearchStateNormal {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SearchStateNormalCopyWith<_$SearchStateNormal> get copyWith =>
-      __$$SearchStateNormalCopyWithImpl<_$SearchStateNormal>(this, _$identity);
+  _$$SearchStateNormalImplCopyWith<_$SearchStateNormalImpl> get copyWith =>
+      __$$SearchStateNormalImplCopyWithImpl<_$SearchStateNormalImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -966,7 +974,7 @@ abstract class SearchStateNormal implements SearchState {
       {final List<TransactionModel> data,
       final int month,
       final Group group,
-      final int useFor}) = _$SearchStateNormal;
+      final int useFor}) = _$SearchStateNormalImpl;
 
   @override
   List<TransactionModel> get data;
@@ -978,6 +986,6 @@ abstract class SearchStateNormal implements SearchState {
   int get useFor;
   @override
   @JsonKey(ignore: true)
-  _$$SearchStateNormalCopyWith<_$SearchStateNormal> get copyWith =>
+  _$$SearchStateNormalImplCopyWith<_$SearchStateNormalImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

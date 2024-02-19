@@ -6,8 +6,9 @@ part of 'transaction_by_date.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TransactionByDate _$$_TransactionByDateFromJson(Map<String, dynamic> json) =>
-    _$_TransactionByDate(
+_$TransactionByDateImpl _$$TransactionByDateImplFromJson(
+        Map<String, dynamic> json) =>
+    _$TransactionByDateImpl(
       date: json['date'] as String? ?? '',
       totalValue: json['totalValue'] as int? ?? 0,
       data: (json['data'] as List<dynamic>?)
@@ -16,8 +17,8 @@ _$_TransactionByDate _$$_TransactionByDateFromJson(Map<String, dynamic> json) =>
           const <TransactionModel>[],
     );
 
-Map<String, dynamic> _$$_TransactionByDateToJson(
-        _$_TransactionByDate instance) =>
+Map<String, dynamic> _$$TransactionByDateImplToJson(
+        _$TransactionByDateImpl instance) =>
     <String, dynamic>{
       'date': instance.date,
       'totalValue': instance.totalValue,

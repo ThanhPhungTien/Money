@@ -6,8 +6,9 @@ part of 'transaction_by_name.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TransactionByName _$$_TransactionByNameFromJson(Map<String, dynamic> json) =>
-    _$_TransactionByName(
+_$TransactionByNameImpl _$$TransactionByNameImplFromJson(
+        Map<String, dynamic> json) =>
+    _$TransactionByNameImpl(
       name: json['name'] as String? ?? '',
       data: (json['data'] as List<dynamic>?)
               ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
@@ -17,8 +18,8 @@ _$_TransactionByName _$$_TransactionByNameFromJson(Map<String, dynamic> json) =>
       isOpen: json['isOpen'] as bool? ?? false,
     );
 
-Map<String, dynamic> _$$_TransactionByNameToJson(
-        _$_TransactionByName instance) =>
+Map<String, dynamic> _$$TransactionByNameImplToJson(
+        _$TransactionByNameImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'data': instance.data,

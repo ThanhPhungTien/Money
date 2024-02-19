@@ -12,7 +12,7 @@ part of 'home_cubit.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$HomeState {
@@ -88,22 +88,22 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
 }
 
 /// @nodoc
-abstract class _$$HomeStateInitialCopyWith<$Res>
+abstract class _$$HomeStateInitialImplCopyWith<$Res>
     implements $HomeStateCopyWith<$Res> {
-  factory _$$HomeStateInitialCopyWith(
-          _$HomeStateInitial value, $Res Function(_$HomeStateInitial) then) =
-      __$$HomeStateInitialCopyWithImpl<$Res>;
+  factory _$$HomeStateInitialImplCopyWith(_$HomeStateInitialImpl value,
+          $Res Function(_$HomeStateInitialImpl) then) =
+      __$$HomeStateInitialImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$HomeStateInitialCopyWithImpl<$Res>
-    extends _$HomeStateCopyWithImpl<$Res, _$HomeStateInitial>
-    implements _$$HomeStateInitialCopyWith<$Res> {
-  __$$HomeStateInitialCopyWithImpl(
-      _$HomeStateInitial _value, $Res Function(_$HomeStateInitial) _then)
+class __$$HomeStateInitialImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$HomeStateInitialImpl>
+    implements _$$HomeStateInitialImplCopyWith<$Res> {
+  __$$HomeStateInitialImplCopyWithImpl(_$HomeStateInitialImpl _value,
+      $Res Function(_$HomeStateInitialImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -111,7 +111,7 @@ class __$$HomeStateInitialCopyWithImpl<$Res>
   $Res call({
     Object? index = null,
   }) {
-    return _then(_$HomeStateInitial(
+    return _then(_$HomeStateInitialImpl(
       null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -122,8 +122,8 @@ class __$$HomeStateInitialCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$HomeStateInitial implements HomeStateInitial {
-  const _$HomeStateInitial(this.index);
+class _$HomeStateInitialImpl implements HomeStateInitial {
+  const _$HomeStateInitialImpl(this.index);
 
   @override
   final int index;
@@ -134,10 +134,10 @@ class _$HomeStateInitial implements HomeStateInitial {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$HomeStateInitial &&
+            other is _$HomeStateInitialImpl &&
             (identical(other.index, index) || other.index == index));
   }
 
@@ -147,8 +147,9 @@ class _$HomeStateInitial implements HomeStateInitial {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$HomeStateInitialCopyWith<_$HomeStateInitial> get copyWith =>
-      __$$HomeStateInitialCopyWithImpl<_$HomeStateInitial>(this, _$identity);
+  _$$HomeStateInitialImplCopyWith<_$HomeStateInitialImpl> get copyWith =>
+      __$$HomeStateInitialImplCopyWithImpl<_$HomeStateInitialImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -208,12 +209,12 @@ class _$HomeStateInitial implements HomeStateInitial {
 }
 
 abstract class HomeStateInitial implements HomeState {
-  const factory HomeStateInitial(final int index) = _$HomeStateInitial;
+  const factory HomeStateInitial(final int index) = _$HomeStateInitialImpl;
 
   @override
   int get index;
   @override
   @JsonKey(ignore: true)
-  _$$HomeStateInitialCopyWith<_$HomeStateInitial> get copyWith =>
+  _$$HomeStateInitialImplCopyWith<_$HomeStateInitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
