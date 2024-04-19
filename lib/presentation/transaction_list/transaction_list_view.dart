@@ -43,7 +43,8 @@ class _TransactionListViewState extends State<TransactionListView> {
               children: [
                 ListTile(
                   onTap: () => openSelectDate(state.time),
-                  leading: const Icon(Icons.date_range),
+                  leading:
+                      const Icon(Icons.date_range, color: Palette.textColor),
                   title: Text(
                     convertTime(
                       'MM/yyyy',
@@ -56,7 +57,7 @@ class _TransactionListViewState extends State<TransactionListView> {
                   trailing: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16,
-                      vertical: 4,
+                      vertical: 8,
                     ),
                     decoration: BoxDecoration(
                       color: Palette.primary,
@@ -89,28 +90,20 @@ class _TransactionListViewState extends State<TransactionListView> {
                   child: state.data.isEmpty
                       ? FailureView(
                           message: 'Không có dữ liệu',
-                          onPressedRetry: () {
-                            bloc.fetchData(state.time);
-                          },
+                          onPressedRetry: () => bloc.fetchData(state.time),
                         )
                       : RefreshIndicator(
-                          onRefresh: () async {
-                            bloc.fetchData(state.time);
-                          },
+                          onRefresh: () async => bloc.fetchData(state.time),
                           child: ListView.separated(
                             itemCount: state.data.length,
                             padding: const EdgeInsets.all(0),
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return const SizedBox(height: 8);
-                            },
-                            itemBuilder: (BuildContext context, int index) {
-                              GroupTransaction item = state.data[index];
-                              return ItemTransactionWidget(
-                                item: item,
-                                bloc: bloc,
-                              );
-                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 8),
+                            itemBuilder: (BuildContext context, int index) =>
+                                ItemTransactionWidget(
+                              item: state.data[index],
+                              bloc: bloc,
+                            ),
                           ),
                         ),
                 ),
@@ -184,9 +177,8 @@ class ItemTransactionWidget extends StatelessWidget {
               TransactionModel transaction = item.data[index];
               return Dismissible(
                 key: Key(transaction.id),
-                onDismissed: (direction) {
-                  bloc.deleteTransaction(transaction.id);
-                },
+                onDismissed: (direction) =>
+                    bloc.deleteTransaction(transaction.id),
                 background: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
@@ -213,10 +205,7 @@ class ItemTransactionWidget extends StatelessWidget {
                     child: iconByGoal(transaction.transactionFor),
                   ),
                   minLeadingWidth: 0,
-                  title: Text(
-                    transaction.groupName,
-                    style: textTheme.labelMedium,
-                  ),
+                  title: Text(transaction.groupName),
                   subtitle: transaction.description.isNotEmpty
                       ? Text(transaction.description)
                       : null,

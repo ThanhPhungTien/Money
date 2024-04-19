@@ -1,17 +1,15 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
 import 'package:money/application/create_transaction/create_transaction_bloc.dart';
+import 'package:money/domain/transaction/transaction_model.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/model/group/group.dart';
-import 'package:money/domain/transaction/transaction_model.dart';
 import 'package:money/presentation/group_selector/group_selector_page.dart';
 import 'package:money/presentation/money_keyboard/money_keyboard_widget.dart';
 import 'package:money/presentation/suggest_money/suggest_money.dart';
-import 'package:money/route/route_name.dart';
 import 'package:money/presentation/tool/tool.dart';
+import 'package:money/route/route_name.dart';
 
 class CreateTransactionPage extends StatefulWidget {
   const CreateTransactionPage({
@@ -114,7 +112,6 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
           },
           builder: (context, state) {
             if (state is CreateTransactionStateGotData) {
-              log('rebuild CreateTransactionStateGotData ${state.group.toJson()}');
               dateTEC.text = convertTime(
                 'dd/MM/yyyy',
                 state.dateTime.millisecondsSinceEpoch,
@@ -197,13 +194,11 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    ElevatedButton(
+                    FilledButton(
                       onPressed: () => createTransaction(state),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size.fromHeight(50),
+                      child: Text(
+                        widget.transaction.isEmpty ? 'Tạo' : 'Cập nhật',
                       ),
-                      child:
-                          Text(widget.transaction.isEmpty ? 'Tạo' : 'Cập nhật'),
                     )
                   ],
                 ),

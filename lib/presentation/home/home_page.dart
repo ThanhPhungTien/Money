@@ -10,7 +10,6 @@ import 'package:money/application/home/home_cubit.dart';
 import 'package:money/enum/constant.dart';
 import 'package:money/presentation/create_transaction/create_transaction_page.dart';
 import 'package:money/presentation/report/report_page.dart';
-import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/transaction_list/transaction_list_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -24,9 +23,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomeCubit bloc = HomeCubit();
 
-  late StreamSubscription<ConnectivityResult> subscription;
+  late StreamSubscription<List<ConnectivityResult>> subscription;
 
-  ConnectivityResult lastNetworkStatus = ConnectivityResult.none;
+  List<ConnectivityResult> lastNetworkStatus = [];
 
   List<Widget> pageList = <Widget>[
     const TransactionListView(),
@@ -76,8 +75,7 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: FloatingActionButton(
           elevation: 2,
-          backgroundColor: Palette.primary,
-          child: const Icon(Icons.add, color: Colors.white),
+          child: const Icon(Icons.add),
           onPressed: () => CreateTransactionPage.show(context: context),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
@@ -87,8 +85,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, state) {
             if (state is HomeStateInitial) {
               return BottomAppBar(
-                child: ButtonBar(
-                  alignment: MainAxisAlignment.start,
+                child: Row(
                   children: [
                     IconButton(
                       onPressed: () => bloc.updateIndex(0),
@@ -121,50 +118,10 @@ class _HomePageState extends State<HomePage> {
       prefs.setBool(Constant.hasInternet, false);
     }
 
-    // const flushBar = SnackBar(
-    //   content: Row(
-    //     crossAxisAlignment: CrossAxisAlignment.center,
-    //     children: [
-    //       Icon(
-    //         Icons.wifi,
-    //         color: Colors.white,
-    //       ),
-    //       SizedBox(width: 8),
-    //       Expanded(
-    //         child: Text('Đã khôi phục kết nối mạng'),
-    //       ),
-    //     ],
-    //   ),
-    //   backgroundColor: Colors.green,
-    //   behavior: SnackBarBehavior.floating,
-    // );
-    //
-    // const flushBarNoInternet = SnackBar(
-    //   content: Row(
-    //     crossAxisAlignment: CrossAxisAlignment.center,
-    //     children: [
-    //       Icon(
-    //         Icons.wifi_off,
-    //         color: Colors.white,
-    //       ),
-    //       SizedBox(width: 8),
-    //       Text('Không có kết nối mạng'),
-    //     ],
-    //   ),
-    //   behavior: SnackBarBehavior.floating,
-    // );
-
-    subscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      // if (result == ConnectivityResult.none &&
-      //     lastNetworkStatus != ConnectivityResult.none) {
-      //   // context.scaffoldManager.showSnackBar(flushBarNoInternet);
-      // } else if (lastNetworkStatus == ConnectivityResult.none) {
-      //   // context.scaffoldManager.showSnackBar(flushBar);
-      // }
+    subscription = Connectivity().onConnectivityChanged.listen((result) {
       lastNetworkStatus = result;
-      prefs.setBool(Constant.hasInternet, result != ConnectivityResult.none);
+      prefs.setBool(
+          Constant.hasInternet, !result.contains(ConnectivityResult.none));
     });
   }
 }

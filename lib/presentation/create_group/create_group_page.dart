@@ -41,9 +41,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tạo nhóm'),
-      ),
+      appBar: AppBar(title: const Text('Tạo nhóm')),
       body: BlocConsumer<CreateGroupBloc, CreateGroupState>(
         bloc: bloc,
         listener: (context, state) {
@@ -91,7 +89,7 @@ class _CreateGroupPageState extends State<CreateGroupPage> {
                         bloc.add(CreateGroupEventUpdateCheck(check)),
                   ),
                   const SizedBox(height: 32),
-                  ElevatedButton(
+                  FilledButton(
                     onPressed: () => onPressedSave(state.paid),
                     child: const Text('Lưu'),
                   )
