@@ -84,7 +84,7 @@ class _ReportPageState extends State<ReportPage> {
                         backgroundColor: Palette.primaryContainer,
                       ),
                       OpenContainer(
-                        closedColor: context.theme.colorScheme.background,
+                        closedColor: context.theme.colorScheme.surface,
                         closedShape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -105,7 +105,7 @@ class _ReportPageState extends State<ReportPage> {
                         closedElevation: 0,
                       ),
                       OpenContainer(
-                        closedColor: context.theme.colorScheme.background,
+                        closedColor: context.theme.colorScheme.surface,
                         closedElevation: 0,
                         closedShape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -136,7 +136,7 @@ class _ReportPageState extends State<ReportPage> {
                       child: BarChart(
                         BarChartData(
                           minY: 0,
-                          backgroundColor: context.theme.colorScheme.background,
+                          backgroundColor: context.theme.colorScheme.surface,
                           barGroups: state.paidDateList.map(
                             (TransactionByDate e) {
                               return BarChartGroupData(
@@ -212,8 +212,8 @@ class _ReportPageState extends State<ReportPage> {
     dynamic result = await showMonthPicker(
       context: context,
       initialDate: time,
-      backgroundColor: context.colorScheme.surfaceVariant,
-      headerColor: context.colorScheme.surfaceVariant,
+      backgroundColor: context.colorScheme.surfaceContainerHighest,
+      headerColor: context.colorScheme.surfaceContainerHighest,
       headerTextColor: Palette.textColor,
       roundedCornersRadius: 28,
       firstDate: DateTime(dateNow.year - 1),

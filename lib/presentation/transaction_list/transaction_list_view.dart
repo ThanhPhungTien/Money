@@ -121,8 +121,8 @@ class _TransactionListViewState extends State<TransactionListView> {
     dynamic result = await showMonthPicker(
       context: context,
       initialDate: time,
-      backgroundColor: context.colorScheme.surfaceVariant,
-      headerColor: context.colorScheme.surfaceVariant,
+      backgroundColor: context.colorScheme.surfaceContainerHighest,
+      headerColor: context.colorScheme.surfaceContainerHighest,
       headerTextColor: Palette.textColor,
       roundedCornersRadius: 28,
       firstDate: DateTime(dateNow.year - 1),
