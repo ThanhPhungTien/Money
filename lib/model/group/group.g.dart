@@ -10,9 +10,9 @@ _$GroupImpl _$$GroupImplFromJson(Map<String, dynamic> json) => _$GroupImpl(
       id: json['id'] as String? ?? '',
       name: json['name'] as String? ?? '',
       description: json['description'] as String? ?? '',
-      createTime: json['createTime'] as int? ?? 0,
-      updateTime: json['updateTime'] as int? ?? 0,
-      mode: json['mode'] as int? ?? -1,
+      createTime: (json['createTime'] as num?)?.toInt() ?? 0,
+      updateTime: (json['updateTime'] as num?)?.toInt() ?? 0,
+      mode: (json['mode'] as num?)?.toInt() ?? -1,
     );
 
 Map<String, dynamic> _$$GroupImplToJson(_$GroupImpl instance) =>

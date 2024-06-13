@@ -5,6 +5,13 @@ ThemeData appTheme = ThemeData(
   listTileTheme: listTileThemeData,
   useMaterial3: true,
   inputDecorationTheme: inputDecorationTheme,
+  filledButtonTheme: filledButtonTheme,
+);
+
+final filledButtonTheme = FilledButtonThemeData(
+  style: FilledButton.styleFrom(
+    fixedSize: Size.fromHeight(48),
+  ),
 );
 
 ThemeData darkTheme = appTheme.copyWith(

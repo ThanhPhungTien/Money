@@ -68,7 +68,7 @@ class _ReportPageState extends State<ReportPage> {
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: 2,
-                    childAspectRatio: 2,
+                    childAspectRatio: 3,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                     padding: const EdgeInsets.all(8),
@@ -262,6 +262,7 @@ class ItemView extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+          SizedBox(height: 4),
           Text(
             content,
             style: textTheme.titleMedium?.copyWith(

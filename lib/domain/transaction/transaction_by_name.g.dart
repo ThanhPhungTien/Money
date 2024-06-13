@@ -14,7 +14,7 @@ _$TransactionByNameImpl _$$TransactionByNameImplFromJson(
               ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <TransactionModel>[],
-      totalValue: json['totalValue'] as int? ?? 0,
+      totalValue: (json['totalValue'] as num?)?.toInt() ?? 0,
       isOpen: json['isOpen'] as bool? ?? false,
     );
 

@@ -17,14 +17,15 @@ _$TransactionModelImpl _$$TransactionModelImplFromJson(
               ?.map((e) => e as String)
               .toList() ??
           const [],
-      value: json['value'] as int? ?? 0,
-      type: json['type'] as int? ?? TransactionType.outcome,
-      createdTime: json['createdTime'] as int? ?? 0,
-      updateTime: json['updateTime'] as int? ?? 0,
-      mode: json['mode'] as int? ?? 0,
-      year: json['year'] as int? ?? 0,
-      month: json['month'] as int? ?? -1,
-      transactionFor: json['transactionFor'] as int? ?? TransactionFor.all,
+      value: (json['value'] as num?)?.toInt() ?? 0,
+      type: (json['type'] as num?)?.toInt() ?? TransactionType.outcome,
+      createdTime: (json['createdTime'] as num?)?.toInt() ?? 0,
+      updateTime: (json['updateTime'] as num?)?.toInt() ?? 0,
+      mode: (json['mode'] as num?)?.toInt() ?? 0,
+      year: (json['year'] as num?)?.toInt() ?? 0,
+      month: (json['month'] as num?)?.toInt() ?? -1,
+      transactionFor:
+          (json['transactionFor'] as num?)?.toInt() ?? TransactionFor.all,
     );
 
 Map<String, dynamic> _$$TransactionModelImplToJson(

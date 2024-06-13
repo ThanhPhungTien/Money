@@ -10,7 +10,7 @@ _$TransactionByDateImpl _$$TransactionByDateImplFromJson(
         Map<String, dynamic> json) =>
     _$TransactionByDateImpl(
       date: json['date'] as String? ?? '',
-      totalValue: json['totalValue'] as int? ?? 0,
+      totalValue: (json['totalValue'] as num?)?.toInt() ?? 0,
       data: (json['data'] as List<dynamic>?)
               ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??

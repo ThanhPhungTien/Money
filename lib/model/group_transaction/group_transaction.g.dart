@@ -14,7 +14,7 @@ _$GroupTransactionImpl _$$GroupTransactionImplFromJson(
               ?.map((e) => TransactionModel.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      totalValue: json['totalValue'] as int? ?? 0,
+      totalValue: (json['totalValue'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$GroupTransactionImplToJson(
