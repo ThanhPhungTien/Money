@@ -33,86 +33,68 @@ class _TransactionListViewState extends State<TransactionListView> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    return Scaffold(
-      body: BlocBuilder<TransactionListCubit, TransactionListState>(
-        bloc: bloc,
-        builder: (context, state) {
-          if (state is TransactionListStateGotData) {
-            return Column(
-              children: [
-                ListTile(
-                  onTap: () => openSelectDate(state.time),
-                  leading:
-                      const Icon(Icons.date_range, color: Palette.textColor),
-                  title: Text(
-                    convertTime(
-                      'MM/yyyy',
-                      state.time.millisecondsSinceEpoch,
-                      false,
-                    ),
-                    style: textTheme.titleMedium,
-                  ),
-                  minLeadingWidth: 0,
-                  trailing: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Palette.primary,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.nights_stay_outlined,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          convertTime(
-                            'dd/MM/yyyy',
-                            solarToLunar(DateTime.now()).millisecondsSinceEpoch,
-                            false,
-                          ),
-                          style: textTheme.titleSmall?.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+    return BlocBuilder<TransactionListCubit, TransactionListState>(
+      bloc: bloc,
+      builder: (context, state) {
+        if (state is TransactionListStateGotData) {
+          return Column(
+            children: [
+              ButtonBar(
+                alignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FilledButton.icon(
+                    icon: const Icon(Icons.date_range),
+                    onPressed: () => openSelectDate(state.time),
+                    label: Text(
+                      convertTime(
+                        'MM/yyyy',
+                        state.time.millisecondsSinceEpoch,
+                        false,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: state.data.isEmpty
-                      ? FailureView(
-                          message: 'Không có dữ liệu',
-                          onPressedRetry: () => bloc.fetchData(state.time),
-                        )
-                      : RefreshIndicator(
-                          onRefresh: () async => bloc.fetchData(state.time),
-                          child: ListView.separated(
-                            itemCount: state.data.length,
-                            padding: const EdgeInsets.all(0),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 8),
-                            itemBuilder: (BuildContext context, int index) =>
-                                ItemTransactionWidget(
-                              item: state.data[index],
-                              bloc: bloc,
-                            ),
+                  FilledButton.icon(
+                    icon: const Icon(
+                      Icons.nights_stay_outlined,
+                    ),
+                    onPressed: () {},
+                    label: Text(
+                      convertTime(
+                        'dd/MM/yyyy',
+                        solarToLunar(DateTime.now()).millisecondsSinceEpoch,
+                        false,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Expanded(
+                child: state.data.isEmpty
+                    ? FailureView(
+                        message: 'Không có dữ liệu',
+                        onPressedRetry: () => bloc.fetchData(state.time),
+                      )
+                    : RefreshIndicator(
+                        onRefresh: () async => bloc.fetchData(state.time),
+                        child: ListView.separated(
+                          itemCount: state.data.length,
+                          padding: const EdgeInsets.all(8),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 8),
+                          itemBuilder: (BuildContext context, int index) =>
+                              ItemTransactionWidget(
+                            item: state.data[index],
+                            bloc: bloc,
                           ),
                         ),
-                ),
-              ],
-            );
-          }
-          return Container();
-        },
-      ),
+                      ),
+              ),
+            ],
+          );
+        }
+        return Container();
+      },
     );
   }
 
@@ -153,20 +135,32 @@ class ItemTransactionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    return Card(
-      elevation: 0,
+    ThemeData theme = Theme.of(context);
+    TextTheme textTheme = theme.textTheme;
+    return Card.filled(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ListTile(
-            title: Text(item.dateTime, style: textTheme.titleMedium),
-            trailing: Text(
-              moneyFormat(item.totalValue),
-              style: textTheme.labelLarge?.copyWith(
-                color:
-                    item.totalValue < 0 ? Palette.decrease : Palette.increase,
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  item.dateTime,
+                  style: textTheme.titleLarge?.copyWith(
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                Text(
+                  moneyFormat(item.totalValue),
+                  style: textTheme.titleMedium?.copyWith(
+                    color: item.totalValue < 0
+                        ? theme.colorScheme.error
+                        : theme.colorScheme.primary,
+                  ),
+                ),
+              ],
             ),
           ),
           ListView.builder(
@@ -205,16 +199,24 @@ class ItemTransactionWidget extends StatelessWidget {
                     child: iconByGoal(transaction.transactionFor),
                   ),
                   minLeadingWidth: 0,
-                  title: Text(transaction.groupName),
+                  title: Text(
+                    transaction.groupName,
+                    style: textTheme.titleMedium?.copyWith(
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
                   subtitle: transaction.description.isNotEmpty
-                      ? Text(transaction.description)
+                      ? Text(
+                          transaction.description,
+                          style: textTheme.bodyMedium?.copyWith(),
+                        )
                       : null,
                   trailing: Text(
                     moneyFormat(transaction.value * transaction.mode),
                     style: textTheme.labelMedium?.copyWith(
                       color: transaction.mode == -1
-                          ? Palette.decrease
-                          : Palette.increase,
+                          ? theme.colorScheme.error
+                          : theme.colorScheme.primary,
                     ),
                   ),
                 ),

@@ -94,8 +94,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title:
-              Text('${widget.transaction.isEmpty ? 'Tạo' : 'Sửa'} giao dịch'),
+          title: Text(
+            '${widget.transaction.isEmpty ? 'Tạo' : 'Sửa'} giao dịch',
+          ),
         ),
         body: BlocConsumer<CreateTransactionBloc, CreateTransactionState>(
           bloc: bloc,
@@ -124,6 +125,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                   padding: const EdgeInsets.all(16),
                   children: [
                     TextFormField(
+                      onTap: () => openDateSelector(state.dateTime),
                       controller: dateTEC,
                       readOnly: true,
                       decoration: InputDecoration(
@@ -134,8 +136,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     TextFormField(
+                      onTap: openGroupSelector,
                       controller: nameTEC,
                       readOnly: true,
                       decoration: InputDecoration(
@@ -152,7 +155,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     TextFormField(
                       controller: valueTEC,
                       decoration: const InputDecoration(labelText: 'Giá trị'),
@@ -170,9 +173,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       },
                       keyboardType: TextInputType.number,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     SuggestMoneyView(textController: valueTEC),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     TextFormField(
                       controller: descriptionTEC,
                       decoration: const InputDecoration(
@@ -180,18 +183,49 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    ListTile(
-                      onTap: () => showSelectGoal(context),
-                      contentPadding: EdgeInsets.zero,
-                      leading: SizedBox(
-                        height: double.infinity,
-                        child: iconByGoal(state.transactionFor),
-                      ),
-                      minLeadingWidth: 0,
-                      title: Text(
-                        'Giao dịch của ${textByGoal(state.transactionFor)}',
-                        style: textTheme.labelMedium,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        DropdownButton<int>(
+                          value: state.transactionFor,
+                          borderRadius: BorderRadius.circular(8),
+                          underline: SizedBox(),
+                          padding: EdgeInsets.all(8),
+                          items: [0, 1, 2]
+                              .map(
+                                (index) => DropdownMenuItem(
+                                  value: index,
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      iconByGoal(index),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        textByGoal(index),
+                                        style: textTheme.titleMedium,
+                                      ),
+                                    ],
+                                  ),
+                                  // child: ListTile(
+                                  //   onTap: () {
+                                  //     bloc.add(CreateTransactionEventUpdateCreated(
+                                  //         index));
+                                  //     Navigator.pop(context);
+                                  //   },
+                                  //   title: Text(textByGoal(index)),
+                                  //   trailing: iconByGoal(index),
+                                  // ),
+                                ),
+                              )
+                              .toList(),
+                          onChanged: (item) {
+                            if (item != null) {
+                              bloc.add(
+                                  CreateTransactionEventUpdateCreated(item));
+                            }
+                          },
+                        ),
+                      ],
                     ),
                     const SizedBox(height: 32),
                     FilledButton(

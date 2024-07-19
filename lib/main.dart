@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
       title: 'Money',
       debugShowCheckedModeBanner: false,
       theme: appTheme,
-      // darkTheme: darkTheme,
       initialRoute: RouteName.homePage,
       onGenerateRoute: onGenerateRoute,
       localizationsDelegates: const [

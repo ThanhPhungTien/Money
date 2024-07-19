@@ -144,7 +144,7 @@ class _ReportPageState extends State<ReportPage> {
                                 barRods: [
                                   BarChartRodData(
                                     toY: (e.totalValue / 1000).abs().toDouble(),
-                                    color: context.theme.colorScheme.tertiary,
+                                    color: context.theme.colorScheme.secondary,
                                     width: 16,
                                   )
                                 ],
@@ -250,7 +250,7 @@ class ItemView extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: context.theme.colorScheme.surfaceTint,
+        color: context.theme.colorScheme.primary,
       ),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       child: Column(
@@ -259,7 +259,7 @@ class ItemView extends StatelessWidget {
           Text(
             title,
             style: textTheme.labelSmall?.copyWith(
-              color: Colors.white,
+              color: context.theme.colorScheme.onPrimary,
             ),
           ),
           SizedBox(height: 4),
@@ -267,7 +267,7 @@ class ItemView extends StatelessWidget {
             content,
             style: textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
-              color: Colors.white,
+              color: context.theme.colorScheme.onPrimary,
             ),
           ),
         ],
