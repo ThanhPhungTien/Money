@@ -6,8 +6,6 @@ import 'package:money/application/report/report_cubit.dart';
 import 'package:money/domain/transaction/transaction_by_date.dart';
 import 'package:money/presentation/report_detail/report_detail_page.dart';
 import 'package:money/presentation/tool/palatte.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
-
 import 'package:money/presentation/tool/tool.dart';
 
 class ReportPage extends StatefulWidget {
@@ -68,7 +66,7 @@ class _ReportPageState extends State<ReportPage> {
                   GridView.count(
                     shrinkWrap: true,
                     crossAxisCount: 2,
-                    childAspectRatio: 3,
+                    childAspectRatio: 2.5,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                     padding: const EdgeInsets.all(8),
@@ -208,24 +206,7 @@ class _ReportPageState extends State<ReportPage> {
   }
 
   openSelectDate(DateTime time) async {
-    DateTime dateNow = DateTime.now();
-    dynamic result = await showMonthPicker(
-      context: context,
-      initialDate: time,
-      backgroundColor: context.colorScheme.surfaceContainerHighest,
-      headerColor: context.colorScheme.surfaceContainerHighest,
-      headerTextColor: Palette.textColor,
-      roundedCornersRadius: 28,
-      firstDate: DateTime(dateNow.year - 1),
-      lastDate: DateTime(dateNow.year + 1),
-      confirmWidget: const Text('OK'),
-      cancelWidget: const Text('Hủy'),
-      selectedMonthBackgroundColor: context.colorScheme.primary,
-      selectedMonthTextColor: context.colorScheme.onPrimary,
-      capitalizeFirstLetter: true,
-      selectableMonthPredicate: (date) => true,
-      unselectedMonthTextColor: Palette.textColor,
-    );
+    dynamic result = await showMonthDialog(context: context, initTime: time);
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
     }

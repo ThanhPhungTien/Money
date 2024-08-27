@@ -24,8 +24,12 @@ mixin _$GroupTransaction {
   List<TransactionModel> get data => throw _privateConstructorUsedError;
   int get totalValue => throw _privateConstructorUsedError;
 
+  /// Serializes this GroupTransaction to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GroupTransaction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GroupTransactionCopyWith<GroupTransaction> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$GroupTransactionCopyWithImpl<$Res, $Val extends GroupTransaction>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GroupTransaction
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$GroupTransactionImplCopyWithImpl<$Res>
       $Res Function(_$GroupTransactionImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GroupTransaction
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -161,12 +169,14 @@ class _$GroupTransactionImpl implements _GroupTransaction {
                 other.totalValue == totalValue));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, dateTime,
       const DeepCollectionEquality().hash(_data), totalValue);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GroupTransaction
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GroupTransactionImplCopyWith<_$GroupTransactionImpl> get copyWith =>
@@ -196,8 +206,11 @@ abstract class _GroupTransaction implements GroupTransaction {
   List<TransactionModel> get data;
   @override
   int get totalValue;
+
+  /// Create a copy of GroupTransaction
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GroupTransactionImplCopyWith<_$GroupTransactionImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

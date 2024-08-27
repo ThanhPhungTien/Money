@@ -7,7 +7,6 @@ import 'package:money/presentation/create_transaction/create_transaction_page.da
 import 'package:money/presentation/failure/failure_view.dart';
 import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/tool/tool.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class TransactionListView extends StatefulWidget {
   const TransactionListView({Key? key}) : super(key: key);
@@ -39,34 +38,37 @@ class _TransactionListViewState extends State<TransactionListView> {
         if (state is TransactionListStateGotData) {
           return Column(
             children: [
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  FilledButton.icon(
-                    icon: const Icon(Icons.date_range),
-                    onPressed: () => openSelectDate(state.time),
-                    label: Text(
-                      convertTime(
-                        'MM/yyyy',
-                        state.time.millisecondsSinceEpoch,
-                        false,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: OverflowBar(
+                  alignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FilledButton.icon(
+                      icon: const Icon(Icons.date_range),
+                      onPressed: () => openSelectDate(state.time),
+                      label: Text(
+                        convertTime(
+                          'MM/yyyy',
+                          state.time.millisecondsSinceEpoch,
+                          false,
+                        ),
                       ),
                     ),
-                  ),
-                  FilledButton.icon(
-                    icon: const Icon(
-                      Icons.nights_stay_outlined,
-                    ),
-                    onPressed: () {},
-                    label: Text(
-                      convertTime(
-                        'dd/MM/yyyy',
-                        solarToLunar(DateTime.now()).millisecondsSinceEpoch,
-                        false,
+                    FilledButton.icon(
+                      icon: const Icon(
+                        Icons.nights_stay_outlined,
+                      ),
+                      onPressed: () {},
+                      label: Text(
+                        convertTime(
+                          'dd/MM/yyyy',
+                          solarToLunar(DateTime.now()).millisecondsSinceEpoch,
+                          false,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 8),
               Expanded(
@@ -99,24 +101,7 @@ class _TransactionListViewState extends State<TransactionListView> {
   }
 
   openSelectDate(DateTime time) async {
-    DateTime dateNow = DateTime.now();
-    dynamic result = await showMonthPicker(
-      context: context,
-      initialDate: time,
-      backgroundColor: context.colorScheme.surfaceContainerHighest,
-      headerColor: context.colorScheme.surfaceContainerHighest,
-      headerTextColor: Palette.textColor,
-      roundedCornersRadius: 28,
-      firstDate: DateTime(dateNow.year - 1),
-      lastDate: DateTime(dateNow.year + 1),
-      confirmWidget: const Text('OK'),
-      cancelWidget: const Text('Hủy'),
-      selectedMonthBackgroundColor: context.colorScheme.primary,
-      selectedMonthTextColor: context.colorScheme.onPrimary,
-      capitalizeFirstLetter: true,
-      selectableMonthPredicate: (date) => true,
-      unselectedMonthTextColor: Palette.textColor,
-    );
+    dynamic result = showMonthDialog(context: context, initTime: time);
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
     }

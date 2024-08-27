@@ -24,8 +24,12 @@ mixin _$TransactionByDate {
   int get totalValue => throw _privateConstructorUsedError;
   List<TransactionModel> get data => throw _privateConstructorUsedError;
 
+  /// Serializes this TransactionByDate to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TransactionByDate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TransactionByDateCopyWith<TransactionByDate> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +53,8 @@ class _$TransactionByDateCopyWithImpl<$Res, $Val extends TransactionByDate>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TransactionByDate
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -92,6 +98,8 @@ class __$$TransactionByDateImplCopyWithImpl<$Res>
       $Res Function(_$TransactionByDateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TransactionByDate
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -159,12 +167,14 @@ class _$TransactionByDateImpl implements _TransactionByDate {
             const DeepCollectionEquality().equals(other._data, _data));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, date, totalValue,
       const DeepCollectionEquality().hash(_data));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TransactionByDate
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TransactionByDateImplCopyWith<_$TransactionByDateImpl> get copyWith =>
@@ -194,8 +204,11 @@ abstract class _TransactionByDate implements TransactionByDate {
   int get totalValue;
   @override
   List<TransactionModel> get data;
+
+  /// Create a copy of TransactionByDate
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TransactionByDateImplCopyWith<_$TransactionByDateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

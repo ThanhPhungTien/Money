@@ -8,30 +8,33 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:get_it/get_it.dart' as _i1;
-import 'package:injectable/injectable.dart' as _i2;
-import 'package:money/application/create_group/create_group_bloc.dart' as _i4;
-import 'package:money/application/search/search_bloc.dart' as _i3;
-import 'package:money/domain/transaction/i_group_repository.dart' as _i7;
-import 'package:money/domain/transaction/i_transaction_repository.dart' as _i5;
-import 'package:money/infrastructure/remote/group_repository.dart' as _i8;
-import 'package:money/infrastructure/remote/transaction_repository.dart' as _i6;
+import 'package:get_it/get_it.dart' as _i174;
+import 'package:injectable/injectable.dart' as _i526;
+import 'package:money/application/create_group/create_group_bloc.dart' as _i559;
+import 'package:money/application/search/search_bloc.dart' as _i788;
+import 'package:money/domain/transaction/i_group_repository.dart' as _i728;
+import 'package:money/domain/transaction/i_transaction_repository.dart'
+    as _i938;
+import 'package:money/infrastructure/remote/group_repository.dart' as _i1061;
+import 'package:money/infrastructure/remote/transaction_repository.dart'
+    as _i1043;
 
-extension GetItInjectableX on _i1.GetIt {
+extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i1.GetIt configDI({
+  _i174.GetIt configDI({
     String? environment,
-    _i2.EnvironmentFilter? environmentFilter,
+    _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i2.GetItHelper(
+    final gh = _i526.GetItHelper(
       this,
       environment,
       environmentFilter,
     );
-    gh.factory<_i3.SearchBloc>(() => _i3.SearchBloc());
-    gh.factory<_i4.CreateGroupBloc>(() => _i4.CreateGroupBloc());
-    gh.factory<_i5.ITransactionRepository>(() => _i6.TransactionRepository());
-    gh.factory<_i7.IGroupRepository>(() => _i8.GroupRepository());
+    gh.factory<_i788.SearchBloc>(() => _i788.SearchBloc());
+    gh.factory<_i559.CreateGroupBloc>(() => _i559.CreateGroupBloc());
+    gh.factory<_i938.ITransactionRepository>(
+        () => _i1043.TransactionRepository());
+    gh.factory<_i728.IGroupRepository>(() => _i1061.GroupRepository());
     return this;
   }
 }

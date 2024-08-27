@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:money/application/search/search_bloc.dart';
 import 'package:money/model/group/group.dart';
 import 'package:money/presentation/group_selector/group_selector_page.dart';
-import 'package:money/presentation/tool/palatte.dart';
 import 'package:money/presentation/tool/tool.dart';
 import 'package:money/route/route_name.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -74,21 +72,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   openSelectDate(DateTime time) async {
-    DateTime dateNow = DateTime.now();
-    dynamic result = await showMonthPicker(
-      context: context,
-      initialDate: time,
-      roundedCornersRadius: 8,
-      firstDate: DateTime(dateNow.year - 1),
-      lastDate: DateTime(dateNow.year + 1),
-      confirmWidget: const Text('OK'),
-      cancelWidget: const Text('Hủy'),
-      selectedMonthBackgroundColor: Palette.primary,
-      selectedMonthTextColor: Colors.white,
-      capitalizeFirstLetter: true,
-      selectableMonthPredicate: (date) => true,
-      unselectedMonthTextColor: Palette.textColor,
-    );
+    dynamic result = showMonthDialog(context: context, initTime: time);
     if (result != null && result is DateTime) {}
   }
 

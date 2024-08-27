@@ -78,6 +78,9 @@ class _$CreateGroupEventCopyWithImpl<$Res, $Val extends CreateGroupEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -94,6 +97,9 @@ class __$$CreateGroupEventInitImplCopyWithImpl<$Res>
   __$$CreateGroupEventInitImplCopyWithImpl(_$CreateGroupEventInitImpl _value,
       $Res Function(_$CreateGroupEventInitImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -209,6 +215,8 @@ class __$$CreateGroupEventUpdateCheckImplCopyWithImpl<$Res>
       $Res Function(_$CreateGroupEventUpdateCheckImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -247,7 +255,9 @@ class _$CreateGroupEventUpdateCheckImpl implements CreateGroupEventUpdateCheck {
   @override
   int get hashCode => Object.hash(runtimeType, paid);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateGroupEventUpdateCheckImplCopyWith<_$CreateGroupEventUpdateCheckImpl>
@@ -328,7 +338,10 @@ abstract class CreateGroupEventUpdateCheck implements CreateGroupEvent {
       _$CreateGroupEventUpdateCheckImpl;
 
   bool get paid;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreateGroupEventUpdateCheckImplCopyWith<_$CreateGroupEventUpdateCheckImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -352,6 +365,8 @@ class __$$CreateGroupEventSaveImplCopyWithImpl<$Res>
       $Res Function(_$CreateGroupEventSaveImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -365,6 +380,8 @@ class __$$CreateGroupEventSaveImplCopyWithImpl<$Res>
     ));
   }
 
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $GroupCopyWith<$Res> get group {
@@ -398,7 +415,9 @@ class _$CreateGroupEventSaveImpl implements CreateGroupEventSave {
   @override
   int get hashCode => Object.hash(runtimeType, group);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateGroupEventSaveImplCopyWith<_$CreateGroupEventSaveImpl>
@@ -480,7 +499,10 @@ abstract class CreateGroupEventSave implements CreateGroupEvent {
       _$CreateGroupEventSaveImpl;
 
   Group get group;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreateGroupEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreateGroupEventSaveImplCopyWith<_$CreateGroupEventSaveImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -549,6 +571,9 @@ class _$CreateGroupStateCopyWithImpl<$Res, $Val extends CreateGroupState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CreateGroupState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -567,6 +592,9 @@ class __$$CreateGroupStateInitialImplCopyWithImpl<$Res>
       _$CreateGroupStateInitialImpl _value,
       $Res Function(_$CreateGroupStateInitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CreateGroupState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -681,6 +709,8 @@ class __$$CreateGroupStateNormalImplCopyWithImpl<$Res>
       $Res Function(_$CreateGroupStateNormalImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreateGroupState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -719,7 +749,9 @@ class _$CreateGroupStateNormalImpl implements CreateGroupStateNormal {
   @override
   int get hashCode => Object.hash(runtimeType, paid);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreateGroupState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateGroupStateNormalImplCopyWith<_$CreateGroupStateNormalImpl>
@@ -800,7 +832,10 @@ abstract class CreateGroupStateNormal implements CreateGroupState {
       _$CreateGroupStateNormalImpl;
 
   bool get paid;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreateGroupState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreateGroupStateNormalImplCopyWith<_$CreateGroupStateNormalImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -819,6 +854,9 @@ class __$$CreateGroupStateDoneImplCopyWithImpl<$Res>
   __$$CreateGroupStateDoneImplCopyWithImpl(_$CreateGroupStateDoneImpl _value,
       $Res Function(_$CreateGroupStateDoneImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CreateGroupState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

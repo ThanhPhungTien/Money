@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:lunar_calendar_converter_new/lunar_solar_converter.dart';
 import 'package:money/enum/icon_asset.dart';
 import 'package:money/enum/transaction_for/transaction_for.dart';
+import 'package:money/presentation/tool/palatte.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 extension ContextTool on BuildContext {
   MediaQueryData get mediaQuery => MediaQuery.of(this);
@@ -145,5 +147,44 @@ Widget iconByGoal(int type) {
     maxRadius: 13,
     backgroundColor: Colors.white,
     child: Image.asset(imagePath, fit: BoxFit.fill),
+  );
+}
+
+showMonthDialog({
+  required BuildContext context,
+  required DateTime initTime,
+}) async {
+  DateTime dateNow = DateTime.now();
+  return showMonthPicker(
+    context: context,
+    initialDate: initTime,
+    monthPickerDialogSettings: MonthPickerDialogSettings(
+      dialogSettings: PickerDialogSettings(
+        dialogBackgroundColor: context.colorScheme.surfaceContainerHighest,
+        dialogRoundedCornersRadius: 28,
+        capitalizeFirstLetter: true,
+      ),
+      headerSettings: PickerHeaderSettings(
+        headerBackgroundColor: context.colorScheme.surfaceContainerHighest,
+        headerIconsColor: Palette.primary,
+        headerSelectedIntervalTextStyle:
+            context.textTheme.titleMedium?.copyWith(
+          color: Palette.primary,
+        ),
+        headerCurrentPageTextStyle: context.textTheme.titleLarge?.copyWith(
+          color: Palette.primary,
+        ),
+      ),
+      buttonsSettings: PickerButtonsSettings(
+        selectedMonthBackgroundColor: context.colorScheme.primary,
+        selectedMonthTextColor: context.colorScheme.onPrimary,
+        unselectedMonthsTextColor: Palette.textColor,
+      ),
+    ),
+    firstDate: DateTime(dateNow.year - 1),
+    lastDate: DateTime(dateNow.year + 1),
+    confirmWidget: const Text('OK'),
+    cancelWidget: const Text('Hủy'),
+    selectableMonthPredicate: (date) => true,
   );
 }

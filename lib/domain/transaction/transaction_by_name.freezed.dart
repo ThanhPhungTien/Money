@@ -25,8 +25,12 @@ mixin _$TransactionByName {
   int get totalValue => throw _privateConstructorUsedError;
   bool get isOpen => throw _privateConstructorUsedError;
 
+  /// Serializes this TransactionByName to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of TransactionByName
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $TransactionByNameCopyWith<TransactionByName> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -51,6 +55,8 @@ class _$TransactionByNameCopyWithImpl<$Res, $Val extends TransactionByName>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of TransactionByName
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,6 +106,8 @@ class __$$TransactionByNameImplCopyWithImpl<$Res>
       $Res Function(_$TransactionByNameImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of TransactionByName
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -178,12 +186,14 @@ class _$TransactionByNameImpl implements _TransactionByName {
             (identical(other.isOpen, isOpen) || other.isOpen == isOpen));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, name,
       const DeepCollectionEquality().hash(_data), totalValue, isOpen);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of TransactionByName
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$TransactionByNameImplCopyWith<_$TransactionByNameImpl> get copyWith =>
@@ -216,8 +226,11 @@ abstract class _TransactionByName implements TransactionByName {
   int get totalValue;
   @override
   bool get isOpen;
+
+  /// Create a copy of TransactionByName
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$TransactionByNameImplCopyWith<_$TransactionByNameImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
