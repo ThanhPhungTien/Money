@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:money/application/transaction_list/transaction_list_cubit.dart';
@@ -101,7 +103,8 @@ class _TransactionListViewState extends State<TransactionListView> {
   }
 
   openSelectDate(DateTime time) async {
-    dynamic result = showMonthDialog(context: context, initTime: time);
+    dynamic result = await showMonthDialog(context: context, initTime: time);
+    log('openSelectDate $result');
     if (result != null && result is DateTime) {
       bloc.fetchData(result);
     }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
@@ -69,15 +71,6 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
 
   @override
   void dispose() {
-    dateTEC.dispose();
-    nameTEC.dispose();
-    valueTEC.dispose();
-    descriptionTEC.dispose();
-
-    nameNode.dispose();
-    valueNode.dispose();
-    descriptionNode.dispose();
-
     bloc.close();
     super.dispose();
   }
@@ -94,6 +87,9 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          leading: BackButton(
+            onPressed: () => Navigator.pop(context),
+          ),
           title: Text(
             '${widget.transaction.isEmpty ? 'Tạo' : 'Sửa'} giao dịch',
           ),
@@ -150,7 +146,7 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       ),
                       validator: (text) {
                         if (text == null || text.isEmpty) {
-                          return 'Không để trống giá trị';
+                          return 'Nhập tên giao dịch vào';
                         }
                         return null;
                       },
@@ -160,12 +156,11 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
                       controller: valueTEC,
                       decoration: const InputDecoration(labelText: 'Giá trị'),
                       inputFormatters: [moneyFormat],
-                      autofocus: true,
                       validator: (text) {
                         if (text == null ||
                             text.isEmpty ||
                             nameTEC.text.trim().isEmpty) {
-                          return 'Không để trống loại giao dịch và  giá trị';
+                          return 'Giá trị phải lớn hơn 0';
                         } else if (!isMoney(text)) {
                           return 'Tiền không hợp lệ';
                         }
@@ -267,7 +262,8 @@ class _CreateTransactionPageState extends State<CreateTransactionPage> {
   }
 
   createTransaction(CreateTransactionStateGotData state) {
-    if (keyForm.currentState!.validate()) {
+    if (keyForm.currentState?.validate() ?? false) {
+      log('createTransaction 1');
       bloc.add(CreateTransactionEventCreate(widget.transaction.copyWith(
         createdTime: state.dateTime.millisecondsSinceEpoch,
         updateTime: DateTime.now().millisecondsSinceEpoch,

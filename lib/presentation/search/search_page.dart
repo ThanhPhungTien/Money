@@ -72,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   openSelectDate(DateTime time) async {
-    dynamic result = showMonthDialog(context: context, initTime: time);
+    dynamic result = await showMonthDialog(context: context, initTime: time);
     if (result != null && result is DateTime) {}
   }
 

@@ -24,7 +24,8 @@ extension ContextTool on BuildContext {
 bool isMoney(String value) {
   try {
     String data = value.replaceAll(',', '').replaceAll('.', '').trim();
-    int.parse(data);
+    final money = int.parse(data);
+    if (money <= 0) return false;
   } on Exception catch (_) {
     return false;
   }
